@@ -2,10 +2,12 @@ const express = require('express')
 const app = express()
 const port = 443
 
+//controllers
 
+var userController = require("./controllers/testController");
 
 //routing
-app.get('/api/hello', (req, res) => res.send('Hello World!'))
+app.get('/api/users', userController.getUser);
 
 
 
