@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
+import "./app.css";
 import { Layout } from 'antd';
 import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
 
@@ -22,7 +23,7 @@ class App extends Component {
           bottom: "0",
           left: "0"
         }}>
-          <Header><HeaderMenu /></Header>
+          <Header style={{backgroundColor:"#9dfac1"}}><HeaderMenu /></Header>
           <Content>
             <Switch>
               <Route path='/login' component={Login} />

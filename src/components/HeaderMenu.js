@@ -12,9 +12,9 @@ class HeaderMenu extends React.Component {
 
   render() {
     return (
-        <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
-          <Menu.Item key="Home"><Link to="/Home">Home</Link></Menu.Item>
-          <Menu.Item key="Settings"><Link to="/Settings">Settings</Link></Menu.Item>
+        <Menu onClick={this.handleClick} theme="dark" selectedKeys={[this.state.current]} mode="horizontal" style={{ lineHeight: '64px' }}>
+          <Menu.Item key="Home"><Link to="/Home" style={{color:"#000"}} >Home</Link></Menu.Item>
+          <Menu.Item key="Settings"><Link to="/Settings" style={{color:"#000"}}>Settings</Link></Menu.Item>
         </Menu>
     );
   }

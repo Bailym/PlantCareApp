@@ -1,0 +1,7 @@
+.ant-layout-header .ant-menu {
+    background-color: #9dfac1; /*Overriden property*/
+  }
+
+  .ant-layout-header .ant-menu .ant-menu-item-selected {
+      background-color: #49c97a;
+  }

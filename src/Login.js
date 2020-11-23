@@ -27,7 +27,7 @@ class Login extends React.Component {
     var password = document.getElementById("password").value;
     //Validation
     if (email === "" || password === "") {
-      message.info("Please enter a email and password");
+      message.info("Please enter a valid email and password");
     }
     else {
       //Hash the entered password
@@ -43,7 +43,7 @@ class Login extends React.Component {
           }
           //Else show message
           else {
-            message.info("Invalid Credentials");
+            message.info("Login details invalid - Please make sure you have entered your details correctly");
           }
         })
         //error handling
