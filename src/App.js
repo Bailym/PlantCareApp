@@ -8,6 +8,7 @@ import HeaderMenu from "./components/HeaderMenu"
 import Home from "./Home";
 import Settings from "./Settings";
 import Login from "./Login";
+import Register from "./Register";
 
 const { Header, Footer, Content } = Layout;
 
@@ -27,7 +28,8 @@ class App extends Component {
           <Content>
             <Switch>
               <Route path='/login' component={Login} />
-              <Route path='/home' component={Home} />
+              <Route path='/register' component={Register} />
+              <Route path='/' component={Home} />
               <Route path='/settings' component={Settings} />
             </Switch>
           </Content>

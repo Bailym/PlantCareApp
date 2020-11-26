@@ -16,7 +16,7 @@ class HeaderMenu extends React.Component {
   render() {
     return (
         <Menu onClick={this.handleClick} theme="dark" selectedKeys={[this.state.current]} mode="horizontal" style={{ lineHeight: '64px' }}>
-          <Menu.Item key="Home"><Link to="/home" style={{color:"#000"}} >Home</Link></Menu.Item>
+          <Menu.Item key="Home"><Link to="/" style={{color:"#000"}} >Home</Link></Menu.Item>
           <Menu.Item key="Settings"><Link to="/settings" style={{color:"#000"}}>Settings</Link></Menu.Item>
           <Menu.Item id="loginout" key="Logout" onClick={() => this.clickLogout()} style={{float:"right"}}><LoginOutlined type="login" style={{fontSize:"20px", color:"#000"}} /></Menu.Item>
         </Menu>

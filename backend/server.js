@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 //controllers
 
 var userController = require("./controllers/testController");
+const { message } = require('antd');
 
 //routing
 app.get('/api/users', userController.getUser);
@@ -50,6 +51,27 @@ app.post('/api/login/:email/:password', async function (request, response) {
         response.end();
     }
 });
+
+app.post('/api/register/:email/:password/:firstname/:surname', async function (request, response) {
+    var email = request.params.email;
+    var password = request.params.password;
+    var firstName = request.params.firstname;
+    var surname = request.params.surname;
+    var type= "User"
+    if (email && password && firstName && surname) {
+
+        try{
+            const [results, fields] = await DBPool.query(`INSERT INTO plantdb.user (FirstName, Surname, Email, Password, Type) VALUES (?, ?, ?, ?, ?);`, [firstName, surname, email, password, type]);
+            response.sendStatus(200);
+        }
+        catch(err){
+            response.send(err)
+        }
+        
+        
+    }
+});
+
 
 /*
 * The req.session variable contains information about the logged in user
