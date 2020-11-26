@@ -48,7 +48,7 @@ module.exports = {
             
                 <h1>An account recovery request has been made for this account.</h1>
                 <h1>Click the link below to reset your password</h1>
-                <a href = "http://localhost:3000/recoverrequest?id=${req.params.id}">Reset Password</a>
+                <a href = "http://18.135.34.204/recoverrequest?id=${req.params.id}">Reset Password</a>
                 
             </body>
             </html>`
