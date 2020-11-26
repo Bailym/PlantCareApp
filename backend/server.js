@@ -16,11 +16,19 @@ app.use(bodyParser.json());
 
 //controllers
 
-var userController = require("./controllers/testController");
+var userController = require("./controllers/userController");
+var recoveryController = require("./notifications/recoveryController"); //handles password recovery
 const { message } = require('antd');
 
 //routing
-app.get('/api/users', userController.getUser);
+
+//User Functions
+app.get('/api/users', userController.getUser);  //retrieves all users
+app.post('/api/users/updatepassword/:id/:password', userController.updatePassword); //Updates a single users password
+
+//Recovery Functions
+app.post('/api/recover/check/:email', recoveryController.checkEmail);   //checks an email exists
+app.post('/api/recover/send/:id/:email', recoveryController.sendRecoveryEmail); //sends the recovery email to a specified email.
 
 
 

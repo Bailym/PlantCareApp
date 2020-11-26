@@ -5,7 +5,7 @@ const axios = require('axios');
 
 
 
-class Page2 extends React.Component {
+class Settings extends React.Component {
 
   render() {
     return (
@@ -42,4 +42,4 @@ class Page2 extends React.Component {
 
 
 
-export default Page2;
+export default Settings;

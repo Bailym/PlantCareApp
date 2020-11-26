@@ -49,6 +49,7 @@ class HeaderMenu extends React.Component {
     this.setState({
       current: e.key,
     });
+
   };
 }
 export default withRouter(HeaderMenu);

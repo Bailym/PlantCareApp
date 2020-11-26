@@ -15,9 +15,29 @@ module.exports = {
         //error handling
         catch (err) {
             response.sendStatus(500);
+            console.log(err)
         }
 
+    },
+
+    async updatePassword(request, response){
+
+        try {
+            //make query and send results
+            await DBPool.query("UPDATE plantdb.user SET Password = ? WHERE (UserID = ?)", [request.params.password, request.params.id]);
+
+            response.sendStatus(200);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+
+
     }
+
+    
 
 
 }

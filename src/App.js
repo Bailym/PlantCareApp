@@ -9,6 +9,8 @@ import Home from "./Home";
 import Settings from "./Settings";
 import Login from "./Login";
 import Register from "./Register";
+import Recover from "./Recover";
+import RecoverRequest from './RecoverRequest';
 
 const { Header, Footer, Content } = Layout;
 
@@ -29,8 +31,12 @@ class App extends Component {
             <Switch>
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
-              <Route path='/' component={Home} />
+              <Route path='/recover' component={Recover} />
+              <Route path='/recoverrequest' component={RecoverRequest} />
+
               <Route path='/settings' component={Settings} />
+              <Route path='/' component={Home} />
+              
             </Switch>
           </Content>
           <Footer>Baily Martin - 10582026</Footer>
