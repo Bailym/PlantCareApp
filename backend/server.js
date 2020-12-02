@@ -18,13 +18,14 @@ app.use(bodyParser.json());
 
 var userController = require("./controllers/userController");
 var recoveryController = require("./notifications/recoveryController"); //handles password recovery
-const { message } = require('antd');
 
 //routing
 
 //User Functions
 app.get('/api/users', userController.getUser);  //retrieves all users
+app.get('/api/users/:id', userController.getUserID);  //retrieves specific user by id
 app.post('/api/users/updatepassword/:id/:password', userController.updatePassword); //Updates a single users password
+app.post('/api/users/updateuser/:id/:firstname/:surname/:email/:password', userController.updateUser); //Updates a users information
 
 //Recovery Functions
 app.post('/api/recover/check/:email', recoveryController.checkEmail);   //checks an email exists
@@ -48,6 +49,7 @@ app.post('/api/login/:email/:password', async function (request, response) {
         if (results.length > 0) {
             request.session.loggedin = true;
             request.session.username = email;
+            request.session.userID = results[0].UserID;
             response.send(true);
         } else {
             response.send(false);
@@ -88,7 +90,7 @@ app.post('/api/register/:email/:password/:firstname/:surname', async function (r
 */
 app.get('/api/checkuser', function (req, res) {
     if (req.session.loggedin === true && req.session.username !== null) {
-        res.send(true);
+        res.send(req.session);
     }
     else {
         res.send(false);
