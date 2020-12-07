@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 
 var userController = require("./controllers/userController");
 var recoveryController = require("./notifications/recoveryController"); //handles password recovery
+var plantController = require("./controllers/plantController")  //handles plant table related calls
 
 //routing
 
@@ -31,9 +32,12 @@ app.post('/api/users/updateuser/:id/:firstname/:surname/:email/:password', userC
 app.post('/api/recover/check/:email', recoveryController.checkEmail);   //checks an email exists
 app.post('/api/recover/send/:id/:email', recoveryController.sendRecoveryEmail); //sends the recovery email to a specified email.
 
+//Plants Functions
+
+app.get("/api/plants/admintable", plantController.getPlantsAdminTable);
 
 
-//Login routing 
+//Login/Session management routing 
 
 /*
 * POST the users SHA512 HASHED password and email to this server.
