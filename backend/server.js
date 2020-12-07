@@ -35,6 +35,7 @@ app.post('/api/recover/send/:id/:email', recoveryController.sendRecoveryEmail); 
 //Plants Functions
 
 app.get("/api/plants/admintable", plantController.getPlantsAdminTable);
+app.post("/api/plants/archive/:id", plantController.archivePlant)
 
 
 //Login/Session management routing 

@@ -1,7 +1,8 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Table, Input, Button, Space, Tabs, Typography, Button  } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Table, Input, Button, Space, Tabs, Typography  } from 'antd';
+import { SearchOutlined} from '@ant-design/icons';
+import DeleteModal from "./components/DeleteModal"
 
 const axios = require('axios');
 const { Title } = Typography;
@@ -37,12 +38,15 @@ class Admin extends React.Component {
               title: 'Type',
               dataIndex: 'Type',
               key: 'Type',
+            },
+            {
+              title:"Options",
+              dataIndex:"Options",
+              key:"Options",
             }
           ]
-          } />;
-          <Button>
-
-          </Button>
+          } />
+          <Button>Add Plant</Button>
         </TabPane>
         <TabPane tab="Users" key="2">
           <Title>Users</Title>
@@ -138,6 +142,13 @@ class Admin extends React.Component {
     await axios.get("/api/plants/admintable")
       .then(response => {
 
+        //add the options column to each entry
+        let responseData = response.data
+        for (var i=0;i< responseData.length;i++){
+          responseData[i].Options = <DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/>
+        }
+
+        //update the state with the table data
         let tempState = Object.assign({}, this.state)
         tempState.allPlantData = response.data;
         this.setState(tempState);

@@ -35,26 +35,17 @@ module.exports = {
 
     },
 
-    async getPlantID(request, response) {
+
+     async archivePlant(request, response){
 
         try {
-            //make query and send results
-            const [results, fields] = await DBPool.query(`SELECT UserID as ID, FirstName, Surname, Email, Password, Type FROM plantdb.user WHERE UserID = ?`, request.params.id);
-            response.send(results);
-        }
-        //error handling
-        catch (err) {
-            response.sendStatus(500);
-            console.log(err)
-        }
-    },
 
-   /*  async updateUser(request, response){
-
-        try {
-            //make query and send results
-            await DBPool.query("UPDATE plantdb.user SET FirstName = ?, Surname = ?, Email = ?, Password = ? WHERE (UserID = ?)",
-             [request.params.firstname, request.params.surname, request.params.email,request.params.password, request.params.id]);
+            //insert the row into the archive
+             await DBPool.query(`INSERT INTO plantdb.plantArchive (PlantID, CommonName, Type, NativeCountry, Symbolism, EndangeredStatus, EnvironmentalThreat, LifeSpan, BloomType, SizeRange, Spread, FlowerSize, Difficulty, SunlightNeeds, Hardiness, HardinessZones,
+                SoilType, WaterNeeds, FertlisationNeeds, Pruning, Propagation, Pests, PlantingTime, HarvestTime, PottingNeeds, EnvironmentalUses, EconomicUses, HomeUses) 
+                SELECT * FROM plantdb.plant WHERE PlantID = ?`, request.params.id); 
+            //delete the original
+             await DBPool.query(`DELETE FROM plantdb.plant WHERE PlantID = ?`, request.params.id); 
 
             response.sendStatus(200);
         }
@@ -66,22 +57,5 @@ module.exports = {
 
 
     },
-
-    async updatePassword(request, response){
-
-        try {
-            //make query and send results
-            await DBPool.query("UPDATE plantdb.user SET Password = ? WHERE (UserID = ?)", [request.params.password, request.params.id]);
-
-            response.sendStatus(200);
-        }
-        //error handling
-        catch (err) {
-            response.sendStatus(500);
-            console.log(err)
-        }
-
-
-    } */
 
 }
