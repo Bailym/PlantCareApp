@@ -95,8 +95,20 @@ app.get('/api/checkuser', function (req, res) {
     else {
         res.send(false);
     }
-}
-);
+});
+
+//checks the type of the logged in user
+app.get('/api/usertype', async function (req, res) {
+    var email = req.session.username;
+
+    const [results, fields] = await DBPool.query('SELECT Type FROM plantdb.user WHERE Email = ?;', [email]);
+    try {
+        res.send(results[0].Type);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
 
 /*
 * Resets the contents of the session variable to indicate the user is not logged in.

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
 
 import HeaderMenu from "./components/HeaderMenu"
 import Home from "./Home";
+import Admin from "./Admin";
 import Account from "./Account";
 import Login from "./Login";
 import Register from "./Register";
@@ -35,7 +36,8 @@ class App extends Component {
               <Route path='/recoverrequest' component={RecoverRequest} />
 
               <Route path='/account' component={Account} />
-              <Route path='/' component={Home} />
+              <Route path='/home' component={Home} />
+              <Route path='/admin' component={Admin} />
               
             </Switch>
           </Content>

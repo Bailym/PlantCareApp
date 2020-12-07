@@ -37,11 +37,31 @@ class Login extends React.Component {
       password = password.hex();
       //Check credentials 
       await axios.post(`/api/login/${email}/${password}`)
-        .then(response => {
+        .then(async response => {
           //If credentials match send to home
           if (response.data === true) {
-            this.props.history.push("/");
-            window.location.reload();
+
+            //Once a user has been found. Check the user Type (Admin/Standard) to see which home page to show
+            await axios.get('/api/usertype')  //Make an API call to check the Type of the logged in User
+              .then(response => {
+                
+                //If the logged in user is a Standard User
+                if (response.data === "User") {
+                  this.props.history.push("/home"); //Redirect them to Home as they arent permitted to access Settings
+                  window.location.reload();
+                }
+                else if(response.data == "Admin"){
+                  this.props.history.push("/admin") //Redirect to admin page
+                  window.location.reload();
+                }
+                else{
+                  window.location.reload();
+                }
+              })
+              //Catch any errors
+              .catch(function (error) {
+                console.log(error);
+              })
           }
           //Else show message
           else {
@@ -78,16 +98,16 @@ class Login extends React.Component {
                   <Button type="primary" id="login" onClick={this.handleSubmit}>Log in</Button>
                 </FormItem>
                 <FormItem>
-                  <Link to="/recover" onClick ={() => {
-                     this.props.history.push("/recover")
-                     window.location.reload()
-                     }}>Forgot Password</Link>
+                  <Link to="/recover" onClick={() => {
+                    this.props.history.push("/recover")
+                    window.location.reload()
+                  }}>Forgot Password</Link>
                 </FormItem>
                 <FormItem>
-                  <Link to="/register" onClick ={() => {
-                     this.props.history.push("/register")
-                     window.location.reload()
-                     }}>Dont have an account? Register here.</Link>
+                  <Link to="/register" onClick={() => {
+                    this.props.history.push("/register")
+                    window.location.reload()
+                  }}>Dont have an account? Register here.</Link>
                 </FormItem>
               </Form>
             </Row>
@@ -95,36 +115,36 @@ class Login extends React.Component {
         </MediaQuery>
 
         <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-        <Card bordered={true} style={{ width: "60%", backgroundColor: "#9dfac1", margin: "30% auto 0 auto ", border: "2px solid black", borderRadius: "20px" }}>
+          <Card bordered={true} style={{ width: "60%", backgroundColor: "#9dfac1", margin: "30% auto 0 auto ", border: "2px solid black", borderRadius: "20px" }}>
             <Row style={{ paddingTop: "5%" }}>
-              <Form style={{ textAlign: "center", margin: "auto", minWidth:"100%" }}>
+              <Form style={{ textAlign: "center", margin: "auto", minWidth: "100%" }}>
                 <Title style={{ margin: "5% auto" }}>Login</Title>
                 <Form.Item>
                   <Input id="email" prefix={<UserOutlined />}
                     placeholder="Username"
-                    size = "large" />
+                    size="large" />
                 </Form.Item>
                 <Form.Item>
                   <Input id="password"
                     prefix={<LockOutlined />}
                     type="password"
                     placeholder="Password"
-                    size = "large" />
+                    size="large" />
                 </Form.Item>
                 <FormItem>
                   <Button type="primary" size="large" id="login" onClick={this.handleSubmit}>Log in</Button>
                 </FormItem>
                 <FormItem>
-                  <Link to="/recover" onClick ={() => {
-                     this.props.history.push("/recover")
-                     window.location.reload()
-                     }}>Forgot Password</Link>
+                  <Link to="/recover" onClick={() => {
+                    this.props.history.push("/recover")
+                    window.location.reload()
+                  }}>Forgot Password</Link>
                 </FormItem>
                 <FormItem>
-                  <Link to="/register" onClick ={() => {
-                     this.props.history.push("/register")
-                     window.location.reload()
-                     }}>Dont have an account? Register here.</Link>
+                  <Link to="/register" onClick={() => {
+                    this.props.history.push("/register")
+                    window.location.reload()
+                  }}>Dont have an account? Register here.</Link>
                 </FormItem>
               </Form>
             </Row>
@@ -141,29 +161,29 @@ class Login extends React.Component {
                 <Form.Item>
                   <Input id="email" prefix={<UserOutlined />}
                     placeholder="Username"
-                    size = "large" />
+                    size="large" />
                 </Form.Item>
                 <Form.Item>
                   <Input id="password"
                     prefix={<LockOutlined />}
                     type="password"
                     placeholder="Password"
-                    size = "large" />
+                    size="large" />
                 </Form.Item>
                 <FormItem>
                   <Button type="primary" size="large" id="login" onClick={this.handleSubmit}>Log in</Button>
                 </FormItem>
                 <FormItem>
-                  <Link to="/recover" onClick ={() => {
-                     this.props.history.push("/recover")
-                     window.location.reload()
-                     }}>Forgot Password</Link>
+                  <Link to="/recover" onClick={() => {
+                    this.props.history.push("/recover")
+                    window.location.reload()
+                  }}>Forgot Password</Link>
                 </FormItem>
                 <FormItem>
-                  <Link to="/register" onClick ={() => {
-                     this.props.history.push("/register")
-                     window.location.reload()
-                     }}>Dont have an account? Register here.</Link>
+                  <Link to="/register" onClick={() => {
+                    this.props.history.push("/register")
+                    window.location.reload()
+                  }}>Dont have an account? Register here.</Link>
                 </FormItem>
               </Form>
             </Row>
