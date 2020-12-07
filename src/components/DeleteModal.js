@@ -2,7 +2,6 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
 import { Modal, Popconfirm, message, Button, Typography } from 'antd';
-import {DeleteOutlined} from '@ant-design/icons';
 const axios = require('axios');
 const { Text } = Typography;
 
@@ -31,7 +30,7 @@ class DeleteModal extends React.Component {
 
   /*
   * Handles when the OK button is pressed.
-  * When the OK button is pressed. Delete the selected User/Merchant/Acquirer
+  * When the OK button is pressed. Delete the selected Plant
   */
   handleOk = async (e) => {
     //Close the modal by setting visible to false.
@@ -64,7 +63,7 @@ class DeleteModal extends React.Component {
   render() {
     return (
       <div>
-        <DeleteOutlined type="delete" style={{ fontSize: "20px" }} onClick={this.showModal} />
+        <Button onClick={this.showModal} >DELETE</Button>
         <Modal
           title="Delete"
           visible={this.state.visible}
