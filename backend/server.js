@@ -35,6 +35,7 @@ app.post('/api/recover/send/:id/:email', recoveryController.sendRecoveryEmail); 
 //Plants Functions
 
 app.get("/api/plants/admintable", plantController.getPlantsAdminTable);
+app.get("/api/plants/:id", plantController.getPlantID);
 app.post("/api/plants/archive/:id", plantController.archivePlant)
 
 

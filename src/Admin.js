@@ -2,7 +2,8 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Table, Input, Button, Space, Tabs, Typography  } from 'antd';
 import { SearchOutlined} from '@ant-design/icons';
-import DeleteModal from "./components/DeleteModal"
+import DeleteModal from "./components/DeleteModal";
+import PlantModal from "./components/PlantModal";
 
 const axios = require('axios');
 const { Title } = Typography;
@@ -145,7 +146,8 @@ class Admin extends React.Component {
         //add the options column to each entry
         let responseData = response.data
         for (var i=0;i< responseData.length;i++){
-          responseData[i].Options = <DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/>
+          responseData[i].Options = <div><DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/>
+           <PlantModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/> </div>
         }
 
         //update the state with the table data
