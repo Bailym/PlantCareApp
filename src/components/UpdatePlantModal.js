@@ -7,7 +7,7 @@ const axios = require('axios');
 const { Text } = Typography;
 const { TabPane } = Tabs;
 
-class PlantModal extends React.Component {
+class UpdatePlantModal extends React.Component {
 
   static propTypes = {
     propPlantID: PropTypes.number,  //Stores the ID of the selected plant
@@ -105,7 +105,7 @@ class PlantModal extends React.Component {
         environmentalThreat: document.getElementById("environmentalthreat").value ? document.getElementById("environmentalthreat").value : "Unknown",
         difficulty: document.getElementById("difficulty").value ? document.getElementById("difficulty").value : "Unknown",
         sunlightNeeds: document.getElementById("sunlightneeds").value ? document.getElementById("sunlightneeds").value : "Unknown",
-        hardiness: document.getElementById("hardiness").value ? document.getElementById("hardiness").value : " ",
+        hardiness: document.getElementById("hardiness").value ? document.getElementById("hardiness").value : "Unknown",
         hardinessZones: document.getElementById("hardinesszones").value ? document.getElementById("hardinesszones").value : "Unknown",
         soilType: document.getElementById("soiltype").value ? document.getElementById("soiltype").value : "Unknown",
         waterNeeds: document.getElementById("waterneeds").value ? document.getElementById("waterneeds").value : "Unknown",
@@ -148,7 +148,7 @@ class PlantModal extends React.Component {
   };
 
   callback = (key) => {
-    console.log(key);
+
   }
 
   render = () => {
@@ -170,4 +170,4 @@ class PlantModal extends React.Component {
   }
 }
 
-export default PlantModal
+export default UpdatePlantModal

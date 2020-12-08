@@ -3,7 +3,8 @@ import 'antd/dist/antd.css';
 import { Table, Input, Button, Space, Tabs, Typography  } from 'antd';
 import { SearchOutlined} from '@ant-design/icons';
 import DeleteModal from "./components/DeleteModal";
-import PlantModal from "./components/PlantModal";
+import UpdatePlantModal from "./components/UpdatePlantModal";
+import CreatePlantModal from "./components/AddPlantModal";
 
 const axios = require('axios');
 const { Title } = Typography;
@@ -47,7 +48,7 @@ class Admin extends React.Component {
             }
           ]
           } />
-          <Button>Add Plant</Button>
+          <CreatePlantModal/>
         </TabPane>
         <TabPane tab="Users" key="2">
           <Title>Users</Title>
@@ -57,7 +58,7 @@ class Admin extends React.Component {
   }
 
   callback = (key) => {
-    console.log(key);
+
   }
 
   //Makes the search column work ??????
@@ -147,7 +148,7 @@ class Admin extends React.Component {
         let responseData = response.data
         for (var i=0;i< responseData.length;i++){
           responseData[i].Options = <div><DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/>
-           <PlantModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/> </div>
+           <UpdatePlantModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/> </div>
         }
 
         //update the state with the table data
