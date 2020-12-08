@@ -37,7 +37,8 @@ app.post('/api/recover/send/:id/:email', recoveryController.sendRecoveryEmail); 
 app.get("/api/plants/admintable", plantController.getPlantsAdminTable);
 app.get("/api/plants/:id", plantController.getPlantID);
 app.post("/api/plants/archive/:id", plantController.archivePlant)
-
+app.post("/api/plants/update", plantController.UpdatePlant)
+//app.post("/api/plant/update/:id/:commonname/:type/:nativecountry/:symbolism/:endangeredstatus/:environmentalthreat/:lifespan/:bloomtime/:sizerange/:spread/:flowersize/:difficulty/:sunlightneeds/:hardiness/:hardinesszones/:soiltype/:waterneeds/:fertilisationneeds/:pruning/:propagation/:pests/:plantingtime/:harvesttime/:pottingneeds/:environmentaluses/:economicuses/:homeuses")
 
 //Login/Session management routing 
 
