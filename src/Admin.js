@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Table, Input, Button, Space, Tabs, Typography  } from 'antd';
-import { SearchOutlined} from '@ant-design/icons';
+import { Table, Input, Button, Space, Tabs, Typography } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import DeleteModal from "./components/DeleteModal";
 import UpdatePlantModal from "./components/UpdatePlantModal";
 import CreatePlantModal from "./components/AddPlantModal";
@@ -22,29 +22,37 @@ class Admin extends React.Component {
   render() {
     return (
       <Tabs defaultActiveKey="1" onChange={() => this.callback} style={{ marginLeft: "1%" }}>
-        <TabPane tab="Plants" key="1">
-          <Title>Plants</Title>
-          <Table style={{width:"98%", margin:"auto" }} dataSource={this.state.allPlantData} columns={[
+        <TabPane tab="Plants" key="1" >
+          <Title style={{marginLeft:"2%"}}>Plants</Title>
+          <Table style={{width:"95%", margin:"auto", overflow: "auto", backgroundColor: "#fff", border:"1px solid #e6dfdf", borderRadius:"20px" }} dataSource={this.state.allPlantData} columns={[
             {
               title: 'PlantID',
               dataIndex: 'PlantID',
               key: 'PlantID',
+              align: "center",
+              width:"10%"
             },
             {
               title: 'Common Name',
               dataIndex: 'CommonName',
               key: 'CommonName',
+              align: "center",
+              width:"30%",
               ...this.getColumnSearchProps('CommonName'),
             },
             {
               title: 'Type',
               dataIndex: 'Type',
               key: 'Type',
+              align: "center",
+              width:"30%"
             },
             {
-              title:"Options",
-              dataIndex:"Options",
-              key:"Options",
+              title: "Options",
+              dataIndex: "Options",
+              key: "Options",
+              align: "center",
+              width:"30%"
             }
           ]
           } />
@@ -139,16 +147,19 @@ class Admin extends React.Component {
     this.getPlantData();
   }
 
-  getPlantData = async() => {
+  getPlantData = async () => {
 
     await axios.get("/api/plants/admintable")
       .then(response => {
 
         //add the options column to each entry
         let responseData = response.data
-        for (var i=0;i< responseData.length;i++){
-          responseData[i].Options = <div><DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/>
-           <UpdatePlantModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName}/> </div>
+        for (var i = 0; i < responseData.length; i++) {
+          responseData[i].Options =
+            <div>
+              <span style={{ display: "inline-block" }}><DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName} /></span>
+              <span style={{ display: "inline-block" }}><UpdatePlantModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName} /></span>
+            </div>
         }
 
         //update the state with the table data

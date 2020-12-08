@@ -41,27 +41,9 @@ class Login extends React.Component {
           //If credentials match send to home
           if (response.data === true) {
 
-            //Once a user has been found. Check the user Type (Admin/Standard) to see which home page to show
-            await axios.get('/api/usertype')  //Make an API call to check the Type of the logged in User
-              .then(response => {
-                
-                //If the logged in user is a Standard User
-                if (response.data === "User") {
-                  this.props.history.push("/home"); //Redirect them to Home as they arent permitted to access Settings
-                  window.location.reload();
-                }
-                else if(response.data == "Admin"){
-                  this.props.history.push("/admin") //Redirect to admin page
-                  window.location.reload();
-                }
-                else{
-                  window.location.reload();
-                }
-              })
-              //Catch any errors
-              .catch(function (error) {
-                console.log(error);
-              })
+            this.props.history.push("/home")
+            window.location.reload();
+            
           }
           //Else show message
           else {
