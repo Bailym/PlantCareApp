@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
 import { Modal, Input, message, Button, Typography, Tabs } from 'antd';
 import UpdateNameModal from "./UpdateNameModal"
+import UpdateImageModal from "./UpdateImageModal"
 const axios = require('axios');
 const { Text } = Typography;
 const { TabPane } = Tabs;
@@ -165,6 +166,7 @@ class UpdatePlantModal extends React.Component {
           onOk={this.handleOk}
           footer={[
             <div key="names" style={{display:"inline-block", float:"left"}}><UpdateNameModal propPlantID={this.props.propPlantID} /></div>,
+            <div key="images" style={{display:"inline-block", float:"left"}}><UpdateImageModal propPlantID={this.props.propPlantID} /></div>,
             <Button style={{display:"inline-block"}} key="back" onClick={this.handleCancel}>Cancel</Button>,
             <Button style={{display:"inline-block"}} key="submit" type="primary" onClick={this.handleOk}>Submit</Button>
           ]}

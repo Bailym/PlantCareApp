@@ -5,6 +5,7 @@ var DBPool = require('./database');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var DBPool = require('./database');
+var JFUM = require('jfum');
 
 app.use(session({
     secret: 'secret',
@@ -13,6 +14,14 @@ app.use(session({
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+var jfum = new JFUM({
+  minFileSize: 1,                      // 200 kB
+  maxFileSize: 5242880,                     // 5 mB
+  acceptFileTypes: /\.(jpe?g|png)$/i    // jpg, jpeg, png
+});
+
+app.options('/api/upload', jfum.optionsHandler.bind(jfum));
 
 //controllers
 
@@ -41,6 +50,9 @@ app.post("/api/plants/update", plantController.UpdatePlant)
 app.post("/api/plants/create", plantController.CreatePlant)
 app.get("/api/plants/names/:id", plantController.getPlantNames)
 app.post("/api/plants/names/update/:id/", plantController.updatePlantNames)
+app.get("/api/plant/images/:id", plantController.getPlantImages)
+app.post('/api/upload', jfum.postHandler.bind(jfum), plantController.uploadImages);
+app.post("/api/plant/images/update/:id/", plantController.updatePlantImages)
 
 //Login/Session management routing 
 
@@ -76,18 +88,18 @@ app.post('/api/register/:email/:password/:firstname/:surname', async function (r
     var password = request.params.password;
     var firstName = request.params.firstname;
     var surname = request.params.surname;
-    var type= "User"
+    var type = "User"
     if (email && password && firstName && surname) {
 
-        try{
+        try {
             const [results, fields] = await DBPool.query(`INSERT INTO plantdb.user (FirstName, Surname, Email, Password, Type) VALUES (?, ?, ?, ?, ?);`, [firstName, surname, email, password, type]);
             response.sendStatus(200);
         }
-        catch(err){
+        catch (err) {
             response.send(err)
         }
-        
-        
+
+
     }
 });
 

@@ -105,7 +105,7 @@ class UpdateNameModal extends React.Component {
           </>
         )}
       </Form.List>
-    </Form>, document.getElementById("container"))
+    </Form>, document.getElementById("namecontainer"))
   };
 
 
@@ -126,13 +126,13 @@ class UpdateNameModal extends React.Component {
         <Modal
           title="View/Edit Plant Names"
           visible={this.state.visible}
-          key={this.props.propPlantID}
+          key={"name" + this.props.propPlantID}
           onCancel={this.handleCancel}
           footer={[
             <Button style={{ display: "inline-block" }} key="back" onClick={this.handleCancel}>Cancel</Button>,
           ]}
         >
-          <div id="container"></div>
+          <div id="namecontainer"></div>
         </Modal>
       </div>
     );
