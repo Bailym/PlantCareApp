@@ -39,6 +39,8 @@ app.get("/api/plants/:id", plantController.getPlantID);
 app.post("/api/plants/archive/:id", plantController.archivePlant)
 app.post("/api/plants/update", plantController.UpdatePlant)
 app.post("/api/plants/create", plantController.CreatePlant)
+app.get("/api/plants/names/:id", plantController.getPlantNames)
+app.post("/api/plants/names/update/:id/", plantController.updatePlantNames)
 
 //Login/Session management routing 
 

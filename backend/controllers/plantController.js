@@ -102,4 +102,38 @@ module.exports = {
         }
     },
 
+    async getPlantNames(request, response) {
+
+        try {
+            //make query and send results
+            const [results, fields] = await DBPool.query(`SELECT AltName FROM plantdb.name WHERE PlantID = ?`, request.params.id);
+            response.send(results);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+    },
+
+    async updatePlantNames(request, response) {
+
+        try {       
+            var names = request.body.names;
+
+            await DBPool.query(`DELETE FROM plantdb.name WHERE PlantID = ?`, request.params.id); 
+
+            for(var i=0;i<names.length;i++){
+                await DBPool.query(`INSERT INTO plantdb.name (AltName, PlantID) VALUES (?,?)`,  [names[i], request.params.id]); 
+            }
+
+            response.sendStatus(200);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+    },
+
 }
