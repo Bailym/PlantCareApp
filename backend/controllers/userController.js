@@ -5,6 +5,22 @@ var DBPool = require('../database');
 
 module.exports = {
 
+    async getAdminTable(request, response) {
+
+        try {
+            
+            //make query and send results
+            const [results, fields] = await DBPool.query(`SELECT UserID as "key", UserID as ID, FirstName, Surname, Email, Type FROM plantdb.user`);
+            response.send(results);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+
+    },
+
     async getUser(request, response) {
 
         try {

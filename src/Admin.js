@@ -59,7 +59,47 @@ class Admin extends React.Component {
           <CreatePlantModal/>
         </TabPane>
         <TabPane tab="Users" key="2">
-          <Title>Users</Title>
+          <Title style={{marginLeft:"2%"}}>Users</Title>
+          <Table style={{width:"95%", margin:"auto", overflow: "auto", backgroundColor: "#fff", border:"1px solid #e6dfdf", borderRadius:"20px" }} dataSource={this.state.allUserData} columns={[
+            {
+              title: 'ID',
+              dataIndex: 'ID',
+              key: 'UserID',
+              align: "center",
+              width:"10%"
+            },
+            {
+              title: 'Email',
+              dataIndex: 'Email',
+              key: 'Email',
+              align: "center",
+              width:"30%",
+              ...this.getColumnSearchProps('CommonName'),
+            },
+            {
+              title: 'First Name',
+              dataIndex: 'FirstName',
+              key: 'FirstName',
+              align: "center",
+              width:"30%"
+            },
+            {
+              title: "Surname",
+              dataIndex: "Surname",
+              key: "Surname",
+              align: "center",
+              width:"30%"
+            },
+            {
+              title: "Type",
+              dataIndex: "Type",
+              key: "UserType",
+              align: "center",
+              width:"30%"
+            }
+          ]
+          } />
+          <CreatePlantModal/>
         </TabPane>
       </Tabs>
     );
@@ -144,14 +184,15 @@ class Admin extends React.Component {
         console.log(error);
       })
 
+    this.getUserData();
     this.getPlantData();
+    
   }
 
   getPlantData = async () => {
 
     await axios.get("/api/plants/admintable")
       .then(response => {
-
         //add the options column to each entry
         let responseData = response.data
         for (var i = 0; i < responseData.length; i++) {
@@ -164,7 +205,35 @@ class Admin extends React.Component {
 
         //update the state with the table data
         let tempState = Object.assign({}, this.state)
-        tempState.allPlantData = response.data;
+        tempState.allPlantData = responseData;
+        this.setState(tempState);
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+
+  }
+
+  getUserData = async () => {
+
+    await axios.get("/api/usertable")
+      .then(response => {
+   
+        //add the options column to each entry
+        let responseData = response.data
+        
+        /* for (var i = 0; i < responseData.length; i++) {
+          responseData[i].Options =
+            <div>
+              <span style={{ display: "inline-block" }}><DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName} /></span>
+              <span style={{ display: "inline-block" }}><UpdatePlantModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName} /></span>
+            </div>
+        } */
+
+        //update the state with the table data
+        let tempState = Object.assign({}, this.state)
+        tempState.allUserData = responseData;
         this.setState(tempState);
 
       })
