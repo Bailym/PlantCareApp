@@ -6,6 +6,7 @@ import DeleteModal from "./components/DeleteModal";
 import UpdatePlantModal from "./components/UpdatePlantModal";
 import CreatePlantModal from "./components/AddPlantModal";
 import UpdateUserModal from "./components/UpdateUserModal";
+import DeleteUserModal from "./components/DeleteUserModal";
 
 const axios = require('axios');
 const { Title } = Typography;
@@ -74,7 +75,7 @@ class Admin extends React.Component {
               dataIndex: 'Email',
               key: 'Email',
               align: "center",
-              width:"30%",
+              width:"20%",
               ...this.getColumnSearchProps('CommonName'),
             },
             {
@@ -103,7 +104,7 @@ class Admin extends React.Component {
               dataIndex: "Options",
               key: "Options",
               align: "center",
-              width:"10%"
+              width:"20%"
             }
           ]
           } />
@@ -233,6 +234,7 @@ class Admin extends React.Component {
         for (var i = 0; i < responseData.length; i++) {
           responseData[i].Options =
             <div>
+              <span style={{ display: "inline-block" }}><DeleteUserModal propUserID={responseData[i].ID}/></span>
               <span style={{ display: "inline-block" }}><UpdateUserModal propUserID={responseData[i].ID}/></span>
             </div>
         } 

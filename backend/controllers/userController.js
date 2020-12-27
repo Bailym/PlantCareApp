@@ -51,6 +51,25 @@ module.exports = {
 
     },
 
+    async archiveUser(request, response) {
+
+        try {
+
+            //insert the row into the archive
+            await DBPool.query(`INSERT INTO plantdb.userArchive (UserID, FirstName, Surname, Email, Password, Type) 
+                SELECT * FROM plantdb.user WHERE UserID = ?`, request.params.id);
+            //delete the original
+            await DBPool.query(`DELETE FROM plantdb.user WHERE UserID = ?`, request.params.id);
+
+            response.sendStatus(200);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+    },
+
     async updateUser(request, response){
 
         try {
