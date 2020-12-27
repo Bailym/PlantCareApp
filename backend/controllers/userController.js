@@ -55,8 +55,8 @@ module.exports = {
 
         try {
             //make query and send results
-            await DBPool.query("UPDATE plantdb.user SET FirstName = ?, Surname = ?, Email = ?, Password = ? WHERE (UserID = ?)",
-             [request.params.firstname, request.params.surname, request.params.email,request.params.password, request.params.id]);
+            await DBPool.query("UPDATE plantdb.user SET FirstName = ?, Surname = ?, Email = ?, Password = ?, Type = ? WHERE (UserID = ?)",
+             [request.params.firstname, request.params.surname, request.params.email,request.params.password, request.params.type, request.params.id]);
 
             response.sendStatus(200);
         }

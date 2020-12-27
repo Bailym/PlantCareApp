@@ -36,7 +36,7 @@ app.get('/api/users', userController.getUser);  //retrieves all users
 app.get('/api/users/:id', userController.getUserID);  //retrieves specific user by id
 app.get('/api/usertable', userController.getAdminTable);  //retreive users for the admin table
 app.post('/api/users/updatepassword/:id/:password', userController.updatePassword); //Updates a single users password
-app.post('/api/users/updateuser/:id/:firstname/:surname/:email/:password', userController.updateUser); //Updates a users information
+app.post('/api/users/updateuser/:id/:firstname/:surname/:email/:password/:type', userController.updateUser); //Updates a users information
 
 //Recovery Functions
 app.post('/api/recover/check/:email', recoveryController.checkEmail);   //checks an email exists

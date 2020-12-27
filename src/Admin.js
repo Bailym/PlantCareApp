@@ -5,6 +5,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import DeleteModal from "./components/DeleteModal";
 import UpdatePlantModal from "./components/UpdatePlantModal";
 import CreatePlantModal from "./components/AddPlantModal";
+import UpdateUserModal from "./components/UpdateUserModal";
 
 const axios = require('axios');
 const { Title } = Typography;
@@ -81,25 +82,31 @@ class Admin extends React.Component {
               dataIndex: 'FirstName',
               key: 'FirstName',
               align: "center",
-              width:"30%"
+              width:"20%"
             },
             {
               title: "Surname",
               dataIndex: "Surname",
               key: "Surname",
               align: "center",
-              width:"30%"
+              width:"20%"
             },
             {
               title: "Type",
               dataIndex: "Type",
               key: "UserType",
               align: "center",
-              width:"30%"
+              width:"10%"
+            },
+            {
+              title: "Options",
+              dataIndex: "Options",
+              key: "Options",
+              align: "center",
+              width:"10%"
             }
           ]
           } />
-          <CreatePlantModal/>
         </TabPane>
       </Tabs>
     );
@@ -223,13 +230,12 @@ class Admin extends React.Component {
         //add the options column to each entry
         let responseData = response.data
         
-        /* for (var i = 0; i < responseData.length; i++) {
+        for (var i = 0; i < responseData.length; i++) {
           responseData[i].Options =
             <div>
-              <span style={{ display: "inline-block" }}><DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName} /></span>
-              <span style={{ display: "inline-block" }}><UpdatePlantModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName} /></span>
+              <span style={{ display: "inline-block" }}><UpdateUserModal propUserID={responseData[i].ID}/></span>
             </div>
-        } */
+        } 
 
         //update the state with the table data
         let tempState = Object.assign({}, this.state)

@@ -51,6 +51,13 @@ class Account extends React.Component {
                   placeholder="Password"
                   disabled />
               </Form.Item>
+              <Form.Item>
+                <Input
+                  addonBefore={<Text>Type</Text>}
+                  id="type"
+                  placeholder="Type"
+                  disabled />
+              </Form.Item>
               <FormItem>
                 <Link to="/recover" onClick={() => {
                   this.props.history.push("/recover")
@@ -96,6 +103,14 @@ class Account extends React.Component {
                   id="password"
                   type="password"
                   placeholder="Password"
+                  size="large"
+                  disabled />
+              </Form.Item>
+              <Form.Item>
+                <Input
+                  addonBefore={<Text>Type</Text>}
+                  id="type"
+                  placeholder="Type"
                   size="large"
                   disabled />
               </Form.Item>
@@ -145,6 +160,14 @@ class Account extends React.Component {
                   id="password"
                   type="password"
                   placeholder="Password"
+                  size="large"
+                  disabled />
+              </Form.Item>
+              <Form.Item>
+                <Input
+                  addonBefore={<Text>Type</Text>}
+                  id="type"
+                  placeholder="Type"
                   size="large"
                   disabled />
               </Form.Item>
@@ -208,6 +231,7 @@ class Account extends React.Component {
     document.getElementById("surname").value = this.state.loggedInUserDetails.Surname
     document.getElementById("email").value = this.state.loggedInUserDetails.Email
     document.getElementById("password").value = this.state.loggedInUserDetails.Password
+    document.getElementById("type").value = this.state.loggedInUserDetails.Type
   }
 
   //Updates the users data in the database with the values specified in the form.
@@ -216,6 +240,7 @@ class Account extends React.Component {
     var newSurname = document.getElementById("surname").value
     var newEmail = document.getElementById("email").value = this.state.loggedInUserDetails.Email
     var newPassword = document.getElementById("password").value = this.state.loggedInUserDetails.Password
+    var newType = document.getElementById("type").value = this.state.loggedInUserDetails.Type
 
     //Validation
     let isValidated = true;
@@ -236,7 +261,7 @@ class Account extends React.Component {
 
     if (isValidated) {
       //update the users details
-      await axios.post(`/api/users/updateuser/${this.state.loggedInUserID}/${newFirstName}/${newSurname}/${newEmail}/${newPassword}`)  //call the server endpoint
+      await axios.post(`/api/users/updateuser/${this.state.loggedInUserID}/${newFirstName}/${newSurname}/${newEmail}/${newPassword}/${newType}`)  //call the server endpoint
         .then(function (response) {
           message.info("Account Details Updated!")
         })
