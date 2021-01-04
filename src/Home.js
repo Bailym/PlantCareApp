@@ -1,12 +1,19 @@
 import React from 'react';
 import 'antd/dist/antd.css';
+import PlantSearch from "./components/PlantSearch"
 const axios = require('axios');
 
 class Home extends React.Component {
 
   render() {
     return (
-      <h1>Home</h1>
+      <div>
+        <div style={{ margin:"1% auto", width:"95%"}}>
+          <PlantSearch style={{width:"100%", textAlign:"center", textAlignLast:"center"}} />
+        </div>
+
+      </div>
+
 
     );
   }

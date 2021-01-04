@@ -224,4 +224,21 @@ module.exports = {
         } 
     },
 
+    async searchPlants(request, response) {
+
+        let text = "%" + request.params.searchtext + "%";
+
+        try {
+            //make query and send results
+            const [results, fields] = await DBPool.query(`SELECT * FROM plantdb.plant WHERE CommonName LIKE ?`, text);
+            response.send(results);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+    },
+
+
 }

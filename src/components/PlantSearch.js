@@ -1,0 +1,66 @@
+import React from 'react';
+import 'antd/dist/antd.css';
+import { Select } from 'antd';
+const { Option } = Select;
+const axios = require('axios');
+
+class PlantSearch extends React.Component {
+  state = {
+    data: [], //the data returned from the search
+    value: undefined, //the selected Option value
+    options: [] //the <option> components to be rendered
+  };
+
+  //handles client to server
+  //@value: the term entered by the user
+  handleSearch = async value => {
+    let tempState = Object.assign({}, this.state)
+    //if the input isnt blank
+    if (value) {
+      //perform the search and await a response from the server
+      await axios.get(`/api/plants/search/${value}`)
+        .then(async response => {
+          //update the state with the search results and the options components
+          tempState.data = response.data;
+          tempState.options = response.data.map(x => <Option style={{padding:"1%", textAlign:"center"}} key={x.PlantID}>{x.CommonName}</Option>)
+        })
+    }
+    //if no search term has been entered
+    else {
+      //reset the state 
+      tempState.data = [];
+      tempState.options = []
+    }
+
+    //apply the state
+    this.setState(tempState)
+  };
+
+  //handles selecting the value
+  handleChange = value => {
+    this.setState({ value });
+  };
+
+  render() {
+    return (
+      <Select
+        showSearch
+        value={this.state.value}
+        placeholder={this.props.placeholder}
+        style={this.props.style}
+        size="large"
+        defaultActiveFirstOption={false}
+        showArrow={false}
+        filterOption={false}
+        onSearch={this.handleSearch}
+        onChange={this.handleChange}
+        notFoundContent={null}
+        placeholder="Search Plants"
+      >
+        { this.state.options}
+      </Select>
+    );
+  }
+}
+
+export default PlantSearch

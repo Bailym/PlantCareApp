@@ -55,6 +55,7 @@ app.post("/api/plants/names/update/:id/", plantController.updatePlantNames)
 app.get("/api/plant/images/:id", plantController.getPlantImages)
 app.post('/api/upload', jfum.postHandler.bind(jfum), plantController.uploadImages);
 app.post("/api/plant/images/update/:id/", plantController.updatePlantImages)
+app.get("/api/plants/search/:searchtext", plantController.searchPlants)
 
 //Login/Session management routing 
 
