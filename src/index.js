@@ -12,6 +12,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Recover from "./Recover";
 import RecoverRequest from './RecoverRequest';
+import Plant from './Plant';
 
 const { Header, Footer, Content } = Layout;
 
@@ -38,6 +39,7 @@ class App extends Component {
               <Route path='/account' component={Account} />
               <Route path='/home' component={Home} />
               <Route path='/admin' component={Admin} />
+              <Route path='/plant' component={Plant} />
             </Switch>
           </Content>
           <Footer>Baily Martin - 10582026</Footer>

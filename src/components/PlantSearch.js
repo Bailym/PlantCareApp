@@ -1,6 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Select } from 'antd';
+import { Route, withRouter } from 'react-router-dom';
 const { Option } = Select;
 const axios = require('axios');
 
@@ -22,7 +23,7 @@ class PlantSearch extends React.Component {
         .then(async response => {
           //update the state with the search results and the options components
           tempState.data = response.data;
-          tempState.options = response.data.map(x => <Option style={{padding:"1%", textAlign:"center"}} key={x.PlantID}>{x.CommonName}</Option>)
+          tempState.options = response.data.map(x => <Option style={{ padding: "1%", textAlign: "center" }} key={x.PlantID}>{x.CommonName}</Option>)
         })
     }
     //if no search term has been entered
@@ -39,6 +40,12 @@ class PlantSearch extends React.Component {
   //handles selecting the value
   handleChange = value => {
     this.setState({ value });
+
+    this.props.history.push({
+      pathname: '/plant',
+      state: {PlantID: value}  
+    })
+    window.location.reload();
   };
 
   render() {
@@ -63,4 +70,4 @@ class PlantSearch extends React.Component {
   }
 }
 
-export default PlantSearch
+export default withRouter(PlantSearch)
