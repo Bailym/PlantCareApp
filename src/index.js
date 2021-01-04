@@ -22,11 +22,8 @@ class App extends Component {
     return (
       <Router>
         <Layout style={{
-          position: "absolute",
-          top: "0",
-          right: "0",
-          bottom: "0",
-          left: "0"
+          height:"100vh",
+          overflow:"hidden",
         }}>
           <Header style={{ backgroundColor: "#9dfac1" }}><HeaderMenu /></Header>
           <Content>
