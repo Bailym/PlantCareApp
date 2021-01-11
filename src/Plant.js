@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch";
-import { Space, Card, Carousel, Image, Descriptions } from 'antd';
+import { Space, Card, Carousel, Image, Descriptions, Button } from 'antd';
 import ReactDOM from "react-dom"
 import MediaQuery from 'react-responsive'
 const axios = require('axios');
@@ -25,8 +25,11 @@ class Plant extends React.Component {
     return (
       <div style={{ height: "100%" }}>
         <MediaQuery minDeviceWidth={1025}>
-          <div style={{ margin: "1% auto", width: "95%", height: "98%" }}>
+          <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
+            <div>
+              <Button style={{margin:"1% 1% 0 93%"}}>Add to Garden</Button>
+            </div>
 
             <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
               <Card title="Images">
@@ -113,7 +116,6 @@ class Plant extends React.Component {
         <MediaQuery maxDeviceWidth={640}>
           <div style={{ margin: "1% auto", width: "95%", height: "100%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-
             <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
               <Card title="Images">
                 <Carousel autoplay touchMove={false}>
