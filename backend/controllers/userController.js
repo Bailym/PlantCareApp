@@ -93,7 +93,6 @@ module.exports = {
         try {
             //make query and send results
             await DBPool.query("UPDATE plantdb.user SET Password = ? WHERE (UserID = ?)", [request.params.password, request.params.id]);
-
             response.sendStatus(200);
         }
         //error handling
@@ -102,6 +101,35 @@ module.exports = {
             console.log(err)
         }
 
+    },
+
+    async addToGarden(request, response){
+
+        try {
+            //make query and send results
+            await DBPool.query("INSERT INTO plantdb.gardenItem (UserID, PlantID) VALUES ('?','?')", [request.session.userID, parseInt(request.params.plantid)]);
+            response.sendStatus(200);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+
+    },
+
+    async checkGarden(request, response){
+
+        try {
+            //make query and send results
+            const [results, fields] = await DBPool.query("SELECT * FROM plantdb.gardenItem WHERE UserID = ? && PlantID = ?", [request.session.userID, parseInt(request.params.plantid)]);
+            response.send(results);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
 
     }
 

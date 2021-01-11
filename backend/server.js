@@ -27,7 +27,8 @@ app.options('/api/upload', jfum.optionsHandler.bind(jfum));
 
 var userController = require("./controllers/userController");
 var recoveryController = require("./notifications/recoveryController"); //handles password recovery
-var plantController = require("./controllers/plantController")  //handles plant table related calls
+var plantController = require("./controllers/plantController");  //handles plant table related calls
+const { useReducer } = require('react');
 
 //routing
 
@@ -56,6 +57,8 @@ app.get("/api/plant/images/:id", plantController.getPlantImages)
 app.post('/api/upload', jfum.postHandler.bind(jfum), plantController.uploadImages);
 app.post("/api/plant/images/update/:id/", plantController.updatePlantImages)
 app.get("/api/plants/search/:searchtext", plantController.searchPlants)
+app.post("/api/garden/add/:plantid", userController.addToGarden)
+app.get("/api/garden/check/:plantid", userController.checkGarden)
 
 //Login/Session management routing 
 

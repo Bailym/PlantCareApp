@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch";
-import { Space, Card, Carousel, Image, Descriptions, Button } from 'antd';
+import { Space, Card, Carousel, Image, Descriptions, Button, message } from 'antd';
 import ReactDOM from "react-dom"
 import MediaQuery from 'react-responsive'
 const axios = require('axios');
@@ -19,6 +19,7 @@ class Plant extends React.Component {
     characteristicsComponents: [],
     usesComponents: [],
     nameComponents: [],
+    isInGarden: false,
   }
 
   render() {
@@ -28,7 +29,7 @@ class Plant extends React.Component {
           <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
             <div>
-              <Button style={{margin:"1% 1% 0 93%"}}>Add to Garden</Button>
+              <Button disabled={this.state.isInGarden} style={{ margin: "1% 1% 0 93%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button>
             </div>
 
             <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
@@ -268,6 +269,41 @@ class Plant extends React.Component {
     this.setState(tempState)
   }
 
+  componentDidUpdate = async () => {
+
+    this.checkGarden(this.state.plantID)
+
+  }
+
+
+  addToGarden = async (plantID) => {
+
+    await axios.post(`/api/garden/add/${plantID}`)
+      .then(response => {
+        message.info("Plant Added to Garden!")
+      })
+      .catch(error => {
+        message.error("Plant could not be added...")
+      })
+  }
+
+  checkGarden = async (plantID) => {
+
+    let isInGarden = false;
+
+    //check to see if the plant is already in the users garden
+    await axios.get(`/api/garden/check/${this.state.plantID}`)
+      .then(response => {
+        if (response.data[0]) {
+          isInGarden = true;
+        }
+      })
+
+    let tempState = Object.assign({}, this.state)
+    tempState.isInGarden = isInGarden
+    this.setState(tempState);
+
+  }
 
 
 }
