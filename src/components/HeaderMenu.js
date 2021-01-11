@@ -35,7 +35,6 @@ class HeaderMenu extends React.Component {
  async clickLogout() {
   await axios.get('/api/logout')  //Make API call to logout
     .then(response => {
-      console.log("here")
       this.props.history.push('/login');  //Redirect to login
       message.info("Logged Out!");  //Show a success message
       window.location.reload();
