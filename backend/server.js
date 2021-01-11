@@ -59,6 +59,7 @@ app.post("/api/plant/images/update/:id/", plantController.updatePlantImages)
 app.get("/api/plants/search/:searchtext", plantController.searchPlants)
 app.post("/api/garden/add/:plantid", userController.addToGarden)
 app.get("/api/garden/check/:plantid", userController.checkGarden)
+app.get("/api/garden/get/", userController.getGarden)
 
 //Login/Session management routing 
 

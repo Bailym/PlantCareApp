@@ -131,6 +131,22 @@ module.exports = {
             console.log(err)
         }
 
+    },
+
+    async getGarden(request, response){
+
+        try {
+            //make query and send results
+            const [results, fields] = await DBPool.query("SELECT * FROM plantdb.gardenItem WHERE UserID = ?", request.session.userID);
+            response.send(results);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+
     }
+
 
 }

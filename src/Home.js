@@ -10,6 +10,7 @@ class Home extends React.Component {
       <div>
         <div style={{ margin:"1% auto", width:"95%"}}>
           <PlantSearch style={{width:"100%", textAlign:"center", textAlignLast:"center"}} />
+          
         </div>
 
       </div>

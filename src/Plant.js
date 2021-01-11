@@ -1,9 +1,10 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch";
-import { Space, Card, Carousel, Image, Descriptions, Button, message } from 'antd';
+import { Space, Card, Carousel, Image, Descriptions, Button, message, Tabs } from 'antd';
 import ReactDOM from "react-dom"
 import MediaQuery from 'react-responsive'
+const { TabPane } = Tabs;
 const axios = require('axios');
 
 class Plant extends React.Component {
@@ -72,83 +73,108 @@ class Plant extends React.Component {
         </MediaQuery>
 
         <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-          <div style={{ margin: "1% auto", width: "95%", height: "100%" }}>
+          <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-
-            <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
-              <Card title="Images">
-                <Carousel autoplay>
-                  {this.state.imageCarouselComponents}
-                </Carousel>
-              </Card>
-              <Card title="Key Details">
-                <Descriptions bordered >
-                  {this.state.keyDetailsComponents}
-                </Descriptions>
-              </Card>
-            </Space>
-            <Space direction="vertical" style={{ width: "33%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
-              <Card title="Conditions" >
-                <Descriptions bordered >
-                  {this.state.conditionsComponents}
-                </Descriptions>
-              </Card>
-            </Space>
-            <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
-              <Card title="Characteristics" >
-                <Descriptions bordered >
-                  {this.state.characteristicsComponents}
-                </Descriptions>
-              </Card>
-              <Card title="Uses">
-                <Descriptions bordered >
-                  {this.state.usesComponents}
-                </Descriptions>
-              </Card>
-              <Card title="Other Names" >
-                <Descriptions bordered >
-                  {this.state.nameComponents}
-                </Descriptions>
-              </Card>
-            </Space>
+            <div>
+              <Button disabled={this.state.isInGarden} style={{ margin: "1% 1% 0 80%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button>
+            </div>
+            <Tabs defaultActiveKey="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+              <TabPane forceRender tab="Key Details" key="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Images">
+                    <Carousel autoplay>
+                      {this.state.imageCarouselComponents}
+                    </Carousel>
+                  </Card>
+                  <Card title="Key Details">
+                    <Descriptions bordered >
+                      {this.state.keyDetailsComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+              <TabPane forceRender tab="Conditions" key="2">
+                <Space direction="vertical" style={{ width: "100%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Conditions" >
+                    <Descriptions bordered >
+                      {this.state.conditionsComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+              <TabPane forceRender tab="Characteristics" key="3">
+                <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Characteristics" >
+                    <Descriptions bordered >
+                      {this.state.characteristicsComponents}
+                    </Descriptions>
+                  </Card>
+                  <Card title="Uses">
+                    <Descriptions bordered >
+                      {this.state.usesComponents}
+                    </Descriptions>
+                  </Card>
+                  <Card title="Other Names" >
+                    <Descriptions bordered >
+                      {this.state.nameComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+            </Tabs>
           </div>
         </MediaQuery>
 
         <MediaQuery maxDeviceWidth={640}>
-          <div style={{ margin: "1% auto", width: "95%", height: "100%" }}>
+          <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-            <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
-              <Card title="Images">
-                <Carousel autoplay touchMove={false}>
-                  {this.state.imageCarouselComponents}
-                </Carousel>
-              </Card>
-              <Card title="Key Details">
-                <Descriptions bordered >
-                  {this.state.keyDetailsComponents}
-                </Descriptions>
-              </Card>
-              <Card title="Conditions" >
-                <Descriptions bordered >
-                  {this.state.conditionsComponents}
-                </Descriptions>
-              </Card>
-              <Card title="Characteristics" >
-                <Descriptions bordered >
-                  {this.state.characteristicsComponents}
-                </Descriptions>
-              </Card>
-              <Card title="Uses">
-                <Descriptions bordered >
-                  {this.state.usesComponents}
-                </Descriptions>
-              </Card>
-              <Card title="Other Names" >
-                <Descriptions bordered >
-                  {this.state.nameComponents}
-                </Descriptions>
-              </Card>
-            </Space>
+            <div>
+              <Button disabled={this.state.isInGarden} style={{ margin: "1% auto", width: "100%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button>
+            </div>
+            <Tabs defaultActiveKey="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+              <TabPane forceRender tab="Key Details" key="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Images">
+                    <Carousel autoplay>
+                      {this.state.imageCarouselComponents}
+                    </Carousel>
+                  </Card>
+                  <Card title="Key Details">
+                    <Descriptions bordered >
+                      {this.state.keyDetailsComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+              <TabPane forceRender tab="Conditions" key="2">
+                <Space direction="vertical" style={{ width: "100%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Conditions" >
+                    <Descriptions bordered >
+                      {this.state.conditionsComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+              <TabPane forceRender tab="Characteristics" key="3">
+                <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Characteristics" >
+                    <Descriptions bordered >
+                      {this.state.characteristicsComponents}
+                    </Descriptions>
+                  </Card>
+                  <Card title="Uses">
+                    <Descriptions bordered >
+                      {this.state.usesComponents}
+                    </Descriptions>
+                  </Card>
+                  <Card title="Other Names" >
+                    <Descriptions bordered >
+                      {this.state.nameComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+            </Tabs>
           </div>
         </MediaQuery>
       </div>
@@ -216,7 +242,7 @@ class Plant extends React.Component {
 
 
 
-    //Create components from the data 
+    //Create components from the data
     tempState.keyDetailsComponents = [
       < Descriptions.Item label="Common Name" key="key3" span={3}> {tempState.plantData[0].CommonName}</Descriptions.Item >,
       < Descriptions.Item label="Type" key="key3" span={3}> {tempState.plantData[0].Type}</Descriptions.Item >,
