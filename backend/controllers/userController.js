@@ -118,6 +118,21 @@ module.exports = {
 
     },
 
+    async removeFromGraden(request, response){
+
+        try {
+            //make query and send results
+            await DBPool.query("DELETE FROM plantdb.gardenItem WHERE UserID = ? AND PlantID = ?", [request.session.userID, parseInt(request.params.plantid)]);
+            response.sendStatus(200);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+
+    },
+
     async checkGarden(request, response){
 
         try {

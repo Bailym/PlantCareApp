@@ -58,6 +58,7 @@ app.post('/api/upload', jfum.postHandler.bind(jfum), plantController.uploadImage
 app.post("/api/plant/images/update/:id/", plantController.updatePlantImages)
 app.get("/api/plants/search/:searchtext", plantController.searchPlants)
 app.post("/api/garden/add/:plantid", userController.addToGarden)
+app.post("/api/garden/delete/:plantid", userController.removeFromGraden)
 app.get("/api/garden/check/:plantid", userController.checkGarden)
 app.get("/api/garden/get/", userController.getGarden)
 

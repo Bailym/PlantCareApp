@@ -30,7 +30,9 @@ class Plant extends React.Component {
           <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
             <div>
-              <Button disabled={this.state.isInGarden} style={{ margin: "1% 1% 0 93%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button>
+              {!this.state.isInGarden ?
+              <Button style={{ margin: "1% 1% 0 93%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
+              <Button style={{ margin: "1% 1% 0 91%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
             </div>
 
             <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
@@ -76,7 +78,9 @@ class Plant extends React.Component {
           <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
             <div>
-              <Button disabled={this.state.isInGarden} style={{ margin: "1% 1% 0 80%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button>
+              {!this.state.isInGarden ?
+              <Button style={{ margin: "1% 1% 0 80%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
+              <Button style={{ margin: "1% 1% 0 76%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
             </div>
             <Tabs defaultActiveKey="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
               <TabPane forceRender tab="Key Details" key="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
@@ -129,7 +133,9 @@ class Plant extends React.Component {
           <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
             <div>
-              <Button disabled={this.state.isInGarden} style={{ margin: "1% auto", width: "100%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button>
+              {!this.state.isInGarden ?
+              <Button style={{ margin: "1% auto", width: "100%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
+              <Button style={{ margin: "1% auto", width: "100%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
             </div>
             <Tabs defaultActiveKey="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
               <TabPane forceRender tab="Key Details" key="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
@@ -310,6 +316,17 @@ class Plant extends React.Component {
       })
       .catch(error => {
         message.error("Plant could not be added...")
+      })
+  }
+
+  removeFromGarden = async (plantID) => {
+
+    await axios.post(`/api/garden/delete/${plantID}`)
+      .then(response => {
+        message.info("Plant Removed to Garden!")
+      })
+      .catch(error => {
+        message.error("Plant could not be removed...")
       })
   }
 
