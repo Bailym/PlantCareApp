@@ -30,6 +30,36 @@ class Home extends React.Component {
             </Space>
           </div>
         </MediaQuery>
+
+        <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
+        <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
+            <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
+
+            <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
+              <Card title="My Garden">
+                <List>
+                  {this.state.gardenPreviewComponents}
+                </List>
+              </Card>
+            </Space>
+          </div>
+        </MediaQuery>
+
+
+        <MediaQuery maxDeviceWidth={640}>
+        <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
+            <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
+
+            <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+              <Card title="My Garden">
+                <List>
+                  {this.state.gardenPreviewComponents}
+                </List>
+              </Card>
+            </Space>
+          </div>
+
+        </MediaQuery>
       </div>
 
 
