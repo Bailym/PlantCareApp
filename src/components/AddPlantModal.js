@@ -129,7 +129,7 @@ class AddPlantModal extends React.Component {
                 <Input addonBefore="Pests" id="pests" maxLength={255} />
                 <Input addonBefore="Planting Time" id="plantingtime" maxLength={45} />
                 <Input addonBefore="Harvest Time" id="harvesttime" maxLength={45} />
-                <Input addonBefore="PottingNeeds" id="pottingneeds" maxLength={255} />
+                <Input addonBefore="Potting Needs" id="pottingneeds" maxLength={255} />
               </TabPane>
               <TabPane forceRender tab="Characteristics" key="3">
                 <Input addonBefore="Lifespan" id="lifespan" maxLength={60} />
