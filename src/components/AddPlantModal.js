@@ -97,7 +97,7 @@ class AddPlantModal extends React.Component {
   render = () => {
     ++this.childKey;
     return (
-      <div style={{margin:"5% 0 0 2%"}}>
+      <div style={{margin:"1% 0 0 3%"}}>
         <Button onClick={this.showModal}>Create Plant</Button>
         <Modal
           title="Create Plant"

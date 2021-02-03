@@ -22,60 +22,68 @@ class Admin extends React.Component {
   }
 
   render() {
+
+    let config = {
+      pagination: {
+        defaultPageSize: 7,
+      }
+    }
+
     return (
-      <Tabs defaultActiveKey="1" onChange={() => this.callback} style={{ marginLeft: "1%" }}>
+      <Tabs defaultActiveKey="1" onChange={() => this.callback} style={{ marginLeft: "1%"}}>
         <TabPane tab="Plants" key="1" >
-          <Title style={{marginLeft:"2%"}}>Plants</Title>
-          <Table style={{width:"95%", margin:"auto", overflow: "auto", backgroundColor: "#fff", border:"1px solid #e6dfdf", borderRadius:"20px" }} dataSource={this.state.allPlantData} columns={[
-            {
-              title: 'PlantID',
-              dataIndex: 'PlantID',
-              key: 'PlantID',
-              align: "center",
-              width:"10%"
-            },
-            {
-              title: 'Common Name',
-              dataIndex: 'CommonName',
-              key: 'CommonName',
-              align: "center",
-              width:"30%",
-              ...this.getColumnSearchProps('CommonName'),
-            },
-            {
-              title: 'Type',
-              dataIndex: 'Type',
-              key: 'Type',
-              align: "center",
-              width:"30%"
-            },
-            {
-              title: "Options",
-              dataIndex: "Options",
-              key: "Options",
-              align: "center",
-              width:"30%"
-            }
-          ]
-          } />
-          <CreatePlantModal/>
+          <Title style={{ marginLeft: "2%" }}>Plants</Title>
+          <Table {...config} style={{ width: "95%", margin: "auto", overflow: "auto", backgroundColor: "#fff", border: "1px solid #e6dfdf", borderRadius: "20px" }}
+            dataSource={this.state.allPlantData} columns={[
+              {
+                title: 'PlantID',
+                dataIndex: 'PlantID',
+                key: 'PlantID',
+                align: "center",
+                width: "10%"
+              },
+              {
+                title: 'Common Name',
+                dataIndex: 'CommonName',
+                key: 'CommonName',
+                align: "center",
+                width: "30%",
+                ...this.getColumnSearchProps('CommonName'),
+              },
+              {
+                title: 'Type',
+                dataIndex: 'Type',
+                key: 'Type',
+                align: "center",
+                width: "30%"
+              },
+              {
+                title: "Options",
+                dataIndex: "Options",
+                key: "Options",
+                align: "center",
+                width: "30%"
+              }
+            ]
+            } />
+          <CreatePlantModal />
         </TabPane>
         <TabPane tab="Users" key="2">
-          <Title style={{marginLeft:"2%"}}>Users</Title>
-          <Table style={{width:"95%", margin:"auto", overflow: "auto", backgroundColor: "#fff", border:"1px solid #e6dfdf", borderRadius:"20px" }} dataSource={this.state.allUserData} columns={[
+          <Title style={{ marginLeft: "2%" }}>Users</Title>
+          <Table {...config} style={{ width: "95%", margin: "auto", overflow: "auto", backgroundColor: "#fff", border: "1px solid #e6dfdf", borderRadius: "20px" }} dataSource={this.state.allUserData} columns={[
             {
               title: 'ID',
               dataIndex: 'ID',
               key: 'UserID',
               align: "center",
-              width:"10%"
+              width: "10%"
             },
             {
               title: 'Email',
               dataIndex: 'Email',
               key: 'Email',
               align: "center",
-              width:"20%",
+              width: "20%",
               ...this.getColumnSearchProps('CommonName'),
             },
             {
@@ -83,28 +91,28 @@ class Admin extends React.Component {
               dataIndex: 'FirstName',
               key: 'FirstName',
               align: "center",
-              width:"20%"
+              width: "20%"
             },
             {
               title: "Surname",
               dataIndex: "Surname",
               key: "Surname",
               align: "center",
-              width:"20%"
+              width: "20%"
             },
             {
               title: "Type",
               dataIndex: "Type",
               key: "UserType",
               align: "center",
-              width:"10%"
+              width: "10%"
             },
             {
               title: "Options",
               dataIndex: "Options",
               key: "Options",
               align: "center",
-              width:"20%"
+              width: "20%"
             }
           ]
           } />
@@ -194,7 +202,7 @@ class Admin extends React.Component {
 
     this.getUserData();
     this.getPlantData();
-    
+
   }
 
   getPlantData = async () => {
@@ -227,17 +235,17 @@ class Admin extends React.Component {
 
     await axios.get("/api/usertable")
       .then(response => {
-   
+
         //add the options column to each entry
         let responseData = response.data
-        
+
         for (var i = 0; i < responseData.length; i++) {
           responseData[i].Options =
             <div>
-              <span style={{ display: "inline-block" }}><DeleteUserModal propUserID={responseData[i].ID}/></span>
-              <span style={{ display: "inline-block" }}><UpdateUserModal propUserID={responseData[i].ID}/></span>
+              <span style={{ display: "inline-block" }}><DeleteUserModal propUserID={responseData[i].ID} /></span>
+              <span style={{ display: "inline-block" }}><UpdateUserModal propUserID={responseData[i].ID} /></span>
             </div>
-        } 
+        }
 
         //update the state with the table data
         let tempState = Object.assign({}, this.state)
