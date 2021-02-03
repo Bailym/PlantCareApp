@@ -109,39 +109,39 @@ class AddPlantModal extends React.Component {
           <div>
             <Tabs defaultActiveKey="1" onChange={this.callback}>
               <TabPane forceRender tab="Key Details" key="1">
-                <Input addonBefore="Common Name" id="commonname" />
-                <Input addonBefore="Type" id="type" />
-                <Input addonBefore="Native Country" id="nativecountry" />
-                <Input addonBefore="Symbolism" id="symbolism" />
-                <Input addonBefore="Endangered Status" id="endangeredstatus" />
-                <Input addonBefore="Environmental Threat" id="environmentalthreat" />
+                <Input addonBefore="Common Name" id="commonname" maxLength={255} />
+                <Input addonBefore="Type" id="type" maxLength={32} />
+                <Input addonBefore="Native Country" id="nativecountry" maxLength={255} />
+                <Input addonBefore="Symbolism" id="symbolism" maxLength={255} />
+                <Input addonBefore="Endangered Status" id="endangeredstatus" maxLength={255} />
+                <Input addonBefore="Environmental Threat" id="environmentalthreat" maxLength={255} />
               </TabPane>
               <TabPane forceRender tab="Conditions" key="2">
-                <Input addonBefore="Difficulty" id="difficulty" />
-                <Input addonBefore="Sunlight Needs" id="sunlightneeds" />
-                <Input addonBefore="Hardiness" id="hardiness" />
-                <Input addonBefore="Hardiness Zones" id="hardinesszones" />
-                <Input addonBefore="Soil Type" id="soiltype" />
-                <Input addonBefore="Water Needs" id="waterneeds" />
-                <Input addonBefore="Fertilisation Needs" id="fertilisationneeds" />
-                <Input addonBefore="Pruning" id="pruning" />
-                <Input addonBefore="Propagation" id="propagation" />
-                <Input addonBefore="Pests" id="pests" />
-                <Input addonBefore="Planting Time" id="plantingtime" />
-                <Input addonBefore="Harvest Time" id="harvesttime" />
-                <Input addonBefore="PottingNeeds" id="pottingneeds" />
+                <Input addonBefore="Difficulty" id="difficulty" maxLength={45}  />
+                <Input addonBefore="Sunlight Needs" id="sunlightneeds" maxLength={255} />
+                <Input addonBefore="Hardiness" id="hardiness" maxLength={45} />
+                <Input addonBefore="Hardiness Zones" id="hardinesszones" maxLength={45} />
+                <Input addonBefore="Soil Type" id="soiltype" maxLength={255} />
+                <Input addonBefore="Water Needs" id="waterneeds" maxLength={255} />
+                <Input addonBefore="Fertilisation Needs" id="fertilisationneeds" maxLength={255} />
+                <Input addonBefore="Pruning" id="pruning" maxLength={255} />
+                <Input addonBefore="Propagation" id="propagation" maxLength={45} />
+                <Input addonBefore="Pests" id="pests" maxLength={255} />
+                <Input addonBefore="Planting Time" id="plantingtime" maxLength={45} />
+                <Input addonBefore="Harvest Time" id="harvesttime" maxLength={45} />
+                <Input addonBefore="PottingNeeds" id="pottingneeds" maxLength={255} />
               </TabPane>
               <TabPane forceRender tab="Characteristics" key="3">
-                <Input addonBefore="Lifespan" id="lifespan" />
-                <Input addonBefore="Bloom Time" id="bloomtime" />
-                <Input addonBefore="Size Range" id="sizerange" />
-                <Input addonBefore="Spread" id="spread" />
-                <Input addonBefore="Flower Size" id="flowersize" />
+                <Input addonBefore="Lifespan" id="lifespan" maxLength={60} />
+                <Input addonBefore="Bloom Time" id="bloomtime" maxLength={60} />
+                <Input addonBefore="Size Range" id="sizerange" maxLength={60} />
+                <Input addonBefore="Spread" id="spread" maxLength={60} />
+                <Input addonBefore="Flower Size" id="flowersize" maxLength={60} />
               </TabPane>
               <TabPane forceRender tab="Uses" key="4">
-                <Input addonBefore="Environmental Uses" id="environmentaluses" />
-                <Input addonBefore="Economic Uses" id="economicuses" />
-                <Input addonBefore="Home Uses" id="homeuses" />
+                <Input addonBefore="Environmental Uses" id="environmentaluses" maxLength={255} />
+                <Input addonBefore="Economic Uses" id="economicuses" maxLength={255} />
+                <Input addonBefore="Home Uses" id="homeuses" maxLength={255} />
               </TabPane>
             </Tabs>
           </div>
