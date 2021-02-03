@@ -103,29 +103,35 @@ class Register extends React.Component {
                 <Title style={{ margin: "5% auto" }}>Register</Title>
                 <Form.Item>
                   <Input id="firstName"
-                    placeholder="First Name" />
+                    placeholder="First Name" 
+                    maxLength = {45}/>
                 </Form.Item>
                 <Form.Item>
                   <Input id="surname"
-                    placeholder="Surname" />
+                    placeholder="Surname"
+                    maxLength = {45} />
                 </Form.Item>
                 <Form.Item>
                   <Input id="emailOne"
-                    placeholder="Email" />
+                    placeholder="Email"
+                    maxLength = {255} />
                 </Form.Item>
                 <Form.Item>
                   <Input id="emailTwo"
-                    placeholder="Confirm Email" />
+                    placeholder="Confirm Email"
+                    maxLength = {255} />
                 </Form.Item>
                 <Form.Item>
                   <Input id="passwordOne"
                     type="password"
-                    placeholder="Password" />
+                    placeholder="Password"
+                    maxLength = {512} />
                 </Form.Item>
                 <Form.Item>
                   <Input id="passwordTwo"
                     type="password"
-                    placeholder="Confirm Password" />
+                    placeholder="Confirm Password"
+                    maxLength = {255} />
                 </Form.Item>
                 <FormItem>
                   <Button type="primary" id="register" onClick={this.handleSubmit}>Register</Button>
