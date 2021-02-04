@@ -110,7 +110,7 @@ class AddPlantModal extends React.Component {
             <Tabs defaultActiveKey="1" onChange={this.callback}>
               <TabPane forceRender tab="Key Details" key="1">
                 <Input addonBefore="Common Name" id="commonname" maxLength={255} />
-                <Input addonBefore="Type" id="type" maxLength={32} />
+                <Input addonBefore="Type" id="type" maxLength = {32} />
                 <Input addonBefore="Native Country" id="nativecountry" maxLength={255} />
                 <Input addonBefore="Symbolism" id="symbolism" maxLength={255} />
                 <Input addonBefore="Endangered Status" id="endangeredstatus" maxLength={255} />

@@ -47,39 +47,39 @@ class UpdatePlantModal extends React.Component {
     ReactDOM.render(<Tabs defaultActiveKey="1" onChange={this.callback}>
       <TabPane forceRender tab="Key Details" key="1">
         <Input addonBefore="Plant ID" id="plantid" defaultValue={plantData.PlantID} />
-        <Input addonBefore="Common Name" id="commonname" defaultValue={plantData.CommonName} />
-        <Input addonBefore="Type" id="type" defaultValue={plantData.Type} />
-        <Input addonBefore="Native Country" id="nativecountry" defaultValue={plantData.NativeCountry} />
-        <Input addonBefore="Symbolism" id="symbolism" defaultValue={plantData.Symbolism} />
-        <Input addonBefore="Endangered Status" id="endangeredstatus" defaultValue={plantData.EndangeredStatus} />
-        <Input addonBefore="Environmental Threat" id="environmentalthreat" defaultValue={plantData.EnvironmentalThreat} />
+        <Input addonBefore="Common Name" id="commonname" defaultValue={plantData.CommonName} maxLength={255} />
+        <Input addonBefore="Type" id="type" defaultValue={plantData.Type} maxLength={32} />
+        <Input addonBefore="Native Country" id="nativecountry" defaultValue={plantData.NativeCountry} maxLength={255} />
+        <Input addonBefore="Symbolism" id="symbolism" defaultValue={plantData.Symbolism} maxLength={255} />
+        <Input addonBefore="Endangered Status" id="endangeredstatus" defaultValue={plantData.EndangeredStatus} maxLength={255} />
+        <Input addonBefore="Environmental Threat" id="environmentalthreat" defaultValue={plantData.EnvironmentalThreat} maxLength={255} />
       </TabPane>
       <TabPane forceRender tab="Conditions" key="2">
-        <Input addonBefore="Difficulty" id="difficulty" defaultValue={plantData.Difficulty} />
-        <Input addonBefore="Sunlight Needs" id="sunlightneeds" defaultValue={plantData.SunlightNeeds} />
-        <Input addonBefore="Hardiness" id="hardiness" defaultValue={plantData.Hardiness} />
-        <Input addonBefore="Hardiness Zones" id="hardinesszones" defaultValue={plantData.HardinessZones} />
-        <Input addonBefore="Soil Type" id="soiltype" defaultValue={plantData.SoilType} />
-        <Input addonBefore="Water Needs" id="waterneeds" defaultValue={plantData.WaterNeeds} />
-        <Input addonBefore="Fertilisation Needs" id="fertilisationneeds" defaultValue={plantData.FertilisationNeeds} />
-        <Input addonBefore="Pruning" id="pruning" defaultValue={plantData.Pruning} />
-        <Input addonBefore="Propagation" id="propagation" defaultValue={plantData.Propagation} />
-        <Input addonBefore="Pests" id="pests" defaultValue={plantData.Pests} />
-        <Input addonBefore="Planting Time" id="plantingtime" defaultValue={plantData.PlantingTime} />
-        <Input addonBefore="Harvest Time" id="harvesttime" defaultValue={plantData.HarvestTime} />
-        <Input addonBefore="PottingNeeds" id="pottingneeds" defaultValue={plantData.PottingNeeds} />
+        <Input addonBefore="Difficulty" id="difficulty" defaultValue={plantData.Difficulty} maxLength={45} />
+        <Input addonBefore="Sunlight Needs" id="sunlightneeds" defaultValue={plantData.SunlightNeeds} maxLength={255} />
+        <Input addonBefore="Hardiness" id="hardiness" defaultValue={plantData.Hardiness} maxLength={45} />
+        <Input addonBefore="Hardiness Zones" id="hardinesszones" defaultValue={plantData.HardinessZones} maxLength={45} />
+        <Input addonBefore="Soil Type" id="soiltype" defaultValue={plantData.SoilType} maxLength={255} />
+        <Input addonBefore="Water Needs" id="waterneeds" defaultValue={plantData.WaterNeeds} maxLength={255} />
+        <Input addonBefore="Fertilisation Needs" id="fertilisationneeds" defaultValue={plantData.FertilisationNeeds} maxLength={255} />
+        <Input addonBefore="Pruning" id="pruning" defaultValue={plantData.Pruning} maxLength={255} />
+        <Input addonBefore="Propagation" id="propagation" defaultValue={plantData.Propagation} maxLength={45} />
+        <Input addonBefore="Pests" id="pests" defaultValue={plantData.Pests} maxLength={255} />
+        <Input addonBefore="Planting Time" id="plantingtime" defaultValue={plantData.PlantingTime} maxLength={45} />
+        <Input addonBefore="Harvest Time" id="harvesttime" defaultValue={plantData.HarvestTime} maxLength={45} />
+        <Input addonBefore="PottingNeeds" id="pottingneeds" defaultValue={plantData.PottingNeeds} maxLength={255} />
       </TabPane>
       <TabPane forceRender tab="Characteristics" key="3">
-        <Input addonBefore="Lifespan" id="lifespan" defaultValue={plantData.LifeSpan} />
-        <Input addonBefore="Bloom Time" id="bloomtime" defaultValue={plantData.BloomTime} />
-        <Input addonBefore="Size Range" id="sizerange" defaultValue={plantData.SizeRange} />
-        <Input addonBefore="Spread" id="spread" defaultValue={plantData.Spread} />
-        <Input addonBefore="Flower Size" id="flowersize" defaultValue={plantData.FlowerSize} />
+        <Input addonBefore="Lifespan" id="lifespan" defaultValue={plantData.LifeSpan} maxLength={60} />
+        <Input addonBefore="Bloom Time" id="bloomtime" defaultValue={plantData.BloomTime} maxLength={60} />
+        <Input addonBefore="Size Range" id="sizerange" defaultValue={plantData.SizeRange} maxLength={60} />
+        <Input addonBefore="Spread" id="spread" defaultValue={plantData.Spread} maxLength={60} />
+        <Input addonBefore="Flower Size" id="flowersize" defaultValue={plantData.FlowerSize} maxLength={60} />
       </TabPane>
       <TabPane forceRender tab="Uses" key="4">
-        <Input addonBefore="Environmental Uses" id="environmentaluses" defaultValue={plantData.EnvironmentalUses} />
-        <Input addonBefore="Economic Uses" id="economicuses" defaultValue={plantData.EconomicUses} />
-        <Input addonBefore="Home Uses" id="homeuses" defaultValue={plantData.HomeUses} />
+        <Input addonBefore="Environmental Uses" id="environmentaluses" defaultValue={plantData.EnvironmentalUses} maxLength={255} />
+        <Input addonBefore="Economic Uses" id="economicuses" defaultValue={plantData.EconomicUses} maxLength={255} />
+        <Input addonBefore="Home Uses" id="homeuses" defaultValue={plantData.HomeUses} maxLength={255} />
 
       </TabPane>
     </Tabs>, document.getElementById("tabsDiv"))
