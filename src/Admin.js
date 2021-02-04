@@ -33,7 +33,7 @@ class Admin extends React.Component {
       <Tabs defaultActiveKey="1" onChange={() => this.callback} style={{ marginLeft: "1%"}}>
         <TabPane tab="Plants" key="1" >
           <Title style={{ marginLeft: "2%" }}>Plants</Title>
-          <Table {...config} style={{ width: "95%", margin: "auto", overflow: "auto", backgroundColor: "#fff", border: "1px solid #e6dfdf", borderRadius: "20px" }}
+          <Table {...config} style={{ width: "95%", margin: "auto", overflow: "auto", backgroundColor: "#fff", border: "1px solid #e6dfdf", borderRadius: "20px"}}
             dataSource={this.state.allPlantData} columns={[
               {
                 title: 'PlantID',

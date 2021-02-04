@@ -16,7 +16,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div style={{ height: "100%" }}>
+      <div style={{ height: "90%" }}>
         <MediaQuery minDeviceWidth={1025}>
           <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />

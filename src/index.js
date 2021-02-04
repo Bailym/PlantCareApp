@@ -22,8 +22,8 @@ class App extends Component {
     return (
       <Router>
         <Layout style={{
-          minHeight:"100vh",
-          overflow:"hidden",
+          height:"100vh",
+          overflow:"auto",
         }}>
           <Header style={{ backgroundColor: "#9dfac1" }}><HeaderMenu /></Header>
           <Content>
@@ -38,8 +38,8 @@ class App extends Component {
               <Route path='/admin' component={Admin} />
               <Route path='/plant' component={Plant} />
             </Switch>
+            <Footer>Baily Martin - 10582026</Footer>
           </Content>
-          <Footer>Baily Martin - 10582026</Footer>
         </Layout>
       </Router>
     );
