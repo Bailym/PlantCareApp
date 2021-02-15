@@ -6,13 +6,65 @@ import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import MediaQuery from 'react-responsive'
+import * as tf from '@tensorflow/tfjs'
 const axios = require('axios');
+const knnClassifier = require('@tensorflow-models/knn-classifier');
+const mobilenet = require('@tensorflow-models/mobilenet');
 
 class UploadImage extends React.Component {
 
   state = {
     loading: false,
+    uploadedImage: null,
+    net: null,
+    classifier: null,
+    imgTensor: null,
   };
+
+  componentDidMount = async() => {
+
+    // Load the mobilenet model and create our classifer
+    var netInit = await mobilenet.load();
+    var classifierInit = knnClassifier.create();
+
+    this.setState({
+        net: netInit,
+        classifier: classifierInit,
+
+    })
+
+    this.load();
+  }
+
+  load = async () => {
+
+    var tempClassifier = this.state.classifier;
+    //can be change to other source
+    await axios.get('/api/getmodel')
+        .then(function (response) {
+            try {
+                let tensorObj = response.data
+                //covert back to tensor
+                Object.keys(tensorObj).forEach((key) => {
+                    tensorObj[key] = tf.tensor(tensorObj[key], [tensorObj[key].length / 1024, 1024])
+                })
+                tempClassifier.setClassifierDataset(tensorObj);
+            }
+            catch (error) {
+                console.log(error)
+
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    this.setState({
+        classifier: tempClassifier,
+    })
+
+    console.log("Model loaded!")
+}
 
   getBase64 = (img, callback) => {
     const reader = new FileReader();

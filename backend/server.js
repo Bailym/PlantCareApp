@@ -28,6 +28,7 @@ app.options('/api/upload', jfum.optionsHandler.bind(jfum));
 var userController = require("./controllers/userController");
 var recoveryController = require("./notifications/recoveryController"); //handles password recovery
 var plantController = require("./controllers/plantController");  //handles plant table related calls
+var classifierController = require("./controllers/classifierController");  //handles classifier related calls
 const { useReducer } = require('react');
 
 //routing
@@ -61,6 +62,10 @@ app.post("/api/garden/add/:plantid", userController.addToGarden)
 app.post("/api/garden/delete/:plantid", userController.removeFromGraden)
 app.get("/api/garden/check/:plantid", userController.checkGarden)
 app.get("/api/garden/get/", userController.getGarden)
+
+
+//classifier related calls
+app.get("/api/getmodel", classifierController.getModel)
 
 //Login/Session management routing 
 
