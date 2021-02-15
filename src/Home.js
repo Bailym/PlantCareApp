@@ -4,6 +4,7 @@ import PlantSearch from "./components/PlantSearch"
 import { Space, Card, Carousel, Image, Descriptions, Button, message, Tabs, List, Typography } from 'antd';
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { UploadOutlined } from '@ant-design/icons'
 import MediaQuery from 'react-responsive'
 const axios = require('axios');
 
@@ -21,18 +22,24 @@ class Home extends React.Component {
           <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
 
-            <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
+            <Space direction="vertical" style={{ width: "32%", overflowY: "auto", height: "100%" }}>
               <Card title="My Garden">
                 <List>
                   {this.state.gardenPreviewComponents}
                 </List>
               </Card>
             </Space>
+            <Space direction="vertical" style={{ width: "32%", overflowY: "auto", height: "100%", margin: "1%" }}>
+              <Card title="Upload Image" style={{ textAlign: "center" }}>
+                <UploadOutlined style={{ fontSize: "100px" }} onClick={() => {this.props.history.push("/upload")}} />
+              </Card>
+            </Space>
+
           </div>
         </MediaQuery>
 
         <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-        <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
+          <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
 
             <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
@@ -40,6 +47,11 @@ class Home extends React.Component {
                 <List>
                   {this.state.gardenPreviewComponents}
                 </List>
+              </Card>
+            </Space>
+            <Space direction="vertical" style={{ width: "32%", overflowY: "auto", height: "100%", margin: "1%" }}>
+              <Card title="Upload Image" style={{ textAlign: "center" }}>
+                <UploadOutlined style={{ fontSize: "100px" }} />
               </Card>
             </Space>
           </div>
@@ -47,7 +59,7 @@ class Home extends React.Component {
 
 
         <MediaQuery maxDeviceWidth={640}>
-        <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
+          <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
             <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
 
             <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
@@ -55,6 +67,9 @@ class Home extends React.Component {
                 <List>
                   {this.state.gardenPreviewComponents}
                 </List>
+              </Card>
+              <Card title="Upload Image" style={{ textAlign: "center" }}>
+                <UploadOutlined style={{ fontSize: "100px" }} />
               </Card>
             </Space>
           </div>

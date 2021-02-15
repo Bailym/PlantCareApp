@@ -13,6 +13,7 @@ import Register from "./Register";
 import Recover from "./Recover";
 import RecoverRequest from './RecoverRequest';
 import Plant from './Plant';
+import UploadImage from './Upload';
 
 const { Header, Footer, Content } = Layout;
 
@@ -37,6 +38,7 @@ class App extends Component {
               <Route path='/home' component={Home} />
               <Route path='/admin' component={Admin} />
               <Route path='/plant' component={Plant} />
+              <Route path='/upload' component={UploadImage} />
             </Switch>
             <Footer>Baily Martin - 10582026</Footer>
           </Content>
