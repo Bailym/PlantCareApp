@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons'
 import MediaQuery from 'react-responsive'
 const axios = require('axios');
+const { Title, Paragraph, Text } = Typography;
 
 class Home extends React.Component {
 

@@ -10,6 +10,7 @@ import * as tf from '@tensorflow/tfjs'
 const axios = require('axios');
 const knnClassifier = require('@tensorflow-models/knn-classifier');
 const mobilenet = require('@tensorflow-models/mobilenet');
+const { Title, Paragraph, Text } = Typography;
 var classNames = require("./classes.json")
 
 class UploadImage extends React.Component {
@@ -18,6 +19,8 @@ class UploadImage extends React.Component {
     uploadedImage: null,
     net: null,
     classifier: null,
+    confidences: null,
+    results: null,
   };
 
   componentDidMount = async () => {
@@ -110,7 +113,25 @@ class UploadImage extends React.Component {
         confidences["Prediction"] = confidences.details[0].Name
         confidences["Confidence"] = confidences.details[0].Confidence
       }
-      console.log(confidences);
+
+      console.log(confidences)
+
+
+      var results = []
+
+      //add any results with some confidence to a list to be rendered
+      for (var i = 0; i < confidences.details.length; i++) {
+        if (confidences.details[i].Confidence != 0) {
+          results.push(<p id={confidences.details[i].ClassID}>{confidences.details[i].Name}</p>)
+        }
+      }
+
+      console.log(results)
+
+      this.setState({
+        confidences: confidences,
+        results: results
+      })
     }
   }
 
@@ -128,7 +149,7 @@ class UploadImage extends React.Component {
 
   //handles when a new image is uploaded
   handleChange = async (info) => {
-    var listLength = info.fileList.length-1
+    var listLength = info.fileList.length - 1
     //Upload the image anc check it is valid
     const isJpgOrPng = info.file.type === 'image/jpeg' || info.file.type === 'image/png';
     const isLt2M = info.file.size / 1024 / 1024 < 2;
@@ -170,22 +191,29 @@ class UploadImage extends React.Component {
   render() {
     const { loading, imageUrl } = this.state;
     const uploadButton = (
-      <div>
-        {loading ? <LoadingOutlined /> : <PlusOutlined />}
-        <div style={{ marginTop: 8 }}>Upload</div>
+      <div style={{ width: "300px", height: "300px", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
+        <div style={{ fontSize: "50px", textAlign: "center", marginTop: "20%" }}>
+          <PlusOutlined />
+          <p>Upload</p>
+        </div>
       </div>
     );
     return (
-      <Upload
-        name="avatar"
-        listType="picture-card"
-        className="avatar-uploader"
-        showUploadList={false}
-        beforeUpload={this.beforeUpload}
-        onChange={this.handleChange}
-      >
-        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-      </Upload>
+      <Card title="Upload Image">
+        <Upload
+          showUploadList={false}
+          beforeUpload={this.beforeUpload}
+          onChange={this.handleChange}>
+          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '300px', height: "300px", border: "1px solid #000", float: "left" }} /> : uploadButton}
+        </Upload>
+        <div style={{ float: "right", marginRight: "75%" }}>
+          {this.state.confidences ?
+            <div>
+              <Title>Results</Title>
+              {this.state.results}
+            </div> : ""}
+        </div>
+      </Card>
     );
   }
 }
