@@ -78,39 +78,39 @@ class UploadImage extends React.Component {
       let confidences = [];   //a list of confidences and assosciated class ids and names
       let modelPredictions = Object.values(result.confidences)    //the raw confidences supplied by the model
 
-       //create keys for key details readability
+      //create keys for key details readability
       confidences.details = []
       confidences["File Name"] = img.id;
-      confidences.tensor = a; 
+      confidences.tensor = a;
 
-       //create a list of confidences with names and ids
+      //create a list of confidences with names and ids
       for (let i = 0; i < modelPredictions.length; i++) {
-          //iterate through the list of classes
-          for (var j = 0; j < classNames.length; j++) {
-              //match each class ID to a plant name (string)
-              if (classNames[j].ClassID === i) {
-                  label = classNames[j].Name;
-              }
+        //iterate through the list of classes
+        for (var j = 0; j < classNames.length; j++) {
+          //match each class ID to a plant name (string)
+          if (classNames[j].ClassID === i) {
+            label = classNames[j].Name;
           }
+        }
 
-          //add the full details
-          confidences.details.push({ "ClassID": i, "Name": label, "Confidence": modelPredictions[i] * 100 })
+        //add the full details
+        confidences.details.push({ "ClassID": i, "Name": label, "Confidence": modelPredictions[i] * 100 })
 
-          //sort details in desc order by confidence
-          confidences.details.sort(function (a, b) {
-              var keyA = a.Confidence,
-                  keyB = b.Confidence;
-              // Compare the 2 dates
-              if (keyA < keyB) return 1;
-              if (keyA > keyB) return -1;
-              return 0;
-          });
+        //sort details in desc order by confidence
+        confidences.details.sort(function (a, b) {
+          var keyA = a.Confidence,
+            keyB = b.Confidence;
+          // Compare the 2 dates
+          if (keyA < keyB) return 1;
+          if (keyA > keyB) return -1;
+          return 0;
+        });
 
-          //add the important details as keys
-          confidences["Prediction"] = confidences.details[0].Name
-          confidences["Confidence"] = confidences.details[0].Confidence
-      } 
-       console.log(confidences);
+        //add the important details as keys
+        confidences["Prediction"] = confidences.details[0].Name
+        confidences["Confidence"] = confidences.details[0].Confidence
+      }
+      console.log(confidences);
     }
   }
 
@@ -126,8 +126,9 @@ class UploadImage extends React.Component {
     return false;
   }
 
+  //handles when a new image is uploaded
   handleChange = async (info) => {
-
+    var listLength = info.fileList.length-1
     //Upload the image anc check it is valid
     const isJpgOrPng = info.file.type === 'image/jpeg' || info.file.type === 'image/png';
     const isLt2M = info.file.size / 1024 / 1024 < 2;
@@ -137,25 +138,21 @@ class UploadImage extends React.Component {
         uploadedImage: null
       })
     }
-
+    //if the image is too big
     else if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
+      message.error('Image must smaller than 5MB!');
       this.setState({
         uploadedImage: null
       })
     }
     //if it is valid save it to state
     else {
-      this.setState({
-        uploadedImage: info.fileList[0]
-      })
       // Get this url from response in real world.
-      this.getBase64(info.fileList[0].originFileObj, imageUrl =>
+      this.getBase64(info.fileList[listLength].originFileObj, imageUrl =>
         this.setState({
           imageUrl,
-          loading: false,
+          uploadedImage: info.fileList[listLength]
         }, () => {
-          console.log(this.state)
           let im = new Image()    //create an Image
           im.src = this.state.imageUrl    //update the image source
           im.id = this.state.uploadedImage.name    //update the image name
