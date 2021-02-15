@@ -1,0 +1,70 @@
+[
+    {
+        "ClassID": 0,
+        "Name": "Coffee Arabica"
+    },
+    {
+        "ClassID": 1,
+        "Name": "Parlor Palm"
+    },
+    {
+        "ClassID": 2,
+        "Name": "Aloe Vera"
+    },
+    {
+        "ClassID": 3,
+        "Name": "Common Ninebark"
+    },
+    {
+        "ClassID": 4,
+        "Name": "Song of India"
+    },
+    {
+        "ClassID": 5,
+        "Name": "Welsh Onion"
+    },
+    {
+        "ClassID": 6,
+        "Name": "Scarlet Hedgehog Cactus"
+    },
+    {
+        "ClassID": 7,
+        "Name": "Spineless Yucca"
+    },
+    {
+        "ClassID": 8,
+        "Name": "Canary Bellflower"
+    },
+    {
+        "ClassID": 9,
+        "Name": "Common Dandelion"
+    },
+    {
+        "ClassID": 10,
+        "Name": "Monkshood"
+    },
+    {
+        "ClassID": 11,
+        "Name": "Formosan Juniper"
+    },
+    {
+        "ClassID": 12,
+        "Name": "Calla Lily"
+    },
+    {
+        "ClassID": 13,
+        "Name": "Sweet Basil"
+    },
+    {
+        "ClassID": 14,
+        "Name": "Chives"
+    },
+    {
+        "ClassID": 15,
+        "Name": "English Lavender"
+    },
+    {
+        "ClassID": 16,
+        "Name": "Lucky Bamboo"
+    }
+]
