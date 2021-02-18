@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch"
-import { Space, Card, Carousel, Descriptions, Button, message, Tabs, List, Typography, Upload } from 'antd';
+import { Space, Card, Carousel, Descriptions, Button, message, Tabs, Spin, Typography, Upload } from 'antd';
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
@@ -21,11 +21,12 @@ class UploadImage extends React.Component {
     classifier: null,
     confidences: null,
     results: null,
+    loading: true,
   };
 
   componentDidMount = async () => {
-
     // Load the mobilenet model and create our classifer
+
     var netInit = await mobilenet.load();
     var classifierInit = knnClassifier.create();
 
@@ -66,6 +67,9 @@ class UploadImage extends React.Component {
     })
 
     console.log("Model loaded!")
+    this.setState({
+      loading: false
+    })
   }
 
   classifyImage = async (img) => {
@@ -125,8 +129,6 @@ class UploadImage extends React.Component {
           results.push(<p id={confidences.details[i].ClassID}>{confidences.details[i].Name}</p>)
         }
       }
-
-      console.log(results)
 
       this.setState({
         confidences: confidences,
@@ -200,19 +202,22 @@ class UploadImage extends React.Component {
     );
     return (
       <Card title="Upload Image">
-        <Upload
-          showUploadList={false}
-          beforeUpload={this.beforeUpload}
-          onChange={this.handleChange}>
-          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '300px', height: "300px", border: "1px solid #000", float: "left" }} /> : uploadButton}
-        </Upload>
-        <div style={{ float: "right", marginRight: "75%" }}>
-          {this.state.confidences ?
-            <div>
-              <Title>Results</Title>
-              {this.state.results}
-            </div> : ""}
-        </div>
+        <Spin spinning ={this.state.loading}>
+          <Upload id="uploadControl"
+            showUploadList={false}
+            beforeUpload={this.beforeUpload}
+            onChange={this.handleChange}
+            disabled={this.state.loading}>
+            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '300px', height: "300px", border: "1px solid #000", float: "left" }} /> : uploadButton}
+          </Upload>
+          <div style={{ float: "right", marginRight: "75%" }}>
+            {this.state.confidences ?
+              <div>
+                <Title>Results</Title>
+                {this.state.results}
+              </div> : ""}
+          </div>
+        </Spin>
       </Card>
     );
   }
