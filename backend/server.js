@@ -49,6 +49,7 @@ app.post('/api/recover/send/:id/:email', recoveryController.sendRecoveryEmail); 
 
 app.get("/api/plants/admintable", plantController.getPlantsAdminTable);
 app.get("/api/plants/:id", plantController.getPlantID);
+app.get("/api/plants/getid/:commonname", plantController.getPlantIDByName);
 app.post("/api/plants/archive/:id", plantController.archivePlant)
 app.post("/api/plants/update", plantController.UpdatePlant)
 app.post("/api/plants/create", plantController.CreatePlant)

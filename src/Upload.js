@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch"
-import { Space, Card, Carousel, Descriptions, Button, message, Tabs, Spin, Typography, Upload } from 'antd';
+import { Space, Card, Carousel, Descriptions, Button, message, List, Spin, Typography, Upload, } from 'antd';
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
@@ -72,6 +72,14 @@ class UploadImage extends React.Component {
     })
   }
 
+  goToPlant = value => {
+    this.props.history.push({
+      pathname: '/plant',
+      state: { PlantID: value }
+    })
+    window.location.reload();
+  };
+
   classifyImage = async (img) => {
 
     var a = tf.browser.fromPixels(img)
@@ -90,45 +98,54 @@ class UploadImage extends React.Component {
       confidences["File Name"] = img.id;
       confidences.tensor = a;
 
-      //create a list of confidences with names and ids
+      //Iterate through the confidences for each class (all classes are included here even if the confidence is 0)
       for (let i = 0; i < modelPredictions.length; i++) {
-        //iterate through the list of classes
+        //iterate through the list of classes (classes.JSON, this is so the Common Name can be mapped to a ClassID)
         for (var j = 0; j < classNames.length; j++) {
-          //match each class ID to a plant name (string)
+          //match each class ID to a Common Name (string)
           if (classNames[j].ClassID === i) {
             label = classNames[j].Name;
           }
         }
 
-        //add the full details
-        confidences.details.push({ "ClassID": i, "Name": label, "Confidence": modelPredictions[i] * 100 })
+        //get the Plant ID from the database (different to the classifiers classid)
+        var plantID = null
+        //we only want to display results where the confidence is not 0
+        if (modelPredictions[i] != 0) {
+          await axios.get(`/api/plants/getid/${label}`)
+            .then(function (response) {
+              console.log(response)
+              plantID = response.data[0].PlantID
+            })
+            .catch(function (error) {
+              message.error("Unknown Error...")
+            })
 
-        //sort details in desc order by confidence
-        confidences.details.sort(function (a, b) {
-          var keyA = a.Confidence,
-            keyB = b.Confidence;
-          // Compare the 2 dates
-          if (keyA < keyB) return 1;
-          if (keyA > keyB) return -1;
-          return 0;
-        });
+          //add an entry to the details object which contains the complete details of the predicition. 
+          confidences.details.push({ "ClassID": i, "PlantID": plantID, "Name": label, "Confidence": modelPredictions[i] * 100 })
 
-        //add the important details as keys
-        confidences["Prediction"] = confidences.details[0].Name
-        confidences["Confidence"] = confidences.details[0].Confidence
-      }
+          //sort details in desc order by confidence
+          confidences.details.sort(function (a, b) {
+            var keyA = a.Confidence,
+              keyB = b.Confidence;
+            // Compare the 2 dates
+            if (keyA < keyB) return 1;
+            if (keyA > keyB) return -1;
+            return 0;
+          });
 
-      console.log(confidences)
-
-
-      var results = []
-
-      //add any results with some confidence to a list to be rendered
-      for (var i = 0; i < confidences.details.length; i++) {
-        if (confidences.details[i].Confidence != 0) {
-          results.push(<p id={confidences.details[i].ClassID}>{confidences.details[i].Name}</p>)
+          //add the important details as keys [0] is the first entry with the most confidence since the list was sorted above.
+          confidences["Prediction"] = confidences.details[0].Name
+          confidences["Confidence"] = confidences.details[0].Confidence
         }
       }
+      var results = []
+
+      results = confidences.details.map(x =>
+        <List.Item key={x.ClassID}>
+          <Typography.Text><a onClick={() => this.goToPlant(x.PlantID)}>
+            {x.Name}</a></Typography.Text>
+        </List.Item>)
 
       this.setState({
         confidences: confidences,
@@ -146,6 +163,9 @@ class UploadImage extends React.Component {
 
   //ALWAYS RETURN FALSE, THIS STOPS THE UPLOAD FROM ATTEMPTING TO CONTACT THE SERVER
   beforeUpload = (file) => {
+    this.setState({
+      loading: true
+    })
     return false;
   }
 
@@ -154,7 +174,7 @@ class UploadImage extends React.Component {
     var listLength = info.fileList.length - 1
     //Upload the image anc check it is valid
     const isJpgOrPng = info.file.type === 'image/jpeg' || info.file.type === 'image/png';
-    const isLt2M = info.file.size / 1024 / 1024 < 2;
+    const isLt20M = info.file.size / 1024 / 1024 < 20;
     if (!isJpgOrPng) {
       message.error('You can only upload JPG/PNG file!');
       this.setState({
@@ -162,8 +182,8 @@ class UploadImage extends React.Component {
       })
     }
     //if the image is too big
-    else if (!isLt2M) {
-      message.error('Image must smaller than 5MB!');
+    else if (!isLt20M) {
+      message.error('Image must smaller than 20MB!');
       this.setState({
         uploadedImage: null
       })
@@ -181,6 +201,9 @@ class UploadImage extends React.Component {
           im.id = this.state.uploadedImage.name    //update the image name
           //runs each time an image is loaded
           im.onload = async () => {
+            this.setState({
+              loading: false
+            })
             await this.classifyImage(im)
           }
         }),
@@ -202,7 +225,7 @@ class UploadImage extends React.Component {
     );
     return (
       <Card title="Upload Image">
-        <Spin spinning ={this.state.loading}>
+        <Spin spinning={this.state.loading}>
           <Upload id="uploadControl"
             showUploadList={false}
             beforeUpload={this.beforeUpload}

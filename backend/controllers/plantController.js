@@ -37,6 +37,21 @@ module.exports = {
 
     },
 
+    async getPlantIDByName(request, response) {
+
+        try {
+            //make query and send results
+            const [results, fields] = await DBPool.query(`SELECT PlantID FROM plantdb.plant WHERE CommonName = ?`, request.params.commonname);
+            response.send(results);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+
+    },
+
     async getPlantsAdminTable(request, response) {
 
         try {
