@@ -66,7 +66,6 @@ class UploadImage extends React.Component {
       classifier: tempClassifier,
     })
 
-    console.log("Model loaded!")
     this.setState({
       loading: false
     })
@@ -114,7 +113,6 @@ class UploadImage extends React.Component {
         if (modelPredictions[i] != 0) {
           await axios.get(`/api/plants/getid/${label}`)
             .then(function (response) {
-              console.log(response)
               plantID = response.data[0].PlantID
             })
             .catch(function (error) {
@@ -215,33 +213,95 @@ class UploadImage extends React.Component {
 
   render() {
     const { loading, imageUrl } = this.state;
-    const uploadButton = (
-      <div style={{ width: "300px", height: "300px", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
-        <div style={{ fontSize: "50px", textAlign: "center", marginTop: "20%" }}>
+    const uploadButtonDesktop = (
+      <div style={{ width: "30vmax", height: "30vmax", border: "1px solid #000", backgroundColor: "#d3ebe5"}}>
+        <div style={{ fontSize: "50px", textAlign: "center", marginTop: "10vmax" }}>
+          <PlusOutlined />
+          <p>Upload</p>
+        </div>
+      </div>
+    );
+    const uploadButtonTablet = (
+      <div style={{ width: "30vmax", height: "30vmax", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
+        <div style={{ fontSize: "50px", textAlign: "center", marginTop: "8vmax" }}>
+          <PlusOutlined />
+          <p>Upload</p>
+        </div>
+      </div>
+    );
+    const uploadButtonMobile = (
+      <div style={{ width: "88vmin", height: "88vmin", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
+        <div style={{ fontSize: "50px", textAlign: "center", marginTop: "20vmin" }}>
           <PlusOutlined />
           <p>Upload</p>
         </div>
       </div>
     );
     return (
-      <Card title="Upload Image">
-        <Spin spinning={this.state.loading}>
-          <Upload id="uploadControl"
-            showUploadList={false}
-            beforeUpload={this.beforeUpload}
-            onChange={this.handleChange}
-            disabled={this.state.loading}>
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '300px', height: "300px", border: "1px solid #000", float: "left" }} /> : uploadButton}
-          </Upload>
-          <div style={{ float: "right", marginRight: "75%" }}>
-            {this.state.confidences ?
+      <div>
+        <MediaQuery minDeviceWidth={1025}>
+          <Card title="Upload Image">
+            <Spin spinning={this.state.loading}>
+              <Upload id="uploadControl"
+                showUploadList={false}
+                beforeUpload={this.beforeUpload}
+                onChange={this.handleChange}
+                disabled={this.state.loading}>
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '30vmax', height: "30vmax", border: "1px solid #000", float: "left" }} /> : uploadButtonDesktop}
+              </Upload>
+              <div style={{ float: "right", marginRight: "60%" }}>
+                {this.state.confidences ?
+                  <div>
+                    <Title>Results</Title>
+                    {this.state.results}
+                  </div> : ""}
+              </div>
+            </Spin>
+          </Card>
+        </MediaQuery>
+
+        <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
+        <Card title="Upload Image">
+            <Spin spinning={this.state.loading}>
+              <Upload id="uploadControl"
+                showUploadList={false}
+                beforeUpload={this.beforeUpload}
+                onChange={this.handleChange}
+                disabled={this.state.loading}>
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '30vmax', height: "30vmax", border: "1px solid #000", float: "left" }} /> : uploadButtonTablet}
+              </Upload>
+              <div style={{ float: "right", marginRight: "35%" }}>
+                {this.state.confidences ?
+                  <div>
+                    <Title>Results</Title>
+                    {this.state.results}
+                  </div> : ""}
+              </div>
+            </Spin>
+          </Card>
+        </MediaQuery>
+
+        <MediaQuery maxDeviceWidth={640}>
+          <Card title="Upload Image">
+            <Spin spinning={this.state.loading}>
+              <Upload id="uploadControl"
+                showUploadList={false}
+                beforeUpload={this.beforeUpload}
+                onChange={this.handleChange}
+                disabled={this.state.loading}>
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: "88vmin", height: "88vmin", border: "1px solid #000"}} /> : uploadButtonMobile}
+              </Upload>
               <div>
-                <Title>Results</Title>
-                {this.state.results}
-              </div> : ""}
-          </div>
-        </Spin>
-      </Card>
+                {this.state.confidences ?
+                  <div style={{textAlign:"center"}}>
+                    <Title>Results</Title>
+                    {this.state.results}
+                  </div> : ""}
+              </div>
+            </Spin>
+          </Card>
+        </MediaQuery>
+      </div>
     );
   }
 }

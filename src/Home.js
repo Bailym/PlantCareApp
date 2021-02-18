@@ -52,7 +52,7 @@ class Home extends React.Component {
             </Space>
             <Space direction="vertical" style={{ width: "32%", overflowY: "auto", height: "100%", margin: "1%" }}>
               <Card title="Upload Image" style={{ textAlign: "center" }}>
-                <UploadOutlined style={{ fontSize: "100px" }} />
+                <UploadOutlined style={{ fontSize: "100px" }} onClick={() => {this.props.history.push("/upload")}} />
               </Card>
             </Space>
           </div>
@@ -70,7 +70,7 @@ class Home extends React.Component {
                 </List>
               </Card>
               <Card title="Upload Image" style={{ textAlign: "center" }}>
-                <UploadOutlined style={{ fontSize: "100px" }} />
+                <UploadOutlined style={{ fontSize: "100px" }} onClick={() => {this.props.history.push("/upload")}} />
               </Card>
             </Space>
           </div>
