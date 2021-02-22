@@ -5,7 +5,7 @@ const DBConnection = {
     port: "3306",
     user: "admin",
     password: "MA24xW#4E2NKJ%WSNxaJMIgAt49#Rz",
-    database: "",
+    database: "plantdb",
     insecureAuth: true
 } 
 

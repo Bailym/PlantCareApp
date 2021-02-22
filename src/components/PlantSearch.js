@@ -15,26 +15,33 @@ class PlantSearch extends React.Component {
   //handles client to server
   //@value: the term entered by the user
   handleSearch = async value => {
+
     let tempState = Object.assign({}, this.state)
+    //reset the state before performing a new search
+    this.setState({
+      data: [],
+      options: []
+    })
     //if the input isnt blank
     if (value) {
       //perform the search and await a response from the server
       await axios.get(`/api/plants/search/${value}`)
         .then(async response => {
           //update the state with the search results and the options components
-          tempState.data = response.data;
-          tempState.options = response.data.map(x => <Option style={{ padding: "1%", textAlign: "center" }} key={x.PlantID}>{x.CommonName}</Option>)
+          this.setState({
+            data: response.data,
+            options: response.data.map(x => <Option style={{ padding: "1%", textAlign: "center" }} key={x.PlantID}>{x.CommonName + " (" + x.AltName + ") "} </Option>)
+          })
         })
     }
     //if no search term has been entered
     else {
       //reset the state 
-      tempState.data = [];
-      tempState.options = []
+      this.setState({
+        data: [],
+        options: []
+      })
     }
-
-    //apply the state
-    this.setState(tempState)
   };
 
   //handles selecting the value
@@ -43,7 +50,7 @@ class PlantSearch extends React.Component {
 
     this.props.history.push({
       pathname: '/plant',
-      state: {PlantID: value}  
+      state: { PlantID: value }
     })
     window.location.reload();
   };
