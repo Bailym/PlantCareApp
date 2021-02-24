@@ -137,7 +137,7 @@ class Plant extends React.Component {
               <Button style={{ margin: "1% auto", width: "100%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
               <Button style={{ margin: "1% auto", width: "100%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
             </div>
-            <Tabs defaultActiveKey="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+            <Tabs defaultActiveKey="1" style={{ width: "100%", overflowY: "auto", height: "100%"}} centered>
               <TabPane forceRender tab="Key Details" key="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
                 <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
                   <Card title="Images">
