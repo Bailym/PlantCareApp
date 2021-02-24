@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Link } from 'react-router-dom';
-import { Form, Input, Button, message, Typography } from 'antd';
+import { Form, Input, Button, message, Typography, Spin } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import MediaQuery from 'react-responsive'
 const axios = require('axios');
@@ -14,12 +14,13 @@ class Account extends React.Component {
 
   state = {
     loggedInUserID: -1, //The ID of the currently logged in user. 
-    loggedInUserDetails: [] //The details of the currently logged in user
+    loggedInUserDetails: [], //The details of the currently logged in user
+    loading: false
   }
 
   render() {
     return (
-      <div>
+      <Spin spinning={this.state.loading}>
         <MediaQuery minDeviceWidth={1025}>
           <div id="container" style={{ width: "80%", margin: "auto", height: "100%" }}>
             <Title style={{ textAlign: "center" }}>Account</Title>
@@ -183,12 +184,16 @@ class Account extends React.Component {
             </Form>
           </div>
         </MediaQuery>
-      </div>
+      </Spin>
 
     );
   }
 
   async componentDidMount() {
+
+    this.setState({
+      loading:true
+    })
 
     /* 
      * Check that a user is logged in.
@@ -217,7 +222,8 @@ class Account extends React.Component {
         //Update the state with the users data.
         this.setState({
           loggedInUserID: this.state.loggedInUserID,
-          loggedInUserDetails: response.data[0]
+          loggedInUserDetails: response.data[0],
+          loading:false
         }, () => this.getDetails())
       })
       .catch(function (error) {
@@ -231,11 +237,16 @@ class Account extends React.Component {
     document.getElementById("surname").value = this.state.loggedInUserDetails.Surname
     document.getElementById("email").value = this.state.loggedInUserDetails.Email
     document.getElementById("password").value = this.state.loggedInUserDetails.Password
-    document.getElementById("type").value = this.state.loggedInUserDetails.Type
+    document.getElementById("type").value = this.state.loggedInUserDetails.Type 
   }
 
   //Updates the users data in the database with the values specified in the form.
   updateDetails = async () => {
+
+    this.setState({
+      loading: true
+    })
+
     var newFirstName = document.getElementById("firstName").value
     var newSurname = document.getElementById("surname").value
     var newEmail = document.getElementById("email").value = this.state.loggedInUserDetails.Email
@@ -269,6 +280,10 @@ class Account extends React.Component {
           message.info("Account details could not be updated")
         })
     }
+
+    this.setState({
+      loading: true
+    })
   }
 
 
