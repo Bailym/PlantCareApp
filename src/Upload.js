@@ -80,7 +80,6 @@ class UploadImage extends React.Component {
   };
 
   classifyImage = async (img) => {
-
     var a = tf.browser.fromPixels(img)
     if (this.state.classifier.getNumClasses() > 0) {
       // Get the activation from mobilenet from the uploaded image.
@@ -147,7 +146,8 @@ class UploadImage extends React.Component {
 
       this.setState({
         confidences: confidences,
-        results: results
+        results: results,
+        uploadedImage: null,
       })
     }
   }
@@ -214,7 +214,7 @@ class UploadImage extends React.Component {
   render() {
     const { loading, imageUrl } = this.state;
     const uploadButtonDesktop = (
-      <div style={{ width: "30vmax", height: "30vmax", border: "1px solid #000", backgroundColor: "#d3ebe5"}}>
+      <div style={{ width: "30vmax", height: "30vmax", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
         <div style={{ fontSize: "50px", textAlign: "center", marginTop: "10vmax" }}>
           <PlusOutlined />
           <p>Upload</p>
@@ -261,7 +261,7 @@ class UploadImage extends React.Component {
         </MediaQuery>
 
         <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-        <Card title="Upload Image">
+          <Card title="Upload Image">
             <Spin spinning={this.state.loading}>
               <Upload id="uploadControl"
                 showUploadList={false}
@@ -289,11 +289,11 @@ class UploadImage extends React.Component {
                 beforeUpload={this.beforeUpload}
                 onChange={this.handleChange}
                 disabled={this.state.loading}>
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: "88vmin", height: "88vmin", border: "1px solid #000"}} /> : uploadButtonMobile}
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: "88vmin", height: "88vmin", border: "1px solid #000" }} /> : uploadButtonMobile}
               </Upload>
               <div>
                 {this.state.confidences ?
-                  <div style={{textAlign:"center"}}>
+                  <div style={{ textAlign: "center" }}>
                     <Title>Results</Title>
                     {this.state.results}
                   </div> : ""}
