@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch"
-import { Space, Card, Carousel, Descriptions, Button, message, List, Spin, Typography, Upload, } from 'antd';
+import { Space, Card, Tabs, Descriptions, Image as AntdImage, message, List, Spin, Typography, Upload, } from 'antd';
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
@@ -11,6 +11,7 @@ const axios = require('axios');
 const knnClassifier = require('@tensorflow-models/knn-classifier');
 const mobilenet = require('@tensorflow-models/mobilenet');
 const { Title, Paragraph, Text } = Typography;
+const { TabPane } = Tabs;
 var classNames = require("./classes.json")
 
 class UploadImage extends React.Component {
@@ -101,6 +102,7 @@ class UploadImage extends React.Component {
 
         //get the Plant ID from the database (different to the classifiers classid)
         var plantID = null
+        var plantImages = []
         //we only want to display results where the confidence is not 0
         if (modelPredictions[i] != 0) {
           await axios.get(`/api/plants/getid/${label}`)
@@ -111,8 +113,19 @@ class UploadImage extends React.Component {
               message.error("Unknown Error...")
             })
 
+          //it is also worth getting a url to the images of the plant in the database
+          await axios.get(`/api/plant/images/${plantID}`)
+            .then(response => {
+              plantImages = response.data
+            })
+            .catch(function (error) {
+              console.log("Error getting plant images...")
+            })
+
+          console.log(plantImages)
+
           //add an entry to the details object which contains the complete details of the predicition. 
-          confidences.details.push({ "ClassID": i, "PlantID": plantID, "Name": label, "Confidence": modelPredictions[i] * 100 })
+          confidences.details.push({ "ClassID": i, "PlantID": plantID, "Name": label, "Confidence": modelPredictions[i] * 100, "dbImages": plantImages })
 
           //sort details in desc order by confidence
           confidences.details.sort(function (a, b) {
@@ -131,11 +144,15 @@ class UploadImage extends React.Component {
       }
       var results = []
 
-      results = confidences.details.map(x =>
-        <List.Item key={x.ClassID}>
-          <Typography.Text><a onClick={() => this.goToPlant(x.PlantID)}>
-            {x.Name}</a></Typography.Text>
-        </List.Item>)
+      console.log(confidences)
+      results = await Promise.all(confidences.details.map(async (x) =>
+        <TabPane tab={x.Name} key={x.ClassID}>
+          <Card>
+            <Typography.Text><a onClick={() => this.goToPlant(x.PlantID)}>{x.Name}</a></Typography.Text>
+            {await this.getPlantImages(x.PlantID)}
+          </Card>
+        </TabPane>
+      ))
 
       this.setState({
         confidences: confidences,
@@ -143,6 +160,30 @@ class UploadImage extends React.Component {
         uploadedImage: null,
       })
     }
+  }
+
+  getPlantImages = async (plantID) => {
+    var imageComponents = []
+    var imageURLs = []
+    await axios.get(`/api/plant/images/${plantID}`)
+      .then(response => {
+        imageURLs = response.data
+      })
+
+    imageComponents = imageURLs.map(x =>
+      <div key={x.ImagePath}  >
+        <AntdImage key={x.ImagePath} style={{
+          border: "1px solid #000", width: "auto",
+          height: "auto",
+          maxWidth: "250px",
+          maxHeight: "250px",
+          display: "block",
+          margin: "auto",
+        }} src={"/images/" + x.ImagePath} />
+      </div>)
+
+    console.log(imageComponents)
+    return imageComponents
   }
 
   //reads a file URL and returns the image 
@@ -247,11 +288,13 @@ class UploadImage extends React.Component {
                 disabled={this.state.loading}>
                 {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '30vmax', height: "30vmax", border: "1px solid #000", float: "left" }} /> : uploadButtonDesktop}
               </Upload>
-              <div style={{ float: "right", marginRight: "60%" }}>
+              <div style={{ float: "right", marginRight: "35vmax" }}>
                 {this.state.confidences ?
                   <div>
                     <Title>Results</Title>
-                    {this.state.results}
+                    <Tabs style={{ width: "30vmax", overflow: "auto" }}>
+                      {this.state.results}
+                    </Tabs>
                   </div> : ""}
               </div>
             </Spin>
