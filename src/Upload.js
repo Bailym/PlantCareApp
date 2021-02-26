@@ -36,7 +36,7 @@ class UploadImage extends React.Component {
 
     })
 
-    this.load();
+    await this.load();
   }
 
   load = async () => {
@@ -45,28 +45,19 @@ class UploadImage extends React.Component {
     //can be change to other source
     await axios.get('/api/getmodel')
       .then(function (response) {
-        try {
-          let tensorObj = response.data
-          //covert back to tensor
-          Object.keys(tensorObj).forEach((key) => {
-            tensorObj[key] = tf.tensor(tensorObj[key], [tensorObj[key].length / 1024, 1024])
-          })
-          tempClassifier.setClassifierDataset(tensorObj);
-        }
-        catch (error) {
-          console.log(error)
-
-        }
+        let tensorObj = response.data
+        //covert back to tensor
+        Object.keys(tensorObj).forEach((key) => {
+          tensorObj[key] = tf.tensor(tensorObj[key], [tensorObj[key].length / 1024, 1024])
+        })
+        tempClassifier.setClassifierDataset(tensorObj);
       })
       .catch(function (error) {
-        console.log(error);
-      });
+        console.log(error)
+      })
 
     this.setState({
       classifier: tempClassifier,
-    })
-
-    this.setState({
       loading: false
     })
   }
@@ -80,10 +71,12 @@ class UploadImage extends React.Component {
   };
 
   classifyImage = async (img) => {
+
     var a = tf.browser.fromPixels(img)
     if (this.state.classifier.getNumClasses() > 0) {
       // Get the activation from mobilenet from the uploaded image.
-      let activation = this.state.net.infer(a, 'conv_preds');
+      let activation = await this.state.net.infer(a, 'conv_preds');
+
       // Get the most likely class and confidence from the classifier module.
       let result = await this.state.classifier.predictClass(activation);
 
@@ -197,11 +190,15 @@ class UploadImage extends React.Component {
           let im = new Image()    //create an Image
           im.src = this.state.imageUrl    //update the image source
           im.id = this.state.uploadedImage.name    //update the image name
+
           //runs each time an image is loaded
           im.onload = async () => {
             this.setState({
               loading: false
             })
+
+            //IMPORTANT: CALLING THIS FUNCTION TWICE MAKES IT WORK ON IOS. NO IDEA WHY????????
+            await this.classifyImage(im)
             await this.classifyImage(im)
           }
         }),
@@ -238,6 +235,7 @@ class UploadImage extends React.Component {
       </div>
     );
     return (
+
       <div>
         <MediaQuery minDeviceWidth={1025}>
           <Card title="Upload Image">
