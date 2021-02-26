@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch"
-import { Space, Card, Tabs, Descriptions, Image as AntdImage, message, List, Spin, Typography, Upload, } from 'antd';
+import { Space, Card, Tabs, Carousel, Image as AntdImage, message, List, Spin, Typography, Upload, } from 'antd';
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
@@ -149,7 +149,9 @@ class UploadImage extends React.Component {
         <TabPane tab={x.Name} key={x.ClassID}>
           <Card>
             <Typography.Text><a onClick={() => this.goToPlant(x.PlantID)}>{x.Name}</a></Typography.Text>
-            {await this.getPlantImages(x.PlantID)}
+            <Carousel autoplay>
+              {await this.getPlantImages(x.PlantID)}
+            </Carousel>
           </Card>
         </TabPane>
       ))
