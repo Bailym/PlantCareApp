@@ -183,7 +183,9 @@ class Home extends React.Component {
     //RSS FEED CODE
     let parser = new Parser() //create a parser
 
-    var feed = await parser.parseURL('https://blog.gardeningknowhow.com/feed/');  //parse the url to get the feed object
+    const CORS_PROXY = "https://bailymcorsserver.herokuapp.com/"
+
+    var feed = await parser.parseURL(CORS_PROXY + 'https://www.epicgardening.com/feed/');  //parse the url to get the feed object
 
     //map the feed entries to components
     tempState.rssComponents = feed.items.map((x) =>
