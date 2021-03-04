@@ -68,7 +68,7 @@ class Home extends React.Component {
               <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
                 <Card title="News" style={{ textAlign: "center" }}>
                   <div id="rssDiv" style={{ maxHeight: "60vh", overflow: "auto" }}>
-                  <Text id="rssText"></Text>
+                    <Text id="rssText"></Text>
                     {this.state.rssComponents}
                   </div>
                 </Card>
@@ -92,7 +92,7 @@ class Home extends React.Component {
                 </Card>
                 <Card title="News" style={{ textAlign: "center" }}>
                   <div id="rssDiv" style={{ maxHeight: "60vh", overflow: "auto" }}>
-                  <Text id="rssText"></Text>
+                    <Text id="rssText"></Text>
                     {this.state.rssComponents}
                   </div>
                 </Card>
@@ -181,32 +181,30 @@ class Home extends React.Component {
 
 
     //RSS FEED CODE
+    let parser = new Parser() //create a parser
 
-    try {
-      let parser = new Parser() //create a parser
+    const CORS_PROXY = "https://bailymcorsserver.herokuapp.com/"
 
-      const CORS_PROXY = "https://bailymcorsserver.herokuapp.com/"
-
-      var feed = await parser.parseURL(CORS_PROXY + 'https://www.epicgardening.com/feed/');  //parse the url to get the feed object
-
-      //map the feed entries to components
-      tempState.rssComponents = feed.items.map((x) =>
-        <div key={x.guid}>
-          <Divider />
-          <Title>{x.title}</Title>
-          <div dangerouslySetInnerHTML={{ __html: x.content }}></ div>
-          <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
-          <Text>{x.pubDate.slice(0, -15)}</Text>
-        </div>)
-
-      document.getElementById("rssText").innerHTML = "EpicGardening.com"
-
-    }
-    catch {
-      console.log("RSS Feed Could not be Loaded...")
-      document.getElementById("rssText").innerHTML = "Could not load RSS feed..."
-    }
-
+    //parse the url to get the feed object
+    await parser.parseURL(CORS_PROXY + 'https://www.finegardening.com/feed')
+      .then(function (response) {
+        console.log(response)
+        //map the feed entries to components
+        tempState.rssComponents = response.items.map((x) =>
+          <div key={x.guid}>
+            <Divider />
+            <Title>{x.title}</Title>
+            <div dangerouslySetInnerHTML={{ __html: x.content }}></ div>
+            <a href={x.link}>Read More</a><br/>
+            <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
+            <Text>{x.pubDate.slice(0, -15)}</Text>
+          </div>)
+        document.getElementById("rssText").innerHTML = "EpicGardening.com"
+      })
+      .catch(function (error) {
+        console.log("RSS Feed Could not be Loaded...")
+        document.getElementById("rssText").innerHTML = "Could not load RSS feed..."
+      });
 
     tempState.loading = false
     this.setState(tempState)
