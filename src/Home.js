@@ -38,10 +38,10 @@ class Home extends React.Component {
                   <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
                 </Card>
               </Space>
-              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%"}}>
-              <Card title="News" style={{ textAlign: "center" }}>
-                  <div id="rssDiv" style={{maxHeight:"60vh", overflow:"auto"}}>
-                    <Text>Gardening Know-How's Blog</Text>
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
+                <Card title="News" style={{ textAlign: "center" }}>
+                  <div id="rssDiv" style={{ maxHeight: "60vh", overflow: "auto" }}>
+                    <Text id="rssText"></Text>
                     {this.state.rssComponents}
                   </div>
                 </Card>
@@ -65,10 +65,10 @@ class Home extends React.Component {
                   <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
                 </Card>
               </Space>
-              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%"}}>
-              <Card title="News" style={{ textAlign: "center" }}>
-                  <div id="rssDiv" style={{maxHeight:"60vh", overflow:"auto"}}>
-                    <Text>Gardening Know-How's Blog</Text>
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
+                <Card title="News" style={{ textAlign: "center" }}>
+                  <div id="rssDiv" style={{ maxHeight: "60vh", overflow: "auto" }}>
+                  <Text id="rssText"></Text>
                     {this.state.rssComponents}
                   </div>
                 </Card>
@@ -91,8 +91,8 @@ class Home extends React.Component {
                   <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
                 </Card>
                 <Card title="News" style={{ textAlign: "center" }}>
-                  <div id="rssDiv" style={{maxHeight:"60vh", overflow:"auto"}}>
-                    <Text>Gardening Know-How's Blog</Text>
+                  <div id="rssDiv" style={{ maxHeight: "60vh", overflow: "auto" }}>
+                  <Text id="rssText"></Text>
                     {this.state.rssComponents}
                   </div>
                 </Card>
@@ -181,21 +181,31 @@ class Home extends React.Component {
 
 
     //RSS FEED CODE
-    let parser = new Parser() //create a parser
 
-    const CORS_PROXY = "https://bailymcorsserver.herokuapp.com/"
+    try {
+      let parser = new Parser() //create a parser
 
-    var feed = await parser.parseURL(CORS_PROXY + 'https://www.epicgardening.com/feed/');  //parse the url to get the feed object
+      const CORS_PROXY = "https://bailymcorsserver.herokuapp.com/"
 
-    //map the feed entries to components
-    tempState.rssComponents = feed.items.map((x) =>
-      <div key={x.guid}>
-        <Divider />
-        <Title>{x.title}</Title>
-        <div dangerouslySetInnerHTML={{ __html: x.content }}></ div>
-        <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
-        <Text>{x.pubDate.slice(0, -15)}</Text>
-      </div>)
+      var feed = await parser.parseURL(CORS_PROXY + 'https://www.epicgardening.com/feed/');  //parse the url to get the feed object
+
+      //map the feed entries to components
+      tempState.rssComponents = feed.items.map((x) =>
+        <div key={x.guid}>
+          <Divider />
+          <Title>{x.title}</Title>
+          <div dangerouslySetInnerHTML={{ __html: x.content }}></ div>
+          <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
+          <Text>{x.pubDate.slice(0, -15)}</Text>
+        </div>)
+
+      document.getElementById("rssText").innerHTML = "EpicGardening.com"
+
+    }
+    catch {
+      console.log("RSS Feed Could not be Loaded...")
+      document.getElementById("rssText").innerHTML = "Could not load RSS feed..."
+    }
 
 
     tempState.loading = false
