@@ -144,7 +144,6 @@ class UploadImage extends React.Component {
       }
       var results = []
 
-      console.log(confidences)
       results = await Promise.all(confidences.details.map(async (x) =>
         <TabPane tab={x.Name} key={x.ClassID}>
           <Card>
@@ -183,8 +182,6 @@ class UploadImage extends React.Component {
           margin: "auto",
         }} src={"/images/" + x.ImagePath} />
       </div>)
-
-    console.log(imageComponents)
     return imageComponents
   }
 
@@ -313,11 +310,13 @@ class UploadImage extends React.Component {
                 disabled={this.state.loading}>
                 {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '30vmax', height: "30vmax", border: "1px solid #000", float: "left" }} /> : uploadButtonTablet}
               </Upload>
-              <div style={{ float: "right", marginRight: "35%" }}>
-                {this.state.confidences ?
+              <div style={{ float: "right", marginRight: "5vmax" }}>
+              {this.state.confidences ?
                   <div>
                     <Title>Results</Title>
-                    {this.state.results}
+                    <Tabs style={{ width: "30vmax", overflow: "auto" }}>
+                      {this.state.results}
+                    </Tabs>
                   </div> : ""}
               </div>
             </Spin>
@@ -335,10 +334,12 @@ class UploadImage extends React.Component {
                 {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: "88vmin", height: "88vmin", border: "1px solid #000" }} /> : uploadButtonMobile}
               </Upload>
               <div>
-                {this.state.confidences ?
-                  <div style={{ textAlign: "center" }}>
+              {this.state.confidences ?
+                  <div>
                     <Title>Results</Title>
-                    {this.state.results}
+                    <Tabs style={{ width: "88vmin", margin:"auto", overflow: "auto" }}>
+                      {this.state.results}
+                    </Tabs>
                   </div> : ""}
               </div>
             </Spin>
