@@ -1,11 +1,12 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch"
-import { Space, Card, Carousel, Image, Descriptions, Button, message, Spin, List, Typography } from 'antd';
+import { Space, Card, Carousel, Image, Descriptions, Button, message, Spin, List, Typography, Divider } from 'antd';
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons'
 import MediaQuery from 'react-responsive'
+import * as Parser from 'rss-parser';
 const axios = require('axios');
 const { Title, Paragraph, Text } = Typography;
 
@@ -15,6 +16,7 @@ class Home extends React.Component {
     gardenData: [],
     gardenPreviewComponents: [],
     loading: false,
+    rssComponents: [],
   }
 
   render() {
@@ -24,20 +26,26 @@ class Home extends React.Component {
           <MediaQuery minDeviceWidth={1025}>
             <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
               <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-
-              <Space direction="vertical" style={{ width: "32%", overflowY: "auto", height: "100%" }}>
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
                 <Card title="My Garden">
                   <List>
                     {this.state.gardenPreviewComponents}
                   </List>
                 </Card>
               </Space>
-              <Space direction="vertical" style={{ width: "32%", overflowY: "auto", height: "100%", margin: "1%" }}>
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%", margin: "1vw" }}>
                 <Card title="Upload Image" style={{ textAlign: "center" }}>
                   <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
                 </Card>
               </Space>
-
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%"}}>
+              <Card title="News" style={{ textAlign: "center" }}>
+                  <div id="rssDiv" style={{maxHeight:"60vh", overflow:"auto"}}>
+                    <Text>Gardening Know-How's Blog</Text>
+                    {this.state.rssComponents}
+                  </div>
+                </Card>
+              </Space>
             </div>
           </MediaQuery>
 
@@ -45,16 +53,24 @@ class Home extends React.Component {
             <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
               <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
 
-              <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
                 <Card title="My Garden">
                   <List>
                     {this.state.gardenPreviewComponents}
                   </List>
                 </Card>
               </Space>
-              <Space direction="vertical" style={{ width: "32%", overflowY: "auto", height: "100%", margin: "1%" }}>
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%", margin: "1vw" }}>
                 <Card title="Upload Image" style={{ textAlign: "center" }}>
                   <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
+                </Card>
+              </Space>
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%"}}>
+              <Card title="News" style={{ textAlign: "center" }}>
+                  <div id="rssDiv" style={{maxHeight:"60vh", overflow:"auto"}}>
+                    <Text>Gardening Know-How's Blog</Text>
+                    {this.state.rssComponents}
+                  </div>
                 </Card>
               </Space>
             </div>
@@ -73,6 +89,12 @@ class Home extends React.Component {
                 </Card>
                 <Card title="Upload Image" style={{ textAlign: "center" }}>
                   <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
+                </Card>
+                <Card title="News" style={{ textAlign: "center" }}>
+                  <div id="rssDiv" style={{maxHeight:"60vh", overflow:"auto"}}>
+                    <Text>Gardening Know-How's Blog</Text>
+                    {this.state.rssComponents}
+                  </div>
                 </Card>
               </Space>
             </div>
@@ -156,8 +178,25 @@ class Home extends React.Component {
       </List.Item>)
 
     tempState.gardenPreviewComponents = components;
-    tempState.loading = false
 
+
+    //RSS FEED CODE
+    let parser = new Parser() //create a parser
+
+    var feed = await parser.parseURL('https://blog.gardeningknowhow.com/feed/');  //parse the url to get the feed object
+
+    //map the feed entries to components
+    tempState.rssComponents = feed.items.map((x) =>
+      <div key={x.guid}>
+        <Divider />
+        <Title>{x.title}</Title>
+        <div dangerouslySetInnerHTML={{ __html: x.content }}></ div>
+        <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
+        <Text>{x.pubDate.slice(0, -15)}</Text>
+      </div>)
+
+
+    tempState.loading = false
     this.setState(tempState)
 
 
