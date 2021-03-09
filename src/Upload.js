@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch"
-import { Space, Card, Tabs, Carousel, Image as AntdImage, message, List, Spin, Typography, Upload, } from 'antd';
+import { Space, Card, Tabs, Carousel, Image as AntdImage, message, Divider, Spin, Typography, Upload, } from 'antd';
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
@@ -147,7 +147,8 @@ class UploadImage extends React.Component {
       results = await Promise.all(confidences.details.map(async (x) =>
         <TabPane tab={x.Name} key={x.ClassID}>
           <Card>
-            <Typography.Text><a onClick={() => this.goToPlant(x.PlantID)}>{x.Name}</a></Typography.Text>
+            <Typography.Text><a onClick={() => this.goToPlant(x.PlantID)}>{x.Name}</a></Typography.Text><br/>
+            <Divider/>
             <Carousel autoplay>
               {await this.getPlantImages(x.PlantID)}
             </Carousel>
@@ -254,7 +255,7 @@ class UploadImage extends React.Component {
       <div style={{ width: "30vmax", height: "30vmax", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
         <div style={{ fontSize: "50px", textAlign: "center", marginTop: "10vmax" }}>
           <PlusOutlined />
-          <p>Upload</p>
+          <p>Add Image</p>
         </div>
       </div>
     );
@@ -262,15 +263,15 @@ class UploadImage extends React.Component {
       <div style={{ width: "30vmax", height: "30vmax", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
         <div style={{ fontSize: "50px", textAlign: "center", marginTop: "8vmax" }}>
           <PlusOutlined />
-          <p>Upload</p>
+          <p>Add Image</p>
         </div>
       </div>
     );
     const uploadButtonMobile = (
-      <div style={{ width: "88vmin", height: "88vmin", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
+      <div style={{ width: "82vmin", height: "82vmin", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
         <div style={{ fontSize: "50px", textAlign: "center", marginTop: "20vmin" }}>
           <PlusOutlined />
-          <p>Upload</p>
+          <p>Add Image</p>
         </div>
       </div>
     );
@@ -278,7 +279,7 @@ class UploadImage extends React.Component {
 
       <div>
         <MediaQuery minDeviceWidth={1025}>
-          <Card title="Upload Image">
+          <Card title="Upload Image" style={{margin:"2vh auto 0 auto", width:"95vw"}} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
             <Spin spinning={this.state.loading}>
               <Upload id="uploadControl"
                 showUploadList={false}
@@ -287,7 +288,7 @@ class UploadImage extends React.Component {
                 disabled={this.state.loading}>
                 {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '30vmax', height: "30vmax", border: "1px solid #000", float: "left" }} /> : uploadButtonDesktop}
               </Upload>
-              <div style={{ float: "right", marginRight: "35vmax" }}>
+              <div style={{ float: "right", marginRight: "30vmax" }}>
                 {this.state.confidences ?
                   <div>
                     <Title>Results</Title>
@@ -301,7 +302,7 @@ class UploadImage extends React.Component {
         </MediaQuery>
 
         <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-          <Card title="Upload Image">
+          <Card title="Upload Image" style={{margin:"2vh auto 0 auto", width:"95vw"}} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
             <Spin spinning={this.state.loading}>
               <Upload id="uploadControl"
                 showUploadList={false}
@@ -324,14 +325,14 @@ class UploadImage extends React.Component {
         </MediaQuery>
 
         <MediaQuery maxDeviceWidth={640}>
-          <Card title="Upload Image">
+          <Card title="Upload Image" style={{margin:"2vh auto 0 auto", width:"95vw"}} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
             <Spin spinning={this.state.loading}>
               <Upload id="uploadControl"
                 showUploadList={false}
                 beforeUpload={this.beforeUpload}
                 onChange={this.handleChange}
                 disabled={this.state.loading}>
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: "88vmin", height: "88vmin", border: "1px solid #000" }} /> : uploadButtonMobile}
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: "82vmin", height: "82vmin", border: "1px solid #000" }} /> : uploadButtonMobile}
               </Upload>
               <div>
               {this.state.confidences ?
