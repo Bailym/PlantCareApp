@@ -27,14 +27,14 @@ class Home extends React.Component {
             <div style={{margin: "1% auto", width: "95vw", height: "90vh"}}>
               <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
               <Space direction="vertical" style={{ width: "31vw", overflowY: "auto"}}>
-                <Card title="My Garden" className="hideScroll" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
+                <Card title="My Garden" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
                   <List>
                     {this.state.gardenPreviewComponents}
                   </List>
                 </Card>
               </Space>
               <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", margin: "1vw" }}>
-                <Card title="Identify Plants" className="hideScroll" style={{ textAlign: "center" }} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
+                <Card title="Identify Plants" style={{ textAlign: "center" }} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
                   <CameraOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
                 </Card>
               </Space>
