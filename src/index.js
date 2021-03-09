@@ -23,10 +23,13 @@ class App extends Component {
     return (
       <Router>
         <Layout style={{
-          height:"100vh",
-          overflow:"auto",
+          height: "100vh",
+          overflow: "auto",
+          background: "rgb(157,250,193)",
+          background: "linear-gradient(90deg, rgba(157,250,193,1) 35%, rgba(191,242,245,1) 100%)"
+          
         }}>
-          <Header style={{ backgroundColor: "#9dfac1" }}><HeaderMenu /></Header>
+          <Header style={{ backgroundColor: "#9dfac1", maxHeight:"10vh" }}><HeaderMenu /></Header>
           <Content>
             <Switch>
               <Route exact path='/' component={Home} />

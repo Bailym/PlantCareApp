@@ -1,24 +1,68 @@
 .ant-layout-header .ant-menu {
-    background-color: #9dfac1; /*Overriden property*/
-  }
+  background-color: #9dfac1;
+  /*Overriden property*/
+}
 
-  .ant-layout-header .ant-menu .ant-menu-item-selected {
-      background-color: #49c97a;
-  }
+.ant-layout-header .ant-menu .ant-menu-item-selected {
+  background-color: #49c97a;
+}
 
-  .dynamic-delete-button {
-    margin: 0 8px;
-    cursor: pointer;
-    position: relative;
-    top: 4px;
-    font-size: 24px;
-    color: #999;
-    transition: all 0.3s;
-  }
-  .dynamic-delete-button:hover {
-    color: #777;
-  }
-  .dynamic-delete-button[disabled] {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
+.dynamic-delete-button {
+  margin: 0 8px;
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  font-size: 24px;
+  color: #999;
+  transition: all 0.3s;
+}
+
+.dynamic-delete-button:hover {
+  color: #777;
+}
+
+.dynamic-delete-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7944d;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #e0c59e;
+}
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.hideScroll{
+  overflow: hidden;
+}
+.hideScroll:hover{
+  overflow: auto;
+}

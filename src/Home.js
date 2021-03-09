@@ -1,10 +1,11 @@
 import React from 'react';
+import './app.css';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch"
 import { Space, Card, Carousel, Image, Descriptions, Button, message, Spin, List, Typography, Divider } from 'antd';
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import { UploadOutlined } from '@ant-design/icons'
+import { CameraOutlined } from '@ant-design/icons'
 import MediaQuery from 'react-responsive'
 import * as Parser from 'rss-parser';
 const axios = require('axios');
@@ -22,25 +23,24 @@ class Home extends React.Component {
   render() {
     return (
       <Spin spinning={this.state.loading}>
-        <div style={{ height: "90%" }}>
           <MediaQuery minDeviceWidth={1025}>
-            <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
+            <div style={{margin: "1% auto", width: "95vw", height: "90vh"}}>
               <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
-                <Card title="My Garden">
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto"}}>
+                <Card title="My Garden" className="hideScroll" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
                   <List>
                     {this.state.gardenPreviewComponents}
                   </List>
                 </Card>
               </Space>
-              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%", margin: "1vw" }}>
-                <Card title="Upload Image" style={{ textAlign: "center" }}>
-                  <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", margin: "1vw" }}>
+                <Card title="Identify Plants" className="hideScroll" style={{ textAlign: "center" }} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
+                  <CameraOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
                 </Card>
               </Space>
-              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
-                <Card title="News" style={{ textAlign: "center" }}>
-                  <div id="rssDiv" style={{ maxHeight: "60vh", overflow: "auto" }}>
+              <Space direction="vertical" className="hideScroll" style={{ width: "31vw", maxHeight:"70vh"}}>
+                <Card title="News" style={{ textAlign: "center" }} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
+                  <div id="rssDiv">
                     <Text id="rssText"></Text>
                     {this.state.rssComponents}
                   </div>
@@ -50,24 +50,23 @@ class Home extends React.Component {
           </MediaQuery>
 
           <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-            <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
+            <div style={{ margin: "1% auto", width: "95vw", height: "90vh" }}>
               <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-
-              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
-                <Card title="My Garden">
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto" }}>
+                <Card title="My Garden" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
                   <List>
                     {this.state.gardenPreviewComponents}
                   </List>
                 </Card>
               </Space>
-              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%", margin: "1vw" }}>
-                <Card title="Upload Image" style={{ textAlign: "center" }}>
-                  <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", margin: "1vw" }}>
+                <Card title="Identify Plants" style={{ textAlign: "center" }} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
+                  <CameraOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
                 </Card>
               </Space>
-              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", height: "100%" }}>
-                <Card title="News" style={{ textAlign: "center" }}>
-                  <div id="rssDiv" style={{ maxHeight: "60vh", overflow: "auto" }}>
+              <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", maxHeight:"70vh" }}>
+                <Card title="News" style={{ textAlign: "center" }} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
+                  <div id="rssDiv">
                     <Text id="rssText"></Text>
                     {this.state.rssComponents}
                   </div>
@@ -78,20 +77,19 @@ class Home extends React.Component {
 
 
           <MediaQuery maxDeviceWidth={640}>
-            <div style={{ margin: "1% auto", width: "95%", height: "90%" }}>
+            <div style={{ margin: "1% auto", width: "95vw", height: "90vh" }}>
               <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-
-              <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
-                <Card title="My Garden">
+              <Space direction="vertical" style={{ width: "100%"}}>
+                <Card title="My Garden" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
                   <List>
                     {this.state.gardenPreviewComponents}
                   </List>
                 </Card>
-                <Card title="Upload Image" style={{ textAlign: "center" }}>
-                  <UploadOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
+                <Card title="Identify Plants" style={{ textAlign: "center" }} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
+                  <CameraOutlined style={{ fontSize: "100px" }} onClick={() => { this.props.history.push("/upload") }} />
                 </Card>
-                <Card title="News" style={{ textAlign: "center" }}>
-                  <div id="rssDiv" style={{ maxHeight: "60vh", overflow: "auto" }}>
+                <Card title="News" style={{ textAlign: "center" }} headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
+                  <div id="rssDiv">
                     <Text id="rssText"></Text>
                     {this.state.rssComponents}
                   </div>
@@ -100,7 +98,6 @@ class Home extends React.Component {
             </div>
 
           </MediaQuery>
-        </div>
       </Spin>
 
 
@@ -188,14 +185,13 @@ class Home extends React.Component {
     //parse the url to get the feed object
     await parser.parseURL(CORS_PROXY + 'https://www.finegardening.com/feed')
       .then(function (response) {
-        console.log(response)
         //map the feed entries to components
         tempState.rssComponents = response.items.map((x) =>
           <div key={x.guid}>
             <Divider />
             <Title>{x.title}</Title>
             <div dangerouslySetInnerHTML={{ __html: x.content }}></ div>
-            <a href={x.link}>Read More</a><br/>
+            <a href={x.link}>Read More</a><br />
             <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
             <Text>{x.pubDate.slice(0, -15)}</Text>
           </div>)
