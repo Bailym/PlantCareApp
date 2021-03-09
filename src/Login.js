@@ -43,7 +43,7 @@ class Login extends React.Component {
 
             this.props.history.push("/home")
             window.location.reload();
-            
+
           }
           //Else show message
           else {
@@ -62,22 +62,26 @@ class Login extends React.Component {
       <Router>
 
         <MediaQuery minDeviceWidth={1025}>
-          <Card bordered={true} style={{ width: "30%", backgroundColor: "#9dfac1", margin: "auto", marginTop: "10%", border: "2px solid black", borderRadius: "20px" }}>
+          <Card bordered={true} style={{ width: "100vw", backgroundColor: "#9dfac1", height:"100%",
+            background: "rgb(157,250,193)",
+            background: "linear-gradient(90deg, rgba(157,250,193,1) 35%, rgba(191,242,245,1) 100%)" }}>
             <Row style={{ paddingTop: "5%" }}>
-              <Form style={{ textAlign: "center", margin: "auto" }}>
+              <Form style={{ textAlign: "center", margin: "auto", minWidth:"40%" }}>
                 <Title style={{ margin: "5% auto" }}>Login</Title>
                 <Form.Item>
                   <Input id="email" prefix={<UserOutlined />}
-                    placeholder="Email" />
+                    placeholder="Email"
+                    style={{ borderRadius: "10px" }} />
                 </Form.Item>
                 <Form.Item>
                   <Input id="password"
                     prefix={<LockOutlined />}
                     type="password"
-                    placeholder="Password" />
+                    placeholder="Password"
+                    style={{ borderRadius: "10px" }} />
                 </Form.Item>
                 <FormItem>
-                  <Button type="primary" id="login" onClick={this.handleSubmit}>Log in</Button>
+                  <Button type="primary" id="login" onClick={this.handleSubmit} style={{ width: "100%", borderRadius: "10px" }}>Log in</Button>
                 </FormItem>
                 <FormItem>
                   <Link to="/recover" onClick={() => {
@@ -97,24 +101,30 @@ class Login extends React.Component {
         </MediaQuery>
 
         <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-          <Card bordered={true} style={{ width: "60%", backgroundColor: "#9dfac1", margin: "30% auto 0 auto ", border: "2px solid black", borderRadius: "20px" }}>
-            <Row style={{ paddingTop: "5%" }}>
-              <Form style={{ textAlign: "center", margin: "auto", minWidth: "100%" }}>
-                <Title style={{ margin: "5% auto" }}>Login</Title>
-                <Form.Item>
+          <Card bordered={true} style={{ width: "100vw", backgroundColor: "#9dfac1", height:"100%",
+            background: "rgb(157,250,193)",
+            background: "linear-gradient(90deg, rgba(157,250,193,1) 35%, rgba(191,242,245,1) 100%)" }}>
+            <Row style={{ paddingTop: "1%" }}>
+              <Form style={{ textAlign: "center", margin: "auto", minWidth: "50%", height: "40vh" }}>
+                <Title style={{ marginTop: "5%" }}>Login</Title>
+                <Form.Item style={{ marginTop: "2vh" }}>
                   <Input id="email" prefix={<UserOutlined />}
+                    style={{ borderRadius: "10px" }}
                     placeholder="Username"
-                    size="large" />
+                    size="large"
+                    style={{ borderRadius: "10px" }} />
                 </Form.Item>
                 <Form.Item>
                   <Input id="password"
+                    style={{ borderRadius: "10px" }}
                     prefix={<LockOutlined />}
                     type="password"
                     placeholder="Password"
-                    size="large" />
+                    size="large"
+                    style={{ borderRadius: "10px" }} />
                 </Form.Item>
                 <FormItem>
-                  <Button type="primary" size="large" id="login" onClick={this.handleSubmit}>Log in</Button>
+                  <Button type="primary" size="large" id="login" onClick={this.handleSubmit} style={{ width: "100%", borderRadius: "10px" }}>Log in</Button>
                 </FormItem>
                 <FormItem>
                   <Link to="/recover" onClick={() => {
@@ -136,24 +146,30 @@ class Login extends React.Component {
 
 
         <MediaQuery maxDeviceWidth={640}>
-          <Card bordered={true} style={{ width: "85%", backgroundColor: "#9dfac1", margin: "30% auto 0 auto ", border: "2px solid black", borderRadius: "20px" }}>
+          <Card bordered={true} style={{
+            width: "100vw", backgroundColor: "#9dfac1", height:"100%",
+            background: "rgb(157,250,193)",
+            background: "linear-gradient(90deg, rgba(157,250,193,1) 35%, rgba(191,242,245,1) 100%)"
+          }}>
             <Row style={{ paddingTop: "5%" }}>
               <Form style={{ textAlign: "center", margin: "auto" }}>
                 <Title style={{ margin: "5% auto" }}>Login</Title>
                 <Form.Item>
                   <Input id="email" prefix={<UserOutlined />}
                     placeholder="Username"
-                    size="large" />
+                    size="large"
+                    style={{ borderRadius: "10px" }} />
                 </Form.Item>
                 <Form.Item>
                   <Input id="password"
                     prefix={<LockOutlined />}
                     type="password"
                     placeholder="Password"
-                    size="large" />
+                    size="large"
+                    style={{ borderRadius: "10px" }} />
                 </Form.Item>
-                <FormItem>
-                  <Button type="primary" size="large" id="login" onClick={this.handleSubmit}>Log in</Button>
+                <FormItem >
+                  <Button type="primary" size="large" id="login" onClick={this.handleSubmit} style={{ width: "100%", borderRadius: "10px" }}>Log in</Button>
                 </FormItem>
                 <FormItem>
                   <Link to="/recover" onClick={() => {

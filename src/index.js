@@ -40,7 +40,6 @@ class App extends Component {
               <Route path='/plant' component={Plant} />
               <Route path='/upload' component={UploadImage} />
             </Switch>
-            <Footer>Baily Martin - 10582026</Footer>
           </Content>
         </Layout>
       </Router>

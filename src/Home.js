@@ -199,7 +199,7 @@ class Home extends React.Component {
             <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
             <Text>{x.pubDate.slice(0, -15)}</Text>
           </div>)
-        document.getElementById("rssText").innerHTML = "EpicGardening.com"
+        document.getElementById("rssText").innerHTML = "FineGardening.com"
       })
       .catch(function (error) {
         console.log("RSS Feed Could not be Loaded...")
