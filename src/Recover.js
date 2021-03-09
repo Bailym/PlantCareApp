@@ -4,12 +4,10 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Form, Input, Button, Row, message, Card, Typography } from 'antd';
 import MediaQuery from 'react-responsive'
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import {UserOutlined } from '@ant-design/icons';
 import FormItem from 'antd/lib/form/FormItem';
 const axios = require('axios');
 const { Title } = Typography;
-var sha512 = require('js-sha512');
-
 
 class Recover extends React.Component {
 
@@ -48,7 +46,7 @@ class Recover extends React.Component {
         .then(async response => {
 
           //if the email does exist in the system
-          if(response.data.length == 1){
+          if(response.data.length === 1){
 
             let id = response.data[0].UserID; //extract the id
 

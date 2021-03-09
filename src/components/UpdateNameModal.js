@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import '../app.css';
 import PropTypes from 'prop-types';
-import { Modal, Input, message, Button, Typography, Tabs, Form } from 'antd';
+import { Modal, Input, Button, Form } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 const axios = require('axios');
 

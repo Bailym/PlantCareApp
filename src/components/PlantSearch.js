@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Select } from 'antd';
-import { Route, withRouter } from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 const { Option } = Select;
 const axios = require('axios');
 
@@ -16,7 +16,6 @@ class PlantSearch extends React.Component {
   //@value: the term entered by the user
   handleSearch = async value => {
 
-    let tempState = Object.assign({}, this.state)
     //reset the state before performing a new search
     this.setState({
       data: [],
@@ -60,7 +59,6 @@ class PlantSearch extends React.Component {
       <Select
         showSearch
         value={this.state.value}
-        placeholder={this.props.placeholder}
         style={this.props.style}
         size="large"
         defaultActiveFirstOption={false}

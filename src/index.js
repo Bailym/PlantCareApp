@@ -15,7 +15,7 @@ import RecoverRequest from './RecoverRequest';
 import Plant from './Plant';
 import UploadImage from './Upload';
 
-const { Header, Footer, Content } = Layout;
+const { Header, Content } = Layout;
 
 class App extends Component {
 
@@ -25,7 +25,6 @@ class App extends Component {
         <Layout style={{
           height: "100vh",
           overflow: "auto",
-          background: "rgb(157,250,193)",
           background: "linear-gradient(90deg, rgba(157,250,193,1) 35%, rgba(191,242,245,1) 100%)"
           
         }}>

@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
-import { Modal, Input, message, Button, Typography, Tabs } from 'antd';
+import { Modal, Input, message, Button, Tabs } from 'antd';
 import UpdateNameModal from "./UpdateNameModal"
 import UpdateImageModal from "./UpdateImageModal"
 const axios = require('axios');
-const { Text } = Typography;
 const { TabPane } = Tabs;
 
 class UpdatePlantModal extends React.Component {

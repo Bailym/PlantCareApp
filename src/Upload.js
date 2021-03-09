@@ -1,16 +1,14 @@
+/* eslint-disable no-loop-func */
 import React from 'react';
 import 'antd/dist/antd.css';
-import PlantSearch from "./components/PlantSearch"
-import { Space, Card, Tabs, Carousel, Image as AntdImage, message, Divider, Spin, Typography, Upload, } from 'antd';
-import ReactDOM from "react-dom"
-import { BrowserRouter as Router, Link } from 'react-router-dom';
-import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import {Card, Tabs, Carousel, Image as AntdImage, message, Divider, Spin, Typography, Upload, Button } from 'antd';
+import {PlusOutlined } from '@ant-design/icons'
 import MediaQuery from 'react-responsive'
 import * as tf from '@tensorflow/tfjs'
 const axios = require('axios');
 const knnClassifier = require('@tensorflow-models/knn-classifier');
 const mobilenet = require('@tensorflow-models/mobilenet');
-const { Title, Paragraph, Text } = Typography;
+const { Title} = Typography;
 const { TabPane } = Tabs;
 var classNames = require("./classes.json")
 
@@ -104,7 +102,7 @@ class UploadImage extends React.Component {
         var plantID = null
         var plantImages = []
         //we only want to display results where the confidence is not 0
-        if (modelPredictions[i] != 0) {
+        if (modelPredictions[i] !== 0) {
           await axios.get(`/api/plants/getid/${label}`)
             .then(function (response) {
               plantID = response.data[0].PlantID
@@ -147,7 +145,7 @@ class UploadImage extends React.Component {
       results = await Promise.all(confidences.details.map(async (x) =>
         <TabPane tab={x.Name} key={x.ClassID}>
           <Card>
-            <Typography.Text><a onClick={() => this.goToPlant(x.PlantID)}>{x.Name}</a></Typography.Text><br/>
+            <Typography.Text><Button type="dashed" onClick={() => this.goToPlant(x.PlantID)} style={{backgroundColor:"#f5e8cb"}}>{x.Name}</Button></Typography.Text><br/>
             <Divider/>
             <Carousel autoplay>
               {await this.getPlantImages(x.PlantID)}
@@ -250,7 +248,7 @@ class UploadImage extends React.Component {
   }
 
   render() {
-    const { loading, imageUrl } = this.state;
+    const {imageUrl } = this.state;
     const uploadButtonDesktop = (
       <div style={{ width: "30vmax", height: "30vmax", border: "1px solid #000", backgroundColor: "#d3ebe5" }}>
         <div style={{ fontSize: "50px", textAlign: "center", marginTop: "10vmax" }}>

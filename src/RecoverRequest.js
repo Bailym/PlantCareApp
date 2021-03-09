@@ -1,6 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Form, Input, Button, Row, message, Card, Typography } from 'antd';
 import MediaQuery from 'react-responsive'

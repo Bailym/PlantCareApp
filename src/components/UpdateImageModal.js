@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import '../app.css';
 import PropTypes from 'prop-types';
-import { Modal, Carousel, message, Button, Form, Image, Upload } from 'antd';
-import { MinusCircleOutlined, PlusOutlined, LoadingOutlined, UploadOutlined } from '@ant-design/icons';
+import { Modal, message, Button, Form, Image, Upload } from 'antd';
+import { MinusCircleOutlined, UploadOutlined } from '@ant-design/icons';
 const axios = require('axios');
 
 

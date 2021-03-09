@@ -2,10 +2,9 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Menu, message } from 'antd';
 import { withRouter } from "react-router-dom";
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
 const axios = require('axios');
-
 
 class HeaderMenu extends React.Component {
 

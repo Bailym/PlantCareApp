@@ -2,7 +2,6 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch";
 import { Space, Card, Carousel, Image, Descriptions, Button, message, Tabs, Spin } from 'antd';
-import ReactDOM from "react-dom"
 import MediaQuery from 'react-responsive'
 const { TabPane } = Tabs;
 const axios = require('axios');

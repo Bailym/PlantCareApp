@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from "react-router-dom";
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Form, Input, Button, Row, message, Card, Typography } from 'antd';
+import { Form, Input, Button, Row, message, Typography } from 'antd';
 import MediaQuery from 'react-responsive'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import FormItem from 'antd/lib/form/FormItem';
@@ -62,9 +62,6 @@ class Login extends React.Component {
       <Router>
 
         <MediaQuery minDeviceWidth={1025}>
-          <Card bordered={true} style={{ width: "100vw", backgroundColor: "#9dfac1", height:"100%",
-            background: "rgb(157,250,193)",
-            background: "linear-gradient(90deg, rgba(157,250,193,1) 35%, rgba(191,242,245,1) 100%)" }}>
             <Row style={{ paddingTop: "5%" }}>
               <Form style={{ textAlign: "center", margin: "auto", minWidth:"40%" }}>
                 <Title style={{ margin: "5% auto" }}>Login</Title>
@@ -97,13 +94,9 @@ class Login extends React.Component {
                 </FormItem>
               </Form>
             </Row>
-          </Card>
         </MediaQuery>
 
         <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-          <Card bordered={true} style={{ width: "100vw", backgroundColor: "#9dfac1", height:"100%",
-            background: "rgb(157,250,193)",
-            background: "linear-gradient(90deg, rgba(157,250,193,1) 35%, rgba(191,242,245,1) 100%)" }}>
             <Row style={{ paddingTop: "1%" }}>
               <Form style={{ textAlign: "center", margin: "auto", minWidth: "50%", height: "40vh" }}>
                 <Title style={{ marginTop: "5%" }}>Login</Title>
@@ -111,8 +104,7 @@ class Login extends React.Component {
                   <Input id="email" prefix={<UserOutlined />}
                     style={{ borderRadius: "10px" }}
                     placeholder="Username"
-                    size="large"
-                    style={{ borderRadius: "10px" }} />
+                    size="large"/>
                 </Form.Item>
                 <Form.Item>
                   <Input id="password"
@@ -120,8 +112,7 @@ class Login extends React.Component {
                     prefix={<LockOutlined />}
                     type="password"
                     placeholder="Password"
-                    size="large"
-                    style={{ borderRadius: "10px" }} />
+                    size="large"/>
                 </Form.Item>
                 <FormItem>
                   <Button type="primary" size="large" id="login" onClick={this.handleSubmit} style={{ width: "100%", borderRadius: "10px" }}>Log in</Button>
@@ -140,17 +131,11 @@ class Login extends React.Component {
                 </FormItem>
               </Form>
             </Row>
-          </Card>
         </MediaQuery>
 
 
 
         <MediaQuery maxDeviceWidth={640}>
-          <Card bordered={true} style={{
-            width: "100vw", backgroundColor: "#9dfac1", height:"100%",
-            background: "rgb(157,250,193)",
-            background: "linear-gradient(90deg, rgba(157,250,193,1) 35%, rgba(191,242,245,1) 100%)"
-          }}>
             <Row style={{ paddingTop: "5%" }}>
               <Form style={{ textAlign: "center", margin: "auto" }}>
                 <Title style={{ margin: "5% auto" }}>Login</Title>
@@ -185,9 +170,7 @@ class Login extends React.Component {
                 </FormItem>
               </Form>
             </Row>
-          </Card>
         </MediaQuery>
-
       </Router>
     );
   }

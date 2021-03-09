@@ -2,14 +2,12 @@ import React from 'react';
 import './app.css';
 import 'antd/dist/antd.css';
 import PlantSearch from "./components/PlantSearch"
-import { Space, Card, Carousel, Image, Descriptions, Button, message, Spin, List, Typography, Divider } from 'antd';
-import ReactDOM from "react-dom"
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Space, Card, Spin, List, Typography, Divider, Button } from 'antd';
 import { CameraOutlined } from '@ant-design/icons'
 import MediaQuery from 'react-responsive'
 import * as Parser from 'rss-parser';
 const axios = require('axios');
-const { Title, Paragraph, Text } = Typography;
+const { Title, Text } = Typography;
 
 class Home extends React.Component {
 
@@ -126,7 +124,7 @@ class Home extends React.Component {
           // Check the user Type (Admin/Standard) to see which home page to show
           await axios.get('/api/usertype')  //Make an API call to check the Type of the logged in User
             .then(response => {
-              if (response.data == "Admin") {
+              if (response.data === "Admin") {
                 this.props.history.push("/admin") //Redirect to admin page
                 window.location.reload();
               }
@@ -170,8 +168,8 @@ class Home extends React.Component {
     //map these plants to a list
     components = plantList.map(x =>
       <List.Item key={x.PlantID}>
-        <Typography.Text><a onClick={() => this.goToPlant(x.PlantID)}>
-          {x.CommonName}</a></Typography.Text>
+        <Typography.Text><Button type="dashed" onClick={() => this.goToPlant(x.PlantID)} style={{backgroundColor:"#f5e8cb"}}>
+          {x.CommonName}</Button></Typography.Text>
       </List.Item>)
 
     tempState.gardenPreviewComponents = components;
