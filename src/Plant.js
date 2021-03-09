@@ -20,7 +20,7 @@ class Plant extends React.Component {
     usesComponents: [],
     nameComponents: [],
     isInGarden: false,
-    loading: false,
+    loading: true,
   }
 
   render() {
@@ -42,31 +42,31 @@ class Plant extends React.Component {
                   </Carousel>
                 </Card>
                 <Card title="Key Details" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                  <Descriptions bordered size="small" >
+                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                     {this.state.keyDetailsComponents}
                   </Descriptions>
                 </Card>
               </Space>
               <Space direction="vertical" style={{ width: "33%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
                 <Card title="Conditions" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                  <Descriptions bordered size="small" >
+                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                     {this.state.conditionsComponents}
                   </Descriptions>
                 </Card>
               </Space>
               <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
                 <Card title="Characteristics" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                  <Descriptions bordered size="small" >
+                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                     {this.state.characteristicsComponents}
                   </Descriptions>
                 </Card>
                 <Card title="Uses" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                  <Descriptions bordered size="small" >
+                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                     {this.state.usesComponents}
                   </Descriptions>
                 </Card>
                 <Card title="Other Names" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                  <Descriptions bordered size="small" >
+                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                     {this.state.nameComponents}
                   </Descriptions>
                 </Card>
@@ -91,7 +91,7 @@ class Plant extends React.Component {
                       </Carousel>
                     </Card>
                     <Card title="Key Details" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Descriptions bordered  >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}} >
                         {this.state.keyDetailsComponents}
                       </Descriptions>
                     </Card>
@@ -100,7 +100,7 @@ class Plant extends React.Component {
                 <TabPane forceRender tab="Conditions" key="2">
                   <Space direction="vertical" style={{ width: "100%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
                     <Card title="Conditions" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                         {this.state.conditionsComponents}
                       </Descriptions>
                     </Card>
@@ -109,17 +109,17 @@ class Plant extends React.Component {
                 <TabPane forceRender tab="Characteristics" key="3">
                   <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
                     <Card title="Characteristics" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered  >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}} >
                         {this.state.characteristicsComponents}
                       </Descriptions>
                     </Card>
                     <Card title="Uses" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Descriptions bordered  >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}} >
                         {this.state.usesComponents}
                       </Descriptions>
                     </Card>
                     <Card title="Other Names" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                         {this.state.nameComponents}
                       </Descriptions>
                     </Card>
@@ -146,7 +146,7 @@ class Plant extends React.Component {
                       </Carousel>
                     </Card>
                     <Card title="Key Details" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Descriptions bordered  >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}} >
                         {this.state.keyDetailsComponents}
                       </Descriptions>
                     </Card>
@@ -155,7 +155,7 @@ class Plant extends React.Component {
                 <TabPane forceRender tab="Conditions" key="2">
                   <Space direction="vertical" style={{ width: "100%", margin: "0 0.5%", overflowY: "auto"}}>
                     <Card title="Conditions" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                         {this.state.conditionsComponents}
                       </Descriptions>
                     </Card>
@@ -164,17 +164,17 @@ class Plant extends React.Component {
                 <TabPane forceRender tab="Characteristics" key="3">
                   <Space direction="vertical" style={{ width: "100%", overflowY: "auto"}}>
                     <Card title="Characteristics" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                         {this.state.characteristicsComponents}
                       </Descriptions>
                     </Card>
                     <Card title="Uses" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Descriptions bordered >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                         {this.state.usesComponents}
                       </Descriptions>
                     </Card>
                     <Card title="Other Names" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered >
+                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
                         {this.state.nameComponents}
                       </Descriptions>
                     </Card>
@@ -188,10 +188,6 @@ class Plant extends React.Component {
   }
 
   async componentDidMount() {
-    this.setState({
-      loading: true
-    })
-
     /* 
     * Check that a user is logged in.
     * TRUE = Load the page
@@ -306,9 +302,7 @@ class Plant extends React.Component {
   }
 
   componentDidUpdate = async () => {
-
     this.checkGarden(this.state.plantID)
-
   }
 
 
