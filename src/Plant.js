@@ -25,164 +25,164 @@ class Plant extends React.Component {
 
   render() {
     return (
-      <Spin spinning = {this.state.loading}>
-          <MediaQuery minDeviceWidth={1025}>
-            <div style={{ margin: "1% auto", width: "95vw", height: "90vh" }}>
-              <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-              <div>
-                {!this.state.isInGarden ?
-                  <Button style={{ margin: "1% 1% 0 93%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
-                  <Button style={{ margin: "1% 1% 0 91%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
-              </div>
-
-              <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
-                <Card title="Images" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                  <Carousel autoplay>
-                    {this.state.imageCarouselComponents}
-                  </Carousel>
-                </Card>
-                <Card title="Key Details" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                    {this.state.keyDetailsComponents}
-                  </Descriptions>
-                </Card>
-              </Space>
-              <Space direction="vertical" style={{ width: "33%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
-                <Card title="Conditions" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                    {this.state.conditionsComponents}
-                  </Descriptions>
-                </Card>
-              </Space>
-              <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
-                <Card title="Characteristics" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                    {this.state.characteristicsComponents}
-                  </Descriptions>
-                </Card>
-                <Card title="Uses" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                    {this.state.usesComponents}
-                  </Descriptions>
-                </Card>
-                <Card title="Other Names" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                  <Descriptions bordered size="small" labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                    {this.state.nameComponents}
-                  </Descriptions>
-                </Card>
-              </Space>
+      <Spin spinning={this.state.loading}>
+        <MediaQuery minDeviceWidth={1025}>
+          <div style={{ margin: "1% auto", width: "95vw", height: "90vh" }}>
+            <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
+            <div>
+              {!this.state.isInGarden ?
+                <Button style={{ margin: "1% 1% 0 93%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
+                <Button style={{ margin: "1% 1% 0 91%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
             </div>
-          </MediaQuery>
 
-          <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-            <div style={{ margin: "1% auto", width: "95vw", height: "90vh" }}>
-              <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-              <div>
-                {!this.state.isInGarden ?
-                  <Button style={{ margin: "1% 1% 0 80%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
-                  <Button style={{ margin: "1% 1% 0 76%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
-              </div>
-              <Tabs defaultActiveKey="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
-                <TabPane forceRender tab="Key Details" key="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
-                  <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
-                    <Card title="Images" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Carousel autoplay>
-                        {this.state.imageCarouselComponents}
-                      </Carousel>
-                    </Card>
-                    <Card title="Key Details" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}} >
-                        {this.state.keyDetailsComponents}
-                      </Descriptions>
-                    </Card>
-                  </Space>
-                </TabPane>
-                <TabPane forceRender tab="Conditions" key="2">
-                  <Space direction="vertical" style={{ width: "100%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
-                    <Card title="Conditions" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                        {this.state.conditionsComponents}
-                      </Descriptions>
-                    </Card>
-                  </Space>
-                </TabPane>
-                <TabPane forceRender tab="Characteristics" key="3">
-                  <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
-                    <Card title="Characteristics" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}} >
-                        {this.state.characteristicsComponents}
-                      </Descriptions>
-                    </Card>
-                    <Card title="Uses" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}} >
-                        {this.state.usesComponents}
-                      </Descriptions>
-                    </Card>
-                    <Card title="Other Names" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                        {this.state.nameComponents}
-                      </Descriptions>
-                    </Card>
-                  </Space>
-                </TabPane>
-              </Tabs>
-            </div>
-          </MediaQuery>
+            <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
+              <Card title="Images" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                <Carousel autoplay>
+                  {this.state.imageCarouselComponents}
+                </Carousel>
+              </Card>
+              <Card title="Key Details" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                <Descriptions bordered size="small" labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                  {this.state.keyDetailsComponents}
+                </Descriptions>
+              </Card>
+            </Space>
+            <Space direction="vertical" style={{ width: "33%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
+              <Card title="Conditions" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                <Descriptions bordered size="small" labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                  {this.state.conditionsComponents}
+                </Descriptions>
+              </Card>
+            </Space>
+            <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
+              <Card title="Characteristics" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                <Descriptions bordered size="small" labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                  {this.state.characteristicsComponents}
+                </Descriptions>
+              </Card>
+              <Card title="Uses" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                <Descriptions bordered size="small" labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                  {this.state.usesComponents}
+                </Descriptions>
+              </Card>
+              <Card title="Other Names" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                <Descriptions bordered size="small" labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                  {this.state.nameComponents}
+                </Descriptions>
+              </Card>
+            </Space>
+          </div>
+        </MediaQuery>
 
-          <MediaQuery maxDeviceWidth={640}>
-            <div style={{ margin: "1% auto 5% auto", width: "95vw"}}>
-              <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-              <div>
-                {!this.state.isInGarden ?
-                  <Button style={{ margin: "1% auto", width: "100%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
-                  <Button style={{ margin: "1% auto", width: "100%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
-              </div>
-              <Tabs defaultActiveKey="1" centered>
-                <TabPane forceRender tab="Key Details" key="1">
-                  <Space direction="vertical" style={{ width: "100%", overflowY: "auto"}}>
-                    <Card title="Images" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Carousel autoplay>
-                        {this.state.imageCarouselComponents}
-                      </Carousel>
-                    </Card>
-                    <Card title="Key Details" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}} >
-                        {this.state.keyDetailsComponents}
-                      </Descriptions>
-                    </Card>
-                  </Space>
-                </TabPane>
-                <TabPane forceRender tab="Conditions" key="2">
-                  <Space direction="vertical" style={{ width: "100%", margin: "0 0.5%", overflowY: "auto"}}>
-                    <Card title="Conditions" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                        {this.state.conditionsComponents}
-                      </Descriptions>
-                    </Card>
-                  </Space>
-                </TabPane>
-                <TabPane forceRender tab="Characteristics" key="3">
-                  <Space direction="vertical" style={{ width: "100%", overflowY: "auto"}}>
-                    <Card title="Characteristics" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                        {this.state.characteristicsComponents}
-                      </Descriptions>
-                    </Card>
-                    <Card title="Uses" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}}>
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                        {this.state.usesComponents}
-                      </Descriptions>
-                    </Card>
-                    <Card title="Other Names" headStyle={{backgroundImage:"url(woodtexture.png)"}} bodyStyle={{backgroundColor:"#fcf4e1"}} >
-                      <Descriptions bordered labelStyle={{backgroundImage:"url(woodtexture.png)"}} contentStyle={{backgroundColor:"#f5e8cb"}}>
-                        {this.state.nameComponents}
-                      </Descriptions>
-                    </Card>
-                  </Space>
-                </TabPane>
-              </Tabs>
+        <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
+          <div style={{ margin: "1% auto", width: "95vw", height: "90vh" }}>
+            <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
+            <div>
+              {!this.state.isInGarden ?
+                <Button style={{ margin: "1% 1% 0 80%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
+                <Button style={{ margin: "1% 1% 0 76%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
             </div>
-          </MediaQuery>
+            <Tabs defaultActiveKey="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+              <TabPane forceRender tab="Key Details" key="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Images" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                    <Carousel autoplay>
+                      {this.state.imageCarouselComponents}
+                    </Carousel>
+                  </Card>
+                  <Card title="Key Details" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }} >
+                      {this.state.keyDetailsComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+              <TabPane forceRender tab="Conditions" key="2">
+                <Space direction="vertical" style={{ width: "100%", margin: "0 0.5%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Conditions" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                      {this.state.conditionsComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+              <TabPane forceRender tab="Characteristics" key="3">
+                <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
+                  <Card title="Characteristics" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }} >
+                      {this.state.characteristicsComponents}
+                    </Descriptions>
+                  </Card>
+                  <Card title="Uses" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }} >
+                      {this.state.usesComponents}
+                    </Descriptions>
+                  </Card>
+                  <Card title="Other Names" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                      {this.state.nameComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+            </Tabs>
+          </div>
+        </MediaQuery>
+
+        <MediaQuery maxDeviceWidth={640}>
+          <div style={{ margin: "1% auto 5% auto", width: "95vw" }}>
+            <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
+            <div>
+              {!this.state.isInGarden ?
+                <Button style={{ margin: "1% auto", width: "100%" }} onClick={() => this.addToGarden(this.state.plantID)}>Add to Garden</Button> :
+                <Button style={{ margin: "1% auto", width: "100%" }} onClick={() => this.removeFromGarden(this.state.plantID)}>Remove From Garden</Button>}
+            </div>
+            <Tabs defaultActiveKey="1" centered>
+              <TabPane forceRender tab="Key Details" key="1">
+                <Space direction="vertical" style={{ width: "100%", overflowY: "auto" }}>
+                  <Card title="Images" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                    <Carousel autoplay>
+                      {this.state.imageCarouselComponents}
+                    </Carousel>
+                  </Card>
+                  <Card title="Key Details" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }} >
+                      {this.state.keyDetailsComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+              <TabPane forceRender tab="Conditions" key="2">
+                <Space direction="vertical" style={{ width: "100%", margin: "0 0.5%", overflowY: "auto" }}>
+                  <Card title="Conditions" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                      {this.state.conditionsComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+              <TabPane forceRender tab="Characteristics" key="3">
+                <Space direction="vertical" style={{ width: "100%", overflowY: "auto" }}>
+                  <Card title="Characteristics" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                      {this.state.characteristicsComponents}
+                    </Descriptions>
+                  </Card>
+                  <Card title="Uses" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                      {this.state.usesComponents}
+                    </Descriptions>
+                  </Card>
+                  <Card title="Other Names" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }} >
+                    <Descriptions bordered labelStyle={{ backgroundImage: "url(woodtexture.png)" }} contentStyle={{ backgroundColor: "#f5e8cb" }}>
+                      {this.state.nameComponents}
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </TabPane>
+            </Tabs>
+          </div>
+        </MediaQuery>
       </Spin>
     );
   }
@@ -302,7 +302,7 @@ class Plant extends React.Component {
   }
 
   componentDidUpdate = async () => {
-    this.checkGarden(this.state.plantID)
+    await this.checkGarden(this.state.plantID)
   }
 
 
@@ -345,8 +345,6 @@ class Plant extends React.Component {
     this.setState(tempState);
 
   }
-
-
 }
 
 
