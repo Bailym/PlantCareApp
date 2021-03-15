@@ -295,7 +295,7 @@ class Plant extends React.Component {
       )
     }
 
-    await this.checkGarden(this.state.plantID)  //check if the plant is in the users garden
+    tempState.isInGarden = await this.checkGarden(this.state.plantID)  //check if the plant is in the users garden
 
     tempState.loading = false
     //apply the state
@@ -318,7 +318,7 @@ class Plant extends React.Component {
 
     await axios.post(`/api/garden/delete/${plantID}`)
       .then(response => {
-        message.info("Plant Removed to Garden!")
+        message.info("Plant Removed from Garden!")
         window.location.reload()
       })
       .catch(error => {
@@ -338,9 +338,7 @@ class Plant extends React.Component {
         }
       })
 
-    let tempState = Object.assign({}, this.state)
-    tempState.isInGarden = isInGarden
-    this.setState(tempState);
+    return isInGarden
   }
 }
 
