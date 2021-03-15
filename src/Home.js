@@ -14,7 +14,7 @@ class Home extends React.Component {
   state = {
     gardenData: [],
     gardenPreviewComponents: [],
-    loading: false,
+    loading: true,
     rssComponents: [],
   }
 
@@ -103,10 +103,6 @@ class Home extends React.Component {
   }
 
   async componentDidMount() {
-
-    this.setState({
-      loading: true
-    })
 
     /* 
     * Check that a user is logged in.
