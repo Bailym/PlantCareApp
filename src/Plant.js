@@ -244,8 +244,7 @@ class Plant extends React.Component {
         margin: "auto",
       }} src={"/images/" + x.ImagePath} />
     </div>)
-
-
+   
 
     //Create components from the data
     tempState.keyDetailsComponents = [
@@ -296,21 +295,19 @@ class Plant extends React.Component {
       )
     }
 
+    await this.checkGarden(this.state.plantID)  //check if the plant is in the users garden
+
     tempState.loading = false
     //apply the state
     this.setState(tempState)
   }
-
-  componentDidUpdate = async () => {
-    await this.checkGarden(this.state.plantID)
-  }
-
 
   addToGarden = async (plantID) => {
 
     await axios.post(`/api/garden/add/${plantID}`)
       .then(response => {
         message.info("Plant Added to Garden!")
+        window.location.reload()
       })
       .catch(error => {
         message.error("Plant could not be added...")
@@ -322,6 +319,7 @@ class Plant extends React.Component {
     await axios.post(`/api/garden/delete/${plantID}`)
       .then(response => {
         message.info("Plant Removed to Garden!")
+        window.location.reload()
       })
       .catch(error => {
         message.error("Plant could not be removed...")
@@ -343,7 +341,6 @@ class Plant extends React.Component {
     let tempState = Object.assign({}, this.state)
     tempState.isInGarden = isInGarden
     this.setState(tempState);
-
   }
 }
 
