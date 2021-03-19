@@ -37,7 +37,7 @@ class Plant extends React.Component {
 
             <Space direction="vertical" style={{ width: "33%", overflowY: "auto", height: "100%" }}>
               <Card title="Images" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
-                <Carousel autoplay>
+                <Carousel style={{width:"35%", margin:"auto"}}>
                   {this.state.imageCarouselComponents}
                 </Carousel>
               </Card>
@@ -86,7 +86,7 @@ class Plant extends React.Component {
               <TabPane forceRender tab="Key Details" key="1" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
                 <Space direction="vertical" style={{ width: "100%", overflowY: "auto", height: "100%" }}>
                   <Card title="Images" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
-                    <Carousel autoplay>
+                    <Carousel >
                       {this.state.imageCarouselComponents}
                     </Carousel>
                   </Card>
@@ -141,7 +141,7 @@ class Plant extends React.Component {
               <TabPane forceRender tab="Key Details" key="1">
                 <Space direction="vertical" style={{ width: "100%", overflowY: "auto" }}>
                   <Card title="Images" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
-                    <Carousel autoplay>
+                    <Carousel>
                       {this.state.imageCarouselComponents}
                     </Carousel>
                   </Card>
@@ -234,16 +234,8 @@ class Plant extends React.Component {
       })
 
     //create the image carousel components
-    tempState.imageCarouselComponents = tempState.plantImages.map(x => <div key={x.ImagePath}  >
-      <Image key={x.ImagePath} style={{
-        border: "1px solid #000", width: "auto",
-        height: "auto",
-        maxWidth: "250px",
-        maxHeight: "250px",
-        display: "block",
-        margin: "auto",
-      }} src={"/images/" + x.ImagePath} />
-    </div>)
+    tempState.imageCarouselComponents = tempState.plantImages.map(x =>
+      <Image key={x.ImagePath} src={"/images/" + x.ImagePath} />)
    
 
     //Create components from the data
