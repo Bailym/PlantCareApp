@@ -245,8 +245,8 @@ module.exports = {
 
         try {
             //make query and send results
-            const [results, fields] = await DBPool.query(`SELECT plant.PlantID, CommonName, AltName FROM plantdb.plant 
-            INNER JOIN name ON plant.PlantID = name.PlantID
+            const [results, fields] = await DBPool.query(`SELECT plant.PlantID, CommonName, IFNULL(AltName, CommonName) as AltName FROM plantdb.plant 
+            LEFT JOIN name ON plant.PlantID = name.PlantID
             WHERE CommonName LIKE ? OR AltName LIKE ?`, [text, text]);
             response.send(results);
         }
