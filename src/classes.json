@@ -1,7 +1,7 @@
 [
     {
         "ClassID": 0,
-        "Name": "Arabian Coffee"
+        "Name": "Coffee Arabica"
     },
     {
         "ClassID": 1,
@@ -66,5 +66,9 @@
     {
         "ClassID": 16,
         "Name": "Lucky Bamboo"
+    },
+    {
+        "ClassID": 17,
+        "Name": "Wild Daffodil"
     }
 ]
