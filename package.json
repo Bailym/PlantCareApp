@@ -11,9 +11,12 @@
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.13.1",
     "axios": "^0.21.1",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "express-session": "^1.17.1",
     "jfum": "^1.0.3",
     "js-sha512": "^0.8.0",
+    "mocha": "^8.3.2",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.4.16",
     "react": "^17.0.1",
@@ -28,7 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=1024 build",
-    "test": "react-scripts test",
+    "test": "mocha -u tdd --exit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
