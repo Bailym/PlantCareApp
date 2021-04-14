@@ -80,8 +80,6 @@ app.get("/api/getmodel", classifierController.getModel)
 app.post('/api/login/:email/:password', async function (request, response) {
     var email = request.params.email;
     var password = request.params.password;
-    console.log("EMAIL:" + email)
-    console.log("PASSWORD: " + password)
     if (email && password) {
         const [results, fields] = await DBPool.query('SELECT * FROM plantdb.user WHERE Email = ? AND Password = ?', [email, password]);
         if (results.length > 0) {
