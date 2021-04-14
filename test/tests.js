@@ -58,8 +58,25 @@ suite("INTEGRATION TESTS", async function () {
             .then(function (response, error) {
                 chai.assert.equal(response.body, true, "Error Updating Users Password!")
             })
+    })
+
+    test("Test Update User Details Path /api/users/updateuser/:id/:firstname/:surname/:email/:password/:type", async function () {
+
+        //Change the users names
+        await agent.post(`/api/users/updateuser/${newUserID}/New/Name/test@email.co.uk/testpassword123!/User`)
+            .then(function (response, error) {
+                chai.assert.equal(response.statusCode, 200, "Error Updating User!")
+            })
 
 
+        //Check the new users names have changed
+        await agent.get(`/api/users/${newUserID}`)
+            .then(function (response, error) {
+                chai.assert.equal(response.body[0].ID, newUserID, "User Not Registered!")
+                chai.assert.equal(response.body[0].FirstName, "New", "User Not Registered!")
+                chai.assert.equal(response.body[0].Surname, "Name", "User Not Registered!")
+                chai.assert.equal(response.body[0].Email, "test@email.co.uk", "User Not Registered!")
+            })
     })
 
     suiteTeardown("Suite Teardown - Remove any Created Entities", async function () {
