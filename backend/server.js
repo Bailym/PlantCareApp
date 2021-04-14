@@ -40,6 +40,7 @@ app.get('/api/usertable', userController.getAdminTable);  //retreive users for t
 app.post('/api/users/updatepassword/:id/:password', userController.updatePassword); //Updates a single users password
 app.post('/api/users/updateuser/:id/:firstname/:surname/:email/:password/:type', userController.updateUser); //Updates a users information
 app.post("/api/users/archive/:id", userController.archiveUser)
+app.post("/api/users/delete/:id", userController.deleteUser)
 
 //Recovery Functions
 app.post('/api/recover/check/:email', recoveryController.checkEmail);   //checks an email exists
@@ -107,6 +108,10 @@ app.post('/api/register/:email/:password/:firstname/:surname', async function (r
 
         try {
             const [results, fields] = await DBPool.query(`INSERT INTO plantdb.user (FirstName, Surname, Email, Password, Type) VALUES (?, ?, ?, ?, ?);`, [firstName, surname, email, password, type]);
+            
+            const newUserID = await DBPool.query("SELECT LAST_INSERT_ID()")
+
+            response.send({"LastID": newUserID[0][0][`LAST_INSERT_ID()`]})
             response.sendStatus(200);
         }
         catch (err) {

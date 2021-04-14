@@ -51,6 +51,23 @@ module.exports = {
 
     },
 
+    //ONLY USED IN INTEGRATION TETSING TO REMOVE TEST DATA. ARCHIVE LIVE USERS BELOW
+    async deleteUser(request, response) {
+
+        try {
+            //delete the original
+            await DBPool.query(`DELETE FROM plantdb.user WHERE UserID = ?`, request.params.id);
+
+            response.sendStatus(200);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+    },
+
+
     async archiveUser(request, response) {
 
         try {
