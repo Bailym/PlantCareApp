@@ -84,13 +84,6 @@ suite("INTEGRATION TESTS", async function () {
 
         //Create a new plant
 
-        // request.body.commonName, request.body.type, request.body.nativeCountry, request.body.symbolism, 
-        // request.body.endangeredStatus, request.body.environmentalThreat, request.body.lifeSpan, request.body.bloomTime,
-        // request.body.sizeRange, request.body.spread, request.body.flowerSize, request.body.difficulty, request.body.sunlightNeeds,
-        // request.body.hardiness, request.body.hardinessZones, request.body.soilType, request.body.waterNeeds, request.body.fertilisationNeeds, 
-        //request.body.pruning, request.body.propagation, request.body.pests, request.body.plantingTime, request.body.harvestTime,
-        // request.body.pottingNeeds, request.body.environmentalUses, request.body.economicUses, request.body.homeUses
-
         let obj = {
             commonName: "New Plant",
             type: "Shrub",
@@ -126,13 +119,64 @@ suite("INTEGRATION TESTS", async function () {
                 chai.assert.equal(response.statusCode, 200, "Error Creating Plant!")
             })
 
-         //Check the new plant exists in the users table
+         //Check the new plant exists in the plants table
         await agent.get(`/api/plants/${newPlantID}`)
             .then(function (response, error) {
                 chai.assert.equal(response.body[0].PlantID, newPlantID, "Plant not Created!")
                 chai.assert.equal(response.body[0].CommonName, "New Plant", "Plant not Created!")
                 chai.assert.equal(response.body[0].Type, "Shrub", "Plant not Created!")
             }) 
+    })
+
+    test("Test Update Plant Details Path /api/plants/update", async function () {
+
+        //change some values
+        obj = {
+            plantID: newPlantID,
+            commonName: "New Common Name",
+            type: "Herb",
+            nativeCountry: "West Africa",
+            symbolism: "Luck",
+            endangeredStatus: "Endangered",
+            environmentalThreat: "None",
+            lifeSpan: "Test",
+            bloomTime: "Spring",
+            sizeRange: "Test",
+            spread: "Test",
+            flowerSize: "None",
+            difficulty: "Hard",
+            sunlightNeeds: "Full sun",
+            hardiness: "-40",
+            hardinessZones:"0-4",
+            soilType:"Sandy",
+            waterNeeds:"Water frequently until soil is saturated",
+            fertilisationNeeds:"Once a month during growth",
+            pruning:"Trim withered leaves",
+            propagation:"Cutting",
+            pests:"Aphids, Root rot",
+            plantingTime: "Spring",
+            harvestTime: "Autumn",
+            pottingNeeds:"Needs good drainage",
+            environmentalUses:"None",
+            economicUses:"None",
+            homeUses:"None"
+        }
+
+        //Change the plant details
+        await agent.post(`/api/plants/update`).send(obj)
+            .then(function (response, error) {
+                chai.assert.equal(response.statusCode, 200, "Error Updating Plant!")
+            })
+
+
+        //Check the plants details have been changed
+        await agent.get(`/api/plants/${newPlantID}`)
+            .then(function (response, error) {
+                chai.assert.equal(response.body[0].CommonName, "New Common Name", "Failed to Update Plant!")
+                chai.assert.equal(response.body[0].Type, "Herb", "Failed to Update Plant!")
+                chai.assert.equal(response.body[0].NativeCountry, "West Africa", "Failed to Update Plant!")
+                chai.assert.equal(response.body[0].Symbolism, "Luck", "Failed to Update Plant!")
+            })
     })
 
 
