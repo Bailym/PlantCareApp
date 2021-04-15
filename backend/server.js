@@ -47,11 +47,11 @@ app.post('/api/recover/check/:email', recoveryController.checkEmail);   //checks
 app.post('/api/recover/send/:id/:email', recoveryController.sendRecoveryEmail); //sends the recovery email to a specified email.
 
 //Plants Functions
-
 app.get("/api/plants/admintable", plantController.getPlantsAdminTable);
 app.get("/api/plants/:id", plantController.getPlantID);
 app.get("/api/plants/getid/:commonname", plantController.getPlantIDByName);
 app.post("/api/plants/archive/:id", plantController.archivePlant)
+app.post("/api/plants/delete/:id", plantController.deletePlant)
 app.post("/api/plants/update", plantController.UpdatePlant)
 app.post("/api/plants/create", plantController.CreatePlant)
 app.get("/api/plants/names/:id", plantController.getPlantNames)

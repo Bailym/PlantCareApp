@@ -87,6 +87,20 @@ module.exports = {
         }
     },
 
+    //TESTING ONLY
+    async deletePlant(request, response) {
+
+        try {
+            await DBPool.query(`DELETE FROM plantdb.plant WHERE PlantID = ?`, request.params.id);
+            response.sendStatus(200);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+    },
+
     async UpdatePlant(request, response) {
 
         try {
@@ -110,6 +124,9 @@ module.exports = {
             await DBPool.query(`INSERT INTO plantdb.plant (CommonName, Type, NativeCountry, Symbolism, EndangeredStatus, EnvironmentalThreat, LifeSpan, BloomTime, SizeRange, Spread, FlowerSize, Difficulty, SunlightNeeds, Hardiness, HardinessZones, SoilType, WaterNeeds, FertilisationNeeds, Pruning, Propagation, Pests, PlantingTime, HarvestTime, PottingNeeds, EnvironmentalUses, EconomicUses, HomeUses) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`,
                 [request.body.commonName, request.body.type, request.body.nativeCountry, request.body.symbolism, request.body.endangeredStatus, request.body.environmentalThreat, request.body.lifeSpan, request.body.bloomTime, request.body.sizeRange, request.body.spread, request.body.flowerSize, request.body.difficulty, request.body.sunlightNeeds, request.body.hardiness, request.body.hardinessZones, request.body.soilType, request.body.waterNeeds, request.body.fertilisationNeeds, request.body.pruning, request.body.propagation, request.body.pests, request.body.plantingTime, request.body.harvestTime, request.body.pottingNeeds, request.body.environmentalUses, request.body.economicUses, request.body.homeUses]);
 
+            const newPlantID = await DBPool.query("SELECT LAST_INSERT_ID()")
+
+            response.send({ "LastID": newPlantID[0][0][`LAST_INSERT_ID()`] })
             response.sendStatus(200);
         }
         //error handling
@@ -146,7 +163,6 @@ module.exports = {
                 }
             }
 
-
             response.sendStatus(200);
         }
         //error handling
@@ -155,6 +171,8 @@ module.exports = {
             console.log(err)
         }
     },
+
+    
 
     async getPlantImages(request, response) {
 
@@ -200,10 +218,10 @@ module.exports = {
                 oldPath = images[i].path
                 newPath = path.join(__dirname, "../../public/images/" + images[i].name)
 
-                 fs.rename(oldPath, newPath, function (err) {
+                fs.rename(oldPath, newPath, function (err) {
                     if (err) throw err
                     console.log('Successfully renamed - AKA moved!')
-                }) 
+                })
             }
             res.sendStatus(200)
         }
@@ -236,7 +254,7 @@ module.exports = {
         catch (err) {
             response.sendStatus(500);
             console.log(err)
-        } 
+        }
     },
 
     async searchPlants(request, response) {

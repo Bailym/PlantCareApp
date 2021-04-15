@@ -9,6 +9,7 @@ var agent = chai.request.agent(app);
 suite("INTEGRATION TESTS", async function () {
 
     var newUserID = null
+    var newPlantID = null
 
     test("Test Register Path /api/register/:email/:password/:firstname/:surname", async function () {
 
@@ -79,11 +80,74 @@ suite("INTEGRATION TESTS", async function () {
             })
     })
 
+    test("Test Create Plant Path /api/plants/create", async function () {
+
+        //Create a new plant
+
+        // request.body.commonName, request.body.type, request.body.nativeCountry, request.body.symbolism, 
+        // request.body.endangeredStatus, request.body.environmentalThreat, request.body.lifeSpan, request.body.bloomTime,
+        // request.body.sizeRange, request.body.spread, request.body.flowerSize, request.body.difficulty, request.body.sunlightNeeds,
+        // request.body.hardiness, request.body.hardinessZones, request.body.soilType, request.body.waterNeeds, request.body.fertilisationNeeds, 
+        //request.body.pruning, request.body.propagation, request.body.pests, request.body.plantingTime, request.body.harvestTime,
+        // request.body.pottingNeeds, request.body.environmentalUses, request.body.economicUses, request.body.homeUses
+
+        let obj = {
+            commonName: "New Plant",
+            type: "Shrub",
+            nativeCountry: "Test Country",
+            symbolism: "Test Symbolism",
+            endangeredStatus: "Not Endangered",
+            environmentalThreat: "None",
+            lifeSpan: "Test",
+            bloomTime: "Spring",
+            sizeRange: "Test",
+            spread: "Test",
+            flowerSize: "None",
+            difficulty: "Hard",
+            sunlightNeeds: "Full sun",
+            hardiness: "-40",
+            hardinessZones:"0-4",
+            soilType:"Sandy",
+            waterNeeds:"Water frequently until soil is saturated",
+            fertilisationNeeds:"Once a month during growth",
+            pruning:"Trim withered leaves",
+            propagation:"Cutting",
+            pests:"Aphids, Root rot",
+            plantingTime: "Spring",
+            harvestTime: "Autumn",
+            pottingNeeds:"Needs good drainage",
+            environmentalUses:"None",
+            economicUses:"None",
+            homeUses:"None"
+        }
+        await agent.post(`/api/plants/create`).send(obj)
+            .then(function (response, error) {
+                newPlantID = response.body.LastID
+                chai.assert.equal(response.statusCode, 200, "Error Creating Plant!")
+            })
+
+         //Check the new plant exists in the users table
+        await agent.get(`/api/plants/${newPlantID}`)
+            .then(function (response, error) {
+                chai.assert.equal(response.body[0].PlantID, newPlantID, "Plant not Created!")
+                chai.assert.equal(response.body[0].CommonName, "New Plant", "Plant not Created!")
+                chai.assert.equal(response.body[0].Type, "Shrub", "Plant not Created!")
+            }) 
+    })
+
+
     suiteTeardown("Suite Teardown - Remove any Created Entities", async function () {
 
+        //DELETE THE USER
         await agent.post(`/api/users/delete/${newUserID}`)
             .then(function (response, error) {
                 chai.assert.equal(response.statusCode, 200, "Error Deleting User")
+            })
+
+        //DELTE THE PLANT
+        await agent.post(`/api/plants/delete/${newPlantID}`)
+            .then(function (response, error) {
+                chai.assert.equal(response.statusCode, 200, "Error Deleting Plant")
             })
 
     })
