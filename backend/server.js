@@ -55,6 +55,7 @@ app.post("/api/plants/delete/:id", plantController.deletePlant)
 app.post("/api/plants/update", plantController.UpdatePlant)
 app.post("/api/plants/create", plantController.CreatePlant)
 app.get("/api/plants/names/:id", plantController.getPlantNames)
+app.post("/api/plants/names/deleteall/:id", plantController.deletePlantNames)
 app.post("/api/plants/names/update/:id/", plantController.updatePlantNames)
 app.get("/api/plant/images/:id", plantController.getPlantImages)
 app.post('/api/upload', jfum.postHandler.bind(jfum), plantController.uploadImages);

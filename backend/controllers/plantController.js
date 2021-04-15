@@ -172,7 +172,21 @@ module.exports = {
         }
     },
 
-    
+    //TESTING ONLY
+    async deletePlantNames(request, response) {
+
+        try {
+            await DBPool.query(`DELETE FROM plantdb.name WHERE PlantID = ?`, request.params.id);
+            response.sendStatus(200);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+    },
+
+
 
     async getPlantImages(request, response) {
 

@@ -99,19 +99,19 @@ suite("INTEGRATION TESTS", async function () {
             difficulty: "Hard",
             sunlightNeeds: "Full sun",
             hardiness: "-40",
-            hardinessZones:"0-4",
-            soilType:"Sandy",
-            waterNeeds:"Water frequently until soil is saturated",
-            fertilisationNeeds:"Once a month during growth",
-            pruning:"Trim withered leaves",
-            propagation:"Cutting",
-            pests:"Aphids, Root rot",
+            hardinessZones: "0-4",
+            soilType: "Sandy",
+            waterNeeds: "Water frequently until soil is saturated",
+            fertilisationNeeds: "Once a month during growth",
+            pruning: "Trim withered leaves",
+            propagation: "Cutting",
+            pests: "Aphids, Root rot",
             plantingTime: "Spring",
             harvestTime: "Autumn",
-            pottingNeeds:"Needs good drainage",
-            environmentalUses:"None",
-            economicUses:"None",
-            homeUses:"None"
+            pottingNeeds: "Needs good drainage",
+            environmentalUses: "None",
+            economicUses: "None",
+            homeUses: "None"
         }
         await agent.post(`/api/plants/create`).send(obj)
             .then(function (response, error) {
@@ -119,13 +119,13 @@ suite("INTEGRATION TESTS", async function () {
                 chai.assert.equal(response.statusCode, 200, "Error Creating Plant!")
             })
 
-         //Check the new plant exists in the plants table
+        //Check the new plant exists in the plants table
         await agent.get(`/api/plants/${newPlantID}`)
             .then(function (response, error) {
                 chai.assert.equal(response.body[0].PlantID, newPlantID, "Plant not Created!")
                 chai.assert.equal(response.body[0].CommonName, "New Plant", "Plant not Created!")
                 chai.assert.equal(response.body[0].Type, "Shrub", "Plant not Created!")
-            }) 
+            })
     })
 
     test("Test Update Plant Details Path /api/plants/update", async function () {
@@ -147,19 +147,19 @@ suite("INTEGRATION TESTS", async function () {
             difficulty: "Hard",
             sunlightNeeds: "Full sun",
             hardiness: "-40",
-            hardinessZones:"0-4",
-            soilType:"Sandy",
-            waterNeeds:"Water frequently until soil is saturated",
-            fertilisationNeeds:"Once a month during growth",
-            pruning:"Trim withered leaves",
-            propagation:"Cutting",
-            pests:"Aphids, Root rot",
+            hardinessZones: "0-4",
+            soilType: "Sandy",
+            waterNeeds: "Water frequently until soil is saturated",
+            fertilisationNeeds: "Once a month during growth",
+            pruning: "Trim withered leaves",
+            propagation: "Cutting",
+            pests: "Aphids, Root rot",
             plantingTime: "Spring",
             harvestTime: "Autumn",
-            pottingNeeds:"Needs good drainage",
-            environmentalUses:"None",
-            economicUses:"None",
-            homeUses:"None"
+            pottingNeeds: "Needs good drainage",
+            environmentalUses: "None",
+            economicUses: "None",
+            homeUses: "None"
         }
 
         //Change the plant details
@@ -179,6 +179,25 @@ suite("INTEGRATION TESTS", async function () {
             })
     })
 
+    test("Test Update Plant Names Path /api/plants/names/update/:id", async function () {
+
+        plantNames = { names: ["Plant Name One", "Plant Name Two", "Plant Name Three"] }
+
+        //Change the plant details
+        await agent.post(`/api/plants/names/update/${newPlantID}`).send(plantNames)
+            .then(function (response, error) {
+                chai.assert.equal(response.statusCode, 200, "Error Updating Plant Names!")
+            })
+
+        //Check the plants names have been changed
+        await agent.get(`/api/plants/names/${newPlantID}`)
+            .then(function (response, error) {
+                chai.assert.equal(response.body[0].AltName, "Plant Name One", "Failed to Update Plant Name!")
+                chai.assert.equal(response.body[1].AltName, "Plant Name Two", "Failed to Update Plant Name!")
+                chai.assert.equal(response.body[2].AltName, "Plant Name Three", "Failed to Update Plant Name!")
+            })
+    })
+
 
     suiteTeardown("Suite Teardown - Remove any Created Entities", async function () {
 
@@ -188,12 +207,17 @@ suite("INTEGRATION TESTS", async function () {
                 chai.assert.equal(response.statusCode, 200, "Error Deleting User")
             })
 
+        //DELTE THE PLANT NAMES
+        await agent.post(`/api/plants/names/deleteall/${newPlantID}`)
+            .then(function (response, error) {
+                chai.assert.equal(response.statusCode, 200, "Error Deleting Plant Names")
+            })
+
         //DELTE THE PLANT
         await agent.post(`/api/plants/delete/${newPlantID}`)
             .then(function (response, error) {
                 chai.assert.equal(response.statusCode, 200, "Error Deleting Plant")
             })
-
     })
 })
 
