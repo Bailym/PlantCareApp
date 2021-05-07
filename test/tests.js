@@ -198,9 +198,6 @@ suite("INTEGRATION TESTS", async function () {
             })
     })
 
-    test("Test Adding a Plant to a Users Garden /api/garden/add/:plantid")
-
-
     suiteTeardown("Suite Teardown - Remove any Created Entities", async function () {
 
         //DELETE THE USER

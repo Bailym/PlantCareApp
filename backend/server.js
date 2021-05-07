@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 443
+const port = 3001
 var DBPool = require('./database');
 var session = require('express-session');
 var bodyParser = require('body-parser');

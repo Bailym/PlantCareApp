@@ -13,7 +13,7 @@ const proxy = require('http-proxy-middleware');
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.use(proxy('/api', { target: "http://localhost:443"}));
+app.use(proxy('/api', { target: "http://localhost:3001"}));
 
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
