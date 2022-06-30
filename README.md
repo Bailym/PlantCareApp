@@ -3,7 +3,7 @@ Final Year Project - Baily Martin
 
 An app to identify, collect and help you care for your plants.
 
-** Details **
+**Details**
 - React front end
 - Node + Express API server
 - MySQL backend 
@@ -11,7 +11,7 @@ An app to identify, collect and help you care for your plants.
 - Mocha + Chai unit testing
 - Tensorflow MobileNET classifier using Transfer Learning
 
-** Key Features **
+**Key Features**
 - Database of plants with detailed information and care guides.
 - User register/login/recovery email.
 - Admin and User accounts
