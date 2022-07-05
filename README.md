@@ -3,6 +3,8 @@ Final Year Project - Baily Martin
 
 An app to identify, collect and help you care for your plants.
 
+![Poster](https://github.com/Bailym/PlantCareApp/blob/master/images/Poster.jpg?raw=true)
+
 **Details**
 - React front end
 - Node + Express API server
@@ -22,4 +24,4 @@ An app to identify, collect and help you care for your plants.
 - Plants can be added to a users 'garden' to keep track of them.
 
 
-Refer to the User Guide here: https://github.com/Bailym/PlantCareApp/blob/master/images/User%20Guide.pdf
+Refer to the User Guide here: https://1drv.ms/w/s!AvM86xhNOlSFm4IVDQSFdv8ZebDfDQ?e=aDnlAi
