@@ -24,4 +24,4 @@ An app to identify, collect and help you care for your plants.
 - Plants can be added to a users 'garden' to keep track of them.
 
 
-Refer to the User Guide here: https://1drv.ms/w/s!AvM86xhNOlSFm4IVDQSFdv8ZebDfDQ?e=aDnlAi
+Refer to the User Guide here: https://1drv.ms/b/s!AvM86xhNOlSFm4IXJ8C-y2xXyevkVw?e=scJlHW
