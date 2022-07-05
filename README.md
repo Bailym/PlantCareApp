@@ -25,3 +25,5 @@ An app to identify, collect and help you care for your plants.
 
 
 Refer to the User Guide here: https://1drv.ms/b/s!AvM86xhNOlSFm4IXJ8C-y2xXyevkVw?e=scJlHW
+
+Short video here: https://1drv.ms/v/s!AvM86xhNOlSFm4Ic9YOt6nT83y_Oyw?e=5mthCS
