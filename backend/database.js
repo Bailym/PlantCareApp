@@ -1,11 +1,13 @@
 var mysql = require('mysql2');
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
 const DBConnection = {
-    host: "plantcaredbinstance.c0yzynysedfz.eu-west-2.rds.amazonaws.com",
-    port: "3306",
-    user: "admin",
-    password: "MA24xW#4E2NKJ%WSNxaJMIgAt49#Rz",
-    database: "plantdb",
+    host: process.env.MYSQL_HOST,
+    port: process.env.MYSQL_PORT,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
     insecureAuth: true
 } 
 

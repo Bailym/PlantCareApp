@@ -68,7 +68,7 @@ class Register extends React.Component {
       //Send details to server 
       await axios.post(`/api/register/${emailOne}/${passwordOne}/${firstName}/${surname}`)
       .then(response => {
-
+        console.log(response.data);
         //if server returns an error
         if(response.data.code){
           //handle each error individually

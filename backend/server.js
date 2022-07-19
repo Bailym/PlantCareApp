@@ -29,7 +29,6 @@ var userController = require("./controllers/userController");
 var recoveryController = require("./notifications/recoveryController"); //handles password recovery
 var plantController = require("./controllers/plantController");  //handles plant table related calls
 var classifierController = require("./controllers/classifierController");  //handles classifier related calls
-const { useReducer } = require('react');
 
 //routing
 
@@ -79,8 +78,12 @@ app.get("/api/getmodel", classifierController.getModel)
 * Else return false and handle the rest on the client side.
 */
 app.post('/api/login/:email/:password', async function (request, response) {
+    console.log("here")
     var email = request.params.email;
     var password = request.params.password;
+
+    console.log(email)
+
     if (email && password) {
         const [results, fields] = await DBPool.query('SELECT * FROM plantdb.user WHERE Email = ? AND Password = ?', [email, password]);
         if (results.length > 0) {
