@@ -8,8 +8,8 @@ import HeaderMenu from "./components/HeaderMenu"
 import Home from "./Home";
 import Admin from "./Admin";
 import Account from "./Account";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 import Recover from "./Recover";
 import RecoverRequest from './RecoverRequest';
 import Plant from './Plant';
