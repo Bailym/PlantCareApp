@@ -51,6 +51,21 @@ module.exports = {
 
     },
 
+    async getUserEmail(request, response) {
+
+        try {
+            //make query and send results
+            const [results, fields] = await DBPool.query(`SELECT UserID as ID, FirstName, Surname, Email, Password, Type FROM plantdb.user WHERE Email = ?`, request.params.email);
+            response.send(results);
+        }
+        //error handling
+        catch (err) {
+            response.sendStatus(500);
+            console.log(err)
+        }
+
+    },
+
     //ONLY USED IN INTEGRATION TETSING TO REMOVE TEST DATA. ARCHIVE LIVE USERS BELOW
     async deleteUser(request, response) {
 

@@ -22,12 +22,11 @@ suite("INTEGRATION TESTS", async function () {
 
 
         //Check the new user exists in the users table
-        await agent.get(`/api/users/${newUserID}`)
+        await agent.get(`/api/users/email/test@email.co.uk`)
             .then(function (response, error) {
-                chai.assert.equal(response.body[0].ID, newUserID, "User Not Registered!")
-                chai.assert.equal(response.body[0].FirstName, "Api", "User Not Registered!")
-                chai.assert.equal(response.body[0].Surname, "Test", "User Not Registered!")
-                chai.assert.equal(response.body[0].Email, "test@email.co.uk", "User Not Registered!")
+                chai.assert.equal(response.body[0].FirstName, "Api", "User first name not found")
+                chai.assert.equal(response.body[0].Surname, "Test", "User surname not found")
+                chai.assert.equal(response.body[0].Email, "test@email.co.uk", "User email not found")
             })
     })
 
