@@ -1,0 +1,12 @@
+#register-form {
+    text-align: center;
+    margin: 15vh auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    width:clamp(15rem, 30vw, 50rem);
+}
+
+/* <Input> on register form */
+#register-form input{
+    border-radius: 10px;
+}

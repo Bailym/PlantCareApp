@@ -1,17 +1,16 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
+import './Register.css';
 import { Form, Input, Button, Row, message, Card, Typography } from 'antd';
-import MediaQuery from 'react-responsive'
 import FormItem from 'antd/lib/form/FormItem';
 const axios = require('axios');
 const { Title } = Typography;
 var sha512 = require('js-sha512');
 
+function Register() {
 
-class Register extends React.Component {
-
+  const history = useHistory();
 
   /*
   * Reads in the values entered on the form.
@@ -20,7 +19,7 @@ class Register extends React.Component {
   * Insterts valid data into MySQL database
   * Handles any errors
   */
-  handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     //Entered Values from the form
     var emailOne = document.getElementById("emailOne").value;
     var emailTwo = document.getElementById("emailTwo").value;
@@ -28,9 +27,9 @@ class Register extends React.Component {
     var passwordTwo = document.getElementById("passwordTwo").value;
     var firstName = document.getElementById("firstName").value;
     var surname = document.getElementById("surname").value;
-    
+
     //Validation
-    let isValidated = true; 
+    let isValidated = true;
 
     //empty fields
     if (emailOne === "" || emailTwo === "" || passwordOne === "" | passwordTwo === "") {
@@ -41,7 +40,7 @@ class Register extends React.Component {
     //email format test
     let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
-    if (regexEmail.test(emailTwo) === false || regexEmail.test(emailTwo) === false){
+    if (regexEmail.test(emailTwo) === false || regexEmail.test(emailTwo) === false) {
       message.info("Email format is invalid");
       isValidated = false;
 
@@ -67,220 +66,273 @@ class Register extends React.Component {
 
       //Send details to server 
       await axios.post(`/api/register/${emailOne}/${passwordOne}/${firstName}/${surname}`)
-      .then(response => {
-        console.log(response.data);
-        //if server returns an error
-        if(response.data.code){
-          //handle each error individually
-          switch(response.data.errno){
-            case 1062:
-              message.info("Could not create account - An Account with this email already exists");
-              break;
+        .then(response => {
+          //if server returns an error
+          if (response.data.code) {
+            //handle each error individually
+            switch (response.data.errno) {
+              case 1062:
+                message.info("Could not create account - An Account with this email already exists");
+                break;
               //default case
               default:
                 message.info("Could not create account");
+            }
           }
-        }
-        //if server does not return an error
-        else {
-          //show a message and return to login
-          message.info("Account Created!");
-          this.props.history.push("login");
-          window.location.reload()
-        }
-      })
+          //if server does not return an error
+          else {
+            //show a message and return to login
+            message.info("Account Created!");
+            history.push("login");
+          }
+        })
     }
   }
 
-  render() {
-    return (
-      <Router>
-
-        <MediaQuery minDeviceWidth={1025}>
-          <Card bordered={true} style={{ width: "30%", backgroundColor: "#9dfac1", margin: "auto", marginTop: "5%", border: "2px solid black", borderRadius: "20px" }}>
-            <Row style={{ paddingTop: "5%" }}>
-              <Form style={{ textAlign: "center", margin: "auto" }}>
-                <Title style={{ margin: "5% auto" }}>Register</Title>
-                <Form.Item>
-                  <Input id="firstName"
-                    placeholder="First Name" 
-                    maxLength = {45}/>
-                </Form.Item>
-                <Form.Item>
-                  <Input id="surname"
-                    placeholder="Surname"
-                    maxLength = {45} />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="emailOne"
-                    placeholder="Email"
-                    maxLength = {255} />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="emailTwo"
-                    placeholder="Confirm Email"
-                    maxLength = {255} />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="passwordOne"
-                    type="password"
-                    placeholder="Password"
-                    maxLength = {512} />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="passwordTwo"
-                    type="password"
-                    placeholder="Confirm Password"
-                    maxLength = {255} />
-                </Form.Item>
-                <FormItem>
-                  <Button type="primary" id="register" onClick={this.handleSubmit}>Register</Button>
-                </FormItem>
-                <FormItem>
-                  <Link to="/recover" onClick={() => {
-                    this.props.history.push("/recover")
-                    window.location.reload()
-                  }}>Forgot Password</Link>
-                </FormItem>
-                <FormItem>
-                  <Link to="/login" onClick={() => {
-                    this.props.history.push("/login")
-                    window.location.reload()
-                  }}>Already have an account? Login here.</Link>
-                </FormItem>
-              </Form>
-            </Row>
-          </Card>
-        </MediaQuery>
-
-        <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
-          <Card bordered={true} style={{ width: "60%", backgroundColor: "#9dfac1", margin: "10% auto 0 auto ", border: "2px solid black", borderRadius: "20px" }}>
-            <Row style={{ paddingTop: "5%" }}>
-              <Form style={{ textAlign: "center", margin: "auto", minWidth: "100%" }}>
-                <Title style={{ margin: "5% auto" }}>Register</Title>
-                <Form.Item>
-                  <Input id="firstName"
-                    placeholder="First Name"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="surname"
-                    placeholder="Surname"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="emailOne"
-                    placeholder="Email"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="emailTwo"
-                    placeholder="Confirm Email"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="passwordOne"
-                    type="password"
-                    placeholder="Password"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="passwordTwo"
-                    type="password"
-                    placeholder="Confirm Password"
-                    size="large" />
-                </Form.Item>
-                <FormItem>
-                  <Button type="primary"
-                    id="register"
-                    onClick={this.handleSubmit}
-                    size="large">Register</Button>
-                </FormItem>
-                <FormItem>
-                  <Link to="/recover" onClick={() => {
-                    this.props.history.push("/recover")
-                    window.location.reload()
-                  }}>Forgot Password</Link>
-                </FormItem>
-                <FormItem>
-                  <Link to="/login" onClick={() => {
-                    this.props.history.push("/login")
-                    window.location.reload()
-                  }}>Already have an account? Login here.</Link>
-                </FormItem>
-              </Form>
-            </Row>
-          </Card>
-        </MediaQuery>
-
-
-
-        <MediaQuery maxDeviceWidth={640}>
-          <Card bordered={true} style={{ width: "85%", backgroundColor: "#9dfac1", margin: "10% auto 0 auto ", border: "2px solid black", borderRadius: "20px" }}>
-            <Row style={{ paddingTop: "5%" }}>
-              <Form style={{ textAlign: "center", margin: "auto" }}>
-                <Title style={{ margin: "5% auto" }}>Register</Title>
-                <Form.Item>
-                  <Input id="firstName"
-                    placeholder="First Name"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="surname"
-                    placeholder="Surname"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="emailOne"
-                    placeholder="Email"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="emailTwo"
-                    placeholder="Confirm Email"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="passwordOne"
-                    type="password"
-                    placeholder="Password"
-                    size="large" />
-                </Form.Item>
-                <Form.Item>
-                  <Input id="passwordTwo"
-                    type="password"
-                    placeholder="Confirm Password"
-                    size="large" />
-                </Form.Item>
-                <FormItem>
-                  <Button type="primary"
-                    id="register"
-                    onClick={this.handleSubmit}
-                    size="large">Register</Button>
-                </FormItem>
-                <FormItem>
-                  <Link to="/recover" onClick={() => {
-                    this.props.history.push("/recover")
-                    window.location.reload()
-                  }}>Forgot Password</Link>
-                </FormItem>
-                <FormItem>
-                  <Link to="/login" onClick={() => {
-                    this.props.history.push("/login")
-                    window.location.reload()
-                  }}>Already have an account? Login here.</Link>
-                </FormItem>
-              </Form>
-            </Row>
-          </Card>
-        </MediaQuery>
-      </Router>
-    );
-  }
+  return (
+    <Form id="register-form">
+      <Title>Register</Title>
+      <Form.Item>
+        <Input id="firstName"
+          placeholder="First Name"
+          maxLength={45} />
+      </Form.Item>
+      <Form.Item>
+        <Input id="surname"
+          placeholder="Surname"
+          maxLength={45} />
+      </Form.Item>
+      <Form.Item>
+        <Input id="emailOne"
+          placeholder="Email"
+          maxLength={255} />
+      </Form.Item>
+      <Form.Item>
+        <Input id="emailTwo"
+          placeholder="Confirm Email"
+          maxLength={255} />
+      </Form.Item>
+      <Form.Item>
+        <Input id="passwordOne"
+          type="password"
+          placeholder="Password"
+          maxLength={512} />
+      </Form.Item>
+      <Form.Item>
+        <Input id="passwordTwo"
+          type="password"
+          placeholder="Confirm Password"
+          maxLength={255} />
+      </Form.Item>
+      <FormItem>
+        <Button type="primary" id="register" onClick={() => handleSubmit()}>Register</Button>
+      </FormItem>
+      <FormItem>
+        <Link to="/recover" onClick={() => {
+          history.push("/recover")
+        }}>Forgot Password</Link>
+      </FormItem>
+      <FormItem>
+        <Link to="/login" onClick={() => {
+          history.push("/login")
+        }}>Already have an account? Login here.</Link>
+      </FormItem>
+    </Form>)
 }
 
+//class Register extends React.Component {
 
-export default withRouter(Register);
+
+
+
+/* render() {
+  return (
+    <Router>
+      <MediaQuery minDeviceWidth={1025}>
+        <Card bordered={true} style={{ width: "30%", backgroundColor: "#9dfac1", margin: "auto", marginTop: "5%", border: "2px solid black", borderRadius: "20px" }}>
+          <Row style={{ paddingTop: "5%" }}>
+            <Form style={{ textAlign: "center", margin: "auto" }}>
+              <Title style={{ margin: "5% auto" }}>Register</Title>
+              <Form.Item>
+                <Input id="firstName"
+                  placeholder="First Name"
+                  maxLength={45} />
+              </Form.Item>
+              <Form.Item>
+                <Input id="surname"
+                  placeholder="Surname"
+                  maxLength={45} />
+              </Form.Item>
+              <Form.Item>
+                <Input id="emailOne"
+                  placeholder="Email"
+                  maxLength={255} />
+              </Form.Item>
+              <Form.Item>
+                <Input id="emailTwo"
+                  placeholder="Confirm Email"
+                  maxLength={255} />
+              </Form.Item>
+              <Form.Item>
+                <Input id="passwordOne"
+                  type="password"
+                  placeholder="Password"
+                  maxLength={512} />
+              </Form.Item>
+              <Form.Item>
+                <Input id="passwordTwo"
+                  type="password"
+                  placeholder="Confirm Password"
+                  maxLength={255} />
+              </Form.Item>
+              <FormItem>
+                <Button type="primary" id="register" onClick={this.handleSubmit}>Register</Button>
+              </FormItem>
+              <FormItem>
+                <Link to="/recover" onClick={() => {
+                  this.props.history.push("/recover")
+                  window.location.reload()
+                }}>Forgot Password</Link>
+              </FormItem>
+              <FormItem>
+                <Link to="/login" onClick={() => {
+                  this.props.history.push("/login")
+                  window.location.reload()
+                }}>Already have an account? Login here.</Link>
+              </FormItem>
+            </Form>
+          </Row>
+        </Card>
+      </MediaQuery>
+
+      <MediaQuery minDeviceWidth={641} maxDeviceWidth={1024}>
+        <Card bordered={true} style={{ width: "60%", backgroundColor: "#9dfac1", margin: "10% auto 0 auto ", border: "2px solid black", borderRadius: "20px" }}>
+          <Row style={{ paddingTop: "5%" }}>
+            <Form style={{ textAlign: "center", margin: "auto", minWidth: "100%" }}>
+              <Title style={{ margin: "5% auto" }}>Register</Title>
+              <Form.Item>
+                <Input id="firstName"
+                  placeholder="First Name"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="surname"
+                  placeholder="Surname"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="emailOne"
+                  placeholder="Email"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="emailTwo"
+                  placeholder="Confirm Email"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="passwordOne"
+                  type="password"
+                  placeholder="Password"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="passwordTwo"
+                  type="password"
+                  placeholder="Confirm Password"
+                  size="large" />
+              </Form.Item>
+              <FormItem>
+                <Button type="primary"
+                  id="register"
+                  onClick={this.handleSubmit}
+                  size="large">Register</Button>
+              </FormItem>
+              <FormItem>
+                <Link to="/recover" onClick={() => {
+                  this.props.history.push("/recover")
+                  window.location.reload()
+                }}>Forgot Password</Link>
+              </FormItem>
+              <FormItem>
+                <Link to="/login" onClick={() => {
+                  this.props.history.push("/login")
+                  window.location.reload()
+                }}>Already have an account? Login here.</Link>
+              </FormItem>
+            </Form>
+          </Row>
+        </Card>
+      </MediaQuery>
+
+
+
+      <MediaQuery maxDeviceWidth={640}>
+        <Card bordered={true} style={{ width: "85%", backgroundColor: "#9dfac1", margin: "10% auto 0 auto ", border: "2px solid black", borderRadius: "20px" }}>
+          <Row style={{ paddingTop: "5%" }}>
+            <Form style={{ textAlign: "center", margin: "auto" }}>
+              <Title style={{ margin: "5% auto" }}>Register</Title>
+              <Form.Item>
+                <Input id="firstName"
+                  placeholder="First Name"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="surname"
+                  placeholder="Surname"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="emailOne"
+                  placeholder="Email"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="emailTwo"
+                  placeholder="Confirm Email"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="passwordOne"
+                  type="password"
+                  placeholder="Password"
+                  size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Input id="passwordTwo"
+                  type="password"
+                  placeholder="Confirm Password"
+                  size="large" />
+              </Form.Item>
+              <FormItem>
+                <Button type="primary"
+                  id="register"
+                  onClick={this.handleSubmit}
+                  size="large">Register</Button>
+              </FormItem>
+              <FormItem>
+                <Link to="/recover" onClick={() => {
+                  this.props.history.push("/recover")
+                  window.location.reload()
+                }}>Forgot Password</Link>
+              </FormItem>
+              <FormItem>
+                <Link to="/login" onClick={() => {
+                  this.props.history.push("/login")
+                  window.location.reload()
+                }}>Already have an account? Login here.</Link>
+              </FormItem>
+            </Form>
+          </Row>
+        </Card>
+      </MediaQuery>
+    </Router>
+  );
+} */
+//}
+
+
+export default Register
 
 
 
