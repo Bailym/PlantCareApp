@@ -82,20 +82,14 @@ function Login() {
         <Button type="primary" id="btn-login" onClick={() => handleSubmit()}>Log in</Button>
       </FormItem>
       <FormItem>
-        <Link to="/recover" onClick={() => {
-          this.props.history.push("/recover")
-          window.location.reload()
-        }}>Forgot Password</Link>
+        <Link to="/recover" onClick={() => {history.push("/recover")}}>Forgot Password</Link>
       </FormItem>
       <FormItem>
-        <Link to="/register" onClick={() => {
-        }}>Dont have an account? Register here.</Link>
+        <Link to="/register" onClick={() => {history.push('/register') }}>Dont have an account? Register here.</Link>
       </FormItem>
     </Form>
   )
 }
-
-
 
 export default Login;
 

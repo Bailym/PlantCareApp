@@ -2,13 +2,16 @@ const express = require('express')
 const app = express()
 const port = 3001
 var DBPool = require('./database');
+const path = require('path')
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var DBPool = require('./database');
 var JFUM = require('jfum');
 
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
+
 app.use(session({
-    secret: 'secret',
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
 }));
@@ -78,28 +81,23 @@ app.get("/api/getmodel", classifierController.getModel)
 * Else return false and handle the rest on the client side.
 */
 app.post('/api/login/:email/:password', async function (request, response) {
-    console.log("here")
+    //get the email and password from the request
     var email = request.params.email;
     var password = request.params.password;
 
-    console.log(email)
-
+    //if the email and password are not empty
     if (email && password) {
-        const [results, fields] = await DBPool.query('SELECT * FROM plantdb.user WHERE Email = ? AND Password = ?', [email, password]);
+        const [results, fields] = await DBPool.query('SELECT * FROM plantdb.user WHERE Email = ? AND Password = ?', [email, password]); //search for the user with that email and password.
+        //if a user is found
         if (results.length > 0) {
+            //update session variables
             request.session.loggedin = true;
             request.session.username = email;
             request.session.userID = results[0].UserID;
             response.send(true);
-        } else {
-            response.send(false);
-        }
-        response.end();
+        } 
     }
-    else {
-        response.send(false);
-        response.end();
-    }
+    response.send(false)
 });
 
 app.post('/api/register/:email/:password/:firstname/:surname', async function (request, response) {
