@@ -10,7 +10,7 @@ import Admin from "./Admin";
 import Account from "./Account";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-import Recover from "./Recover";
+import RecoverPassword from "./pages/RecoverPassword/RecoverPassword";
 import RecoverRequest from './RecoverRequest';
 import Plant from './Plant';
 import UploadImage from './Upload';
@@ -34,7 +34,7 @@ class App extends Component {
               <Route exact path='/' component={Home} />
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
-              <Route path='/recover' component={Recover} />
+              <Route path='/recover' component={RecoverPassword} />
               <Route path='/recoverrequest' component={RecoverRequest} />
               <Route path='/account' component={Account} />
               <Route path='/home' component={Home} />
