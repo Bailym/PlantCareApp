@@ -27,7 +27,6 @@ var jfum = new JFUM({
 app.options('/api/upload', jfum.optionsHandler.bind(jfum));
 
 //controllers
-
 var userController = require("./controllers/userController");
 var recoveryController = require("./notifications/recoveryController"); //handles password recovery
 var plantController = require("./controllers/plantController");  //handles plant table related calls

@@ -13,12 +13,8 @@ function RecoverPassword() {
 
   const history = useHistory();
 
-  async function handleSubmit(e) {
-    //Entered Values
+  function validateForm(){
     var email = document.getElementById("email").value;
-
-
-    //Validation
 
     let isValidated = true;
 
@@ -36,26 +32,27 @@ function RecoverPassword() {
       isValidated = false;
     }
 
+    return {"valid": isValidated, "email": email};
+  }
+
+  async function handleSubmit(e) {
+    
+    let formData = validateForm();
 
     //if the form is valid
-    if (isValidated) {
+    if (formData.valid) {
       //Check the entered email exists in the system
-      await axios.post(`/api/recover/check/${email}`)
+      await axios.post(`/api/recover/check/${formData.email}`)
         .then(async response => {
-
-          //if the email does exist in the system
+          //if the email is found
           if (response.data.length === 1) {
-
-            let id = response.data[0].UserID; //extract the id
-
-            message.info("Password Recovery Email SENT! - Please check your Inbox and Junk folders")  //show a message and send the email 
-            await axios.post(`/api/recover/send/${id}/${email}`);  //SEND THE EMAIL
-
+            let id = response.data[0].UserID; //retrieve the id to send the email to
+            message.info("Email sent - please check your Inbox and junk folders")  //show a message and send the email 
+            await axios.post(`/api/recover/send/${id}/${formData.email}`);  //SEND THE EMAIL
           }
-        })
-        //error handling
-        .catch(function (error) {
-
+          else {
+            message.info("Email not found");
+          }
         })
     }
   };

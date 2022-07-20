@@ -1,8 +1,8 @@
 var mysql = require('mysql2');
 var DBPool = require('../database');
 var nodemailer = require('nodemailer');
-
-
+const path = require("path")
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') })
 
 module.exports = {
 
@@ -24,12 +24,18 @@ module.exports = {
     //sends the recover email out. Embedded in the email is a link containing the users ID. This allows them to follow a unique link to reset their password
     async sendRecoveryEmail(req, res) {
         try {
-          var transporter = nodemailer.createTransport({
-            service: 'gmail',
+
+          let app_url = process.env.APP_URL;
+          let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
-              user: 'arecovery227@gmail.com',
-              pass: "7EuKRAa#5bgELqk5n&GAK9!Pjget3u"
-            }
+              type: "OAuth2",
+              user: process.env.RECOVERY_EMAIL_ADDRESS,
+              accessToken: process.env.GOOGLE_OAUTH_ACCESS_TOKEN,
+              refreshToken: process.env.GOOGLE_OAUTH_REFRESH_TOKEN,
+            },
           });
       
           var mailOptions = {
@@ -48,7 +54,7 @@ module.exports = {
             
                 <h1>An account recovery request has been made for this account.</h1>
                 <h1>Click the link below to reset your password</h1>
-                <a href = "http://18.135.34.204/recoverrequest?id=${req.params.id}">Reset Password</a>
+                <a href = "${app_url}/recoverrequest?id=${req.params.id}">Reset Password</a>
                 
             </body>
             </html>`
