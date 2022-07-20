@@ -78,8 +78,8 @@ function UpdatePassword() {
 
 
   return (
-    <Form style={{ textAlign: "center", margin: "auto" }}>
-      <Title style={{ margin: "5% auto" }}>Reset Password</Title>
+    <Form id="update-password-form">
+      <Title>Reset Password</Title>
       <Form.Item>
         <Input id="passwordOne"
           type="password"
