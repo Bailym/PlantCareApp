@@ -54,7 +54,7 @@ module.exports = {
             
                 <h1>An account recovery request has been made for this account.</h1>
                 <h1>Click the link below to reset your password</h1>
-                <a href = "${app_url}/recoverrequest?id=${req.params.id}">Reset Password</a>
+                <a href = "${app_url}/updatepassword?id=${req.params.id}">Reset Password</a>
                 
             </body>
             </html>`

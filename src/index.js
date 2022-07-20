@@ -11,7 +11,7 @@ import Account from "./Account";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import RecoverPassword from "./pages/RecoverPassword/RecoverPassword";
-import RecoverRequest from './RecoverRequest';
+import UpdatePassword from './pages/UpdatePassword/UpdatePassword';
 import Plant from './Plant';
 import UploadImage from './Upload';
 
@@ -35,7 +35,7 @@ class App extends Component {
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
               <Route path='/recover' component={RecoverPassword} />
-              <Route path='/recoverrequest' component={RecoverRequest} />
+              <Route path='/updatepassword' component={UpdatePassword} />
               <Route path='/account' component={Account} />
               <Route path='/home' component={Home} />
               <Route path='/admin' component={Admin} />

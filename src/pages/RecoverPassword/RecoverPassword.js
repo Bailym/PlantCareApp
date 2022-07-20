@@ -20,7 +20,7 @@ function RecoverPassword() {
 
     //presence check
     if (email === "") {
-      message.info("Please enter a valid email and password");
+      message.info("Please enter a valid email");
       isValidated = false;
     }
 
