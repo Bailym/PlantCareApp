@@ -100,27 +100,25 @@ app.post('/api/login/:email/:password', async function (request, response) {
     response.send(false)
 });
 
+/* POST the users data when they fill out the register form */
 app.post('/api/register/:email/:password/:firstname/:surname', async function (request, response) {
+    //get the form details from the request
     var email = request.params.email;
     var password = request.params.password;
     var firstName = request.params.firstname;
     var surname = request.params.surname;
-    var type = "User"
+    var type = "User"   //default type is user. Doesnt come from form.
+    
+    //if all fields have been sent.
     if (email && password && firstName && surname) {
-
         try {
             const [results, fields] = await DBPool.query(`INSERT INTO plantdb.user (FirstName, Surname, Email, Password, Type) VALUES (?, ?, ?, ?, ?);`, [firstName, surname, email, password, type]);
-            
-            const newUserID = await DBPool.query("SELECT LAST_INSERT_ID()")
-
-            response.send({"LastID": newUserID[0][0][`LAST_INSERT_ID()`]})
+            //if the user was created successfully
             response.sendStatus(200);
         }
         catch (err) {
             response.send(err)
         }
-
-
     }
 });
 
