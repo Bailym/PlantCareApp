@@ -84,6 +84,7 @@ app.post('/api/login/:email/:password', async function (request, response) {
     //get the email and password from the request
     var email = request.params.email;
     var password = request.params.password;
+    let isAuthenticated = false;
 
     //if the email and password are not empty
     if (email && password) {
@@ -94,10 +95,10 @@ app.post('/api/login/:email/:password', async function (request, response) {
             request.session.loggedin = true;
             request.session.username = email;
             request.session.userID = results[0].UserID;
-            response.send(true);
+            isAuthenticated = true;
         } 
     }
-    response.send(false)
+    response.send(isAuthenticated);
 });
 
 /* POST the users data when they fill out the register form */
