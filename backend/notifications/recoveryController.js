@@ -35,8 +35,11 @@ module.exports = {
               user: process.env.RECOVERY_EMAIL_ADDRESS,
               accessToken: process.env.GOOGLE_OAUTH_ACCESS_TOKEN,
               refreshToken: process.env.GOOGLE_OAUTH_REFRESH_TOKEN,
+              clientId: process.env.GOOGLE_API_CLIENT_ID,
+              clientSecret : process.env.GOOGLE_API_CLIENT_SECRET
             },
           });
+
       
           var mailOptions = {
 
