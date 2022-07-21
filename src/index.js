@@ -5,7 +5,7 @@ import { Layout } from 'antd';
 import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import HeaderMenu from "./components/HeaderMenu"
-import Home from "./Home";
+import Home from "./pages/Home/Home";
 import Admin from "./Admin";
 import Account from "./Account";
 import Login from "./pages/Login/Login";
