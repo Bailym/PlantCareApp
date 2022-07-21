@@ -1,0 +1,37 @@
+#spin-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+#spin-container .ant-select-lg {
+    width:100vw;
+    text-align: center;
+}
+
+#home-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 1rem auto;
+}
+
+.home-col {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 30vw;
+}
+
+.ant-card-head {
+    background-image: url("../../resources/woodtexture.png") ;
+
+}
+
+.ant-card-body {
+    background-color: #fcf4e1;
+}
+
+#camera-img {
+    font-size: 10rem;
+}

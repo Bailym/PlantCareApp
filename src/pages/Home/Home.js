@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import '../../app.css';
 import 'antd/dist/antd.css';
 import "./Home.css";
-import PlantSearch from "../../components/PlantSearch"
-import { Space, Card, Spin, List, Typography, Divider, Button } from 'antd';
+import PlantSearch from "../../components/PlantSearch/PlantSearch";
+import { Space, Card, Spin, List, Typography, Divider, Button, Row, Col } from 'antd';
 import { CameraOutlined } from '@ant-design/icons'
 import * as Parser from 'rss-parser';
 const axios = require('axios');
@@ -66,24 +65,24 @@ function Home() {
   useEffect(() => {
 
     async function getRssComponents() {
-    //RSS FEED CODE
-    let parser = new Parser() //create a parser
-    let tempComponents=[];
+      //RSS FEED CODE
+      let parser = new Parser() //create a parser
+      let tempComponents = [];
 
-    //parse the url to get the feed object
-    await parser.parseURL("https://cors-anywhere.herokuapp.com/https://www.finegardening.com/feed")
-      .then(function (response) {
-        //map the feed entries to components
-        tempComponents = response.items.map((x) =>
-          <div key={x.guid}>
-            <Divider />
-            <Title>{x.title}</Title>
-            <div> {x.content}</div>
-            <a href={x.link}>Read More</a><br />
-            <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
-            <Text>{x.pubDate.slice(0, -15)}</Text>
-          </div>)
-      })
+      //parse the url to get the feed object
+      await parser.parseURL("https://bailym-cors-anywhere.herokuapp.com/https://www.finegardening.com/feed")
+        .then(function (response) {
+          //map the feed entries to components
+          tempComponents = response.items.map((x) =>
+            <div key={x.guid}>
+              <Divider />
+              <Title>{x.title}</Title>
+              <div> {x.content}</div>
+              <a href={x.link}>Read More</a><br />
+              <Text style={{ fontWeight: "bold" }}>{x.creator + " "}</Text>
+              <Text>{x.pubDate.slice(0, -15)}</Text>
+            </div>)
+        })
       setRssComponents(tempComponents);
     }
 
@@ -127,32 +126,30 @@ function Home() {
   }
 
   return (
-    <Spin spinning={loading}>
-      <PlantSearch style={{ width: "100%", textAlign: "center", textAlignLast: "center" }} />
-      <Space direction="vertical" style={{ width: "31vw", overflowY: "auto" }}>
-        <Card title="My Garden" headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
-          <List>
-            {gardenPreviewComponents}
-          </List>
-        </Card>
-      </Space>
-      <Space direction="vertical" style={{ width: "31vw", overflowY: "auto", margin: "1vw" }}>
-        <Card title="Identify Plants" style={{ textAlign: "center" }} headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
-          <CameraOutlined style={{ fontSize: "100px" }} onClick={() => { history.push("/upload") }} />
-        </Card>
-      </Space>
-      <Space direction="vertical" className="hideScroll" style={{ width: "31vw", maxHeight: "70vh" }}>
-        <Card title="News" style={{ textAlign: "center" }} headStyle={{ backgroundImage: "url(woodtexture.png)" }} bodyStyle={{ backgroundColor: "#fcf4e1" }}>
-          <div id="rssDiv">
-            <Text id="rssText">{rssComponents ? "FineGardening.com" : "Could not load RSS feed"}</Text>
-            {rssComponents}
-          </div>
-        </Card>
-      </Space>
+    <Spin id="spin-container" spinning={loading}>
+      <PlantSearch id="search"  />
+      <div id="home-row">
+        <div className="home-col" >
+          <Card title="My Garden">
+            <List>
+              {gardenPreviewComponents}
+            </List>
+          </Card>
+        </div>
+        <div className="home-col">
+          <Card title="Identify Plants">
+            <CameraOutlined id="camera-img" style={{ fontSize: "100px" }} onClick={() => { history.push("/upload") }} />
+          </Card>
+        </div>
+        <div className="home-col">
+          <Card title="News">
+            <div id="rssDiv">
+              <Text id="rssText">{rssComponents[0] ? "FineGardening.com" : "Could not load RSS feed"}</Text>
+              {rssComponents}
+            </div>
+          </Card>
+        </div>
+      </div>
     </Spin>)
 }
-
-
-
-
 export default Home;

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
+//import './PlantSearch.css';
 import { Select } from 'antd';
 import {withRouter } from 'react-router-dom';
 const { Option } = Select;
@@ -56,10 +57,9 @@ class PlantSearch extends React.Component {
 
   render() {
     return (
-      <Select
+      <Select id="plant-search-select"
         showSearch
         value={this.state.value}
-        style={this.props.style}
         size="large"
         defaultActiveFirstOption={false}
         showArrow={false}
