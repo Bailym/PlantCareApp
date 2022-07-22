@@ -1,11 +1,15 @@
 #spin-container {
-    margin-top: 1rem;
+    margin: 1rem 1rem;
     display: flex;
     flex-direction: row;
 }
 
+.ant-spin-container {
+    width:100%
+}
+
 #spin-container .ant-select-lg {
-    width:100vw;
+    width:100%;
     text-align: center;
 }
 
@@ -20,12 +24,11 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 30vw;
+    width: 32%;
 }
 
 .ant-card-head {
     background-image: url("../../resources/woodtexture.png") ;
-
 }
 
 .ant-card-body {
@@ -34,4 +37,14 @@
 
 #camera-img {
     font-size: 10rem;
+}
+
+@media screen and (max-width:640px) {
+    #home-row {
+        flex-direction: column;
+    }
+    .home-col {
+        width: 100vw;
+        padding: 1rem;
+    }
 }

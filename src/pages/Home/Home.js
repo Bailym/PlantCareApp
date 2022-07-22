@@ -138,7 +138,7 @@ function Home() {
         </div>
         <div className="home-col">
           <Card title="Identify Plants">
-            <CameraOutlined id="camera-img" style={{ fontSize: "100px" }} onClick={() => { history.push("/upload") }} />
+            <CameraOutlined id="camera-img" onClick={() => { history.push("/upload") }} />
           </Card>
         </div>
         <div className="home-col">
