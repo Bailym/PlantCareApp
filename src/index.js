@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import HeaderMenu from "./components/HeaderMenu"
 import Home from "./pages/Home/Home";
 import Admin from "./Admin";
-import Account from "./Account";
+import Account from "./pages/Account/Account";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import RecoverPassword from "./pages/RecoverPassword/RecoverPassword";

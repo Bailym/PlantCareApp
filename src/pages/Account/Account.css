@@ -1,0 +1,13 @@
+#login-form {
+    text-align: center;
+    margin: 15vh auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: column ;
+    width:clamp(15rem, 30vw, 50rem);
+}
+
+/* <Title> */
+#login-form h1 {
+    margin: 5% auto;
+}
