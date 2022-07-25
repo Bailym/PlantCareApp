@@ -1,0 +1,57 @@
+#spin-container {
+    margin: 1rem 1rem;
+}
+
+.ant-spin-container {
+    width:100%
+}
+
+#spin-container .ant-select-lg {
+    width:100%;
+    text-align: center;
+}
+
+#button-div .ant-btn{
+    margin:1rem 0 0 1rem
+}
+
+#plant-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 1rem auto;
+}
+
+.plant-col {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 32%;
+}
+
+.ant-card {
+    margin: 0 0 1rem 0;
+}
+
+.ant-card-head {
+    background-image: url("../../resources/woodtexture.png") ;
+}
+
+.ant-card-body {
+    background-color: #fcf4e1;
+}
+
+#camera-img {
+    font-size: 10rem;
+}
+
+@media screen and (max-width:1024px) {
+    #plant-row {
+        flex-direction: column;
+    }
+    .plant-col {
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+   

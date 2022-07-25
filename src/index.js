@@ -12,7 +12,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import RecoverPassword from "./pages/RecoverPassword/RecoverPassword";
 import UpdatePassword from './pages/UpdatePassword/UpdatePassword';
-import Plant from './Plant';
+import Plant from './pages/Plant/Plant';
 import UploadImage from './Upload';
 
 const { Header, Content } = Layout;
