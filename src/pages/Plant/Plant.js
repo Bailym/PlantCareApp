@@ -36,16 +36,6 @@ function Plant() {
         if (response.data === false) {   //if false redirect to login (you are not logged in.)
           history.push("/login");
         }
-        //if a user is logged in
-        else {
-          // Check the user Type (Admin/Standard) to see which home page to show
-          await axios.get('/api/usertype')
-            .then(response => {
-              if (response.data === "Admin") {
-                history.push("/admin") //Redirect to admin page
-              }
-            })
-        }
       })
   }
 
