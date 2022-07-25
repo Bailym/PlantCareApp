@@ -38,13 +38,12 @@ function Account() {
       })
   }
 
+  //Gets the values from the form and sends them to the server to be updated
   async function updateDetails() {
 
     //these two are the only ones that can change here.
     var newFirstName = document.getElementById("firstName").value
     var newSurname = document.getElementById("surname").value
-
-
     let formData = validateForm(newFirstName, newSurname);
 
     if (formData.valid) {
@@ -59,6 +58,7 @@ function Account() {
     }
   }
 
+  //validates the form when submitted.
   function validateForm(newFirstName, newSurname) {
 
     let isValidated = true;
@@ -73,12 +73,12 @@ function Account() {
   }
 
 
-  //when first mounting
+  //when component mounts, check the user is logged in and store the users ID
   useEffect(() => {
     checkUser();
   }, [])
 
-  //when the userID changes (in checkuser)
+  //when we have the users ID, use it to get the users details
   useEffect(() => {
 
     //use the loginID to get the users details
@@ -103,6 +103,7 @@ function Account() {
 
   }, [loggedInUserID])
 
+  //when we get the users details, display them in the form. (useForm hook!)
   useEffect(() => {
     form.setFieldsValue({
       firstName: loggedInUserDetails.FirstName,
@@ -110,14 +111,13 @@ function Account() {
       email: loggedInUserDetails.Email,
       password: loggedInUserDetails.Password,
       type: loggedInUserDetails.Type
-
     })
   })
 
   return (
     <Spin spinning={loading}>
+      <Form style={{ textAlign: "center", margin: "auto" }} form={form} id="account-form">
       <Title style={{ textAlign: "center" }}>Account</Title>
-      <Form style={{ textAlign: "center", margin: "auto" }} form={form}>
         <Form.Item name="firstName">
           <Input
             addonBefore={<Text>First Name</Text>}

@@ -1,4 +1,4 @@
-#login-form {
+#account-form {
     text-align: center;
     margin: 15vh auto;
     justify-content: center;
@@ -8,6 +8,6 @@
 }
 
 /* <Title> */
-#login-form h1 {
+#account-form h1 {
     margin: 5% auto;
 }
