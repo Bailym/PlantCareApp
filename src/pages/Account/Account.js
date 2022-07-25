@@ -116,8 +116,8 @@ function Account() {
 
   return (
     <Spin spinning={loading}>
-      <Form style={{ textAlign: "center", margin: "auto" }} form={form} id="account-form">
-      <Title style={{ textAlign: "center" }}>Account</Title>
+      <Form form={form} id="account-form">
+      <Title>Account</Title>
         <Form.Item name="firstName">
           <Input
             addonBefore={<Text>First Name</Text>}
