@@ -1,90 +1,56 @@
-import React from 'react';
+import { useState } from 'react';
 import 'antd/dist/antd.css';
-import PropTypes from 'prop-types';
 import { Modal, Popconfirm, message, Button, Typography } from 'antd';
 const axios = require('axios');
 const { Text } = Typography;
 
-class DeleteModal extends React.Component {
+function DeleteModal(props) {
 
-  static propTypes = {
-    propSettingsPage: PropTypes.string,   //Stores the currently active settings page
-    propPlantID: PropTypes.number,  //Stores the ID of the selected plant
-    propPlantName: PropTypes.string
-  }
+  const [visible, setVisible] = useState(false);
 
-  state = {
-    visible: false, //Used to Show/Hide the Modal.
-  };
-
-  /*
-  * Method to show the modal.
-  * Sets visible to true.
-  */
-  showModal = async () => {
-
-    this.setState({
-      visible: true,
-    });
+  //toggles modal visibility
+  function toggleShowModal() {
+    setVisible(!visible)
   };
 
   /*
   * Handles when the OK button is pressed.
   * When the OK button is pressed. Delete the selected Plant
   */
-  handleOk = async (e) => {
-    //Close the modal by setting visible to false.
-    this.setState({
-      visible: false,
-    });
+  async function handleOk(e) {
 
-    var plantID = this.props.propPlantID;
-
+    var plantID = props.PlantID;
     //archive
     await axios.post(`/api/plants/archive/${plantID}`)
-    .then(response =>{
-      message.info("Plant Deleted")
-    })
-    .catch(function(error){
-      console.log(error)
-    })
+      .then(response => {
+        message.info("Plant Deleted")
+      })
+    toggleShowModal();
   }
 
-  /*
-  * Handles when the cancel button is pressed. Hides the modal
-  */
-  handleCancel = e => {
-    //Set visible to false to close the modal.
-    this.setState({
-      visible: false,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <Button onClick={this.showModal} >DELETE</Button>
-        <Modal
-          title="Delete"
-          visible={this.state.visible}
-          onCancel={this.handleCancel}
-          footer={null}
-          key={this.props.propPlantID}
+  return (
+    <>
+      <Button onClick={() => toggleShowModal()}>ARCHIVE</Button>
+      <Modal
+        title="Archive Plant"
+        visible={visible}
+        onCancel={() => toggleShowModal()}
+        footer={false}
+        key={props.PlantID}
+      >
+        <Text type="danger">You are about to archive: {props.PlantName} </Text><br/>
+        <Popconfirm
+          title="Are you sure?"
+          onConfirm={() => handleOk()}
+          onCancel={() => toggleShowModal()}
+          okText="Yes"
+          cancelText="No"
         >
-          <Text id="deleteText" type="danger" style={{fontSize:"16px"}}>You are about to delete: {this.props.propPlantName} </Text> <br/><br/>
-          <Popconfirm
-            title="Are you sure?"
-            onConfirm={this.handleOk}
-            onCancel={this.handleCancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button>Confirm</Button>
-          </Popconfirm>
-        </Modal>
-      </div>
-    );
-  }
+          <Button>Confirm</Button>
+        </Popconfirm>
+      </Modal>
+    </>
+  );
 }
 
 export default DeleteModal

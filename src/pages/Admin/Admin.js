@@ -42,8 +42,8 @@ function Admin() {
         for (var i = 0; i < responseData.length; i++) {
           responseData[i].Options =
             <div>
-              <span><DeleteModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName} /></span>
-              <span><UpdatePlantModal propPlantID={responseData[i].PlantID} propPlantName={response.data[i].CommonName} /></span>
+              <span><DeleteModal PlantID={responseData[i].PlantID} PlantName={response.data[i].CommonName} /></span>
+              <span><UpdatePlantModal PlantID={responseData[i].PlantID} PlantName={response.data[i].CommonName} /></span>
             </div>
         }
         setAllPlantData(responseData);

@@ -72,7 +72,7 @@ module.exports = {
         try {
 
             //insert the row into the archive
-            await DBPool.query(`INSERT INTO plantdb.plantArchive (PlantID, CommonName, Type, NativeCountry, Symbolism, EndangeredStatus, EnvironmentalThreat, LifeSpan, BloomTime, SizeRange, Spread, FlowerSize, Difficulty, SunlightNeeds, Hardiness, HardinessZones,
+            await DBPool.query(`INSERT INTO plantdb.plantarchive (PlantID, CommonName, Type, NativeCountry, Symbolism, EndangeredStatus, EnvironmentalThreat, LifeSpan, BloomTime, SizeRange, Spread, FlowerSize, Difficulty, SunlightNeeds, Hardiness, HardinessZones,
                 SoilType, WaterNeeds, FertilisationNeeds, Pruning, Propagation, Pests, PlantingTime, HarvestTime, PottingNeeds, EnvironmentalUses, EconomicUses, HomeUses) 
                 SELECT * FROM plantdb.plant WHERE PlantID = ?`, request.params.id);
             //delete the original
