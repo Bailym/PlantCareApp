@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import "./Admin.css";
 import { Table, Tabs, Typography } from 'antd';
-import DeleteModal from "../../components/DeleteModal";
+import ArchiveModal from "../../components/ArchiveModal/ArchiveModal";
 import UpdatePlantModal from "../../components/UpdatePlantModal/UpdatePlantModal";
-import CreatePlantModal from "../../components/AddPlantModal";
+import CreatePlantModal from "../../components/AddPlantModal/AddPlantModal";
 import UpdateUserModal from "../../components/UpdateUserModal";
 import DeleteUserModal from "../../components/DeleteUserModal";
 

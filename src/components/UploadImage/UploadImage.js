@@ -20,12 +20,12 @@ function UploadImage(props) {
 
         //post the data to the server
         await axios.post(`/api/upload/${props.PlantID}`, formData)
-        .then(response => {
-            if(response.status === 200) {
-                message.success("Image Uploaded!");
-                toggleShowModal();
-            }
-        })
+            .then(response => {
+                if (response.status === 200) {
+                    message.success("Image Uploaded!");
+                    toggleShowModal();
+                }
+            })
     }
 
     //update the state when the file is selected

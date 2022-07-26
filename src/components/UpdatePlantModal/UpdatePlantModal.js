@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './UpdatePlantModal.css';
 import { Modal, Input, message, Button, Tabs } from 'antd';
 import UpdateNameModal from "../UpdateNameModal"
-import UploadImage from "../UploadImage"
+import UploadImage from "../UploadImage/UploadImage"
 const axios = require('axios');
 const { TabPane } = Tabs;
 

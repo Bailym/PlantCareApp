@@ -4,7 +4,7 @@ import { Modal, Popconfirm, message, Button, Typography } from 'antd';
 const axios = require('axios');
 const { Text } = Typography;
 
-function DeleteModal(props) {
+function ArchiveModal(props) {
 
   const [visible, setVisible] = useState(false);
 
@@ -53,4 +53,4 @@ function DeleteModal(props) {
   );
 }
 
-export default DeleteModal
+export default ArchiveModal
