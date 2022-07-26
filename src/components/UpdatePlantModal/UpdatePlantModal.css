@@ -1,0 +1,22 @@
+#modal-footer{
+    display: flex;
+    flex-direction: row;
+}
+
+#cancel-footer-btn{
+    margin-left: auto;
+}
+
+@media screen and (max-width:480px){
+    #modal-footer{
+        flex-direction: column;
+    }
+
+    #modal-footer button {
+        width:100%
+    }
+
+    #cancel-footer-btn{
+        margin-top: 2rem;
+    }
+}

@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import "./Admin.css";
 import { Table, Tabs, Typography } from 'antd';
 import DeleteModal from "../../components/DeleteModal";
-import UpdatePlantModal from "../../components/UpdatePlantModal";
+import UpdatePlantModal from "../../components/UpdatePlantModal/UpdatePlantModal";
 import CreatePlantModal from "../../components/AddPlantModal";
 import UpdateUserModal from "../../components/UpdateUserModal";
 import DeleteUserModal from "../../components/DeleteUserModal";
