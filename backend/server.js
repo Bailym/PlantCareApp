@@ -6,7 +6,7 @@ const path = require('path')
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var DBPool = require('./database');
-var JFUM = require('jfum');
+var multer = require('multer')
 
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
@@ -18,13 +18,24 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var jfum = new JFUM({
-  minFileSize: 1,                      // 200 kB
-  maxFileSize: 5242880,                     // 5 mB
-  acceptFileTypes: /\.(jpe?g|png)$/i    // jpg, jpeg, png
-});
+//multer image storage setup.
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+var upload = multer({ storage: storage })
 
-app.options('/api/upload', jfum.optionsHandler.bind(jfum));
+//the /uploads path will serve files in the uploads folder
+app.use('/uploads', express.static('uploads'));
+app.post('/api/upload/:id', upload.single('plant-image'), async function (req, res, next) {
+    //insert the image path into the database
+    const [results, fields] = await DBPool.query("INSERT INTO plantdb.image (ImagePath, PlantID) VALUES (?,?)",[req.file.filename, req.params.id]);
+    res.sendStatus(200)
+})
 
 //controllers
 var userController = require("./controllers/userController");
@@ -60,7 +71,7 @@ app.get("/api/plants/names/:id", plantController.getPlantNames)
 app.post("/api/plants/names/deleteall/:id", plantController.deletePlantNames)
 app.post("/api/plants/names/update/:id/", plantController.updatePlantNames)
 app.get("/api/plant/images/:id", plantController.getPlantImages)
-app.post('/api/upload', jfum.postHandler.bind(jfum), plantController.uploadImages);
+//app.post('/api/upload', jfum.postHandler.bind(jfum), plantController.uploadImages);
 app.post("/api/plant/images/update/:id/", plantController.updatePlantImages)
 app.get("/api/plants/search/:searchtext", plantController.searchPlants)
 app.post("/api/garden/add/:plantid", userController.addToGarden)
@@ -96,7 +107,7 @@ app.post('/api/login/:email/:password', async function (request, response) {
             request.session.username = email;
             request.session.userID = results[0].UserID;
             isAuthenticated = true;
-        } 
+        }
     }
     response.send(isAuthenticated);
 });
@@ -109,7 +120,7 @@ app.post('/api/register/:email/:password/:firstname/:surname', async function (r
     var firstName = request.params.firstname;
     var surname = request.params.surname;
     var type = "User"   //default type is user. Doesnt come from form.
-    
+
     //if all fields have been sent.
     if (email && password && firstName && surname) {
         try {

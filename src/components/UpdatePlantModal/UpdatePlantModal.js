@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './UpdatePlantModal.css';
 import { Modal, Input, message, Button, Tabs } from 'antd';
 import UpdateNameModal from "../UpdateNameModal"
-import UpdateImageModal from "../UpdateImageModal"
+import UploadImage from "../UploadImage"
 const axios = require('axios');
 const { TabPane } = Tabs;
 
@@ -129,7 +129,7 @@ function UpdatePlantModal(props) {
         footer={[
           <div id="modal-footer">
             <UpdateNameModal PlantID={props.PlantID} />
-            <UpdateImageModal PlantID={props.PlantID} />
+            <UploadImage PlantID={props.PlantID} />
             <Button id="cancel-footer-btn" key="back" onClick={() => toggleShowModal()}>Cancel</Button>,
             <Button key="submit" type="primary" onClick={() => handleOk()}>Submit</Button>
           </div>

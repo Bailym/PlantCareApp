@@ -208,7 +208,6 @@ module.exports = {
         // Check if upload failed or was aborted
         if (req.jfum.error) {
             // req.jfum.error
-
         } else {
             // Here are the uploaded files
             for (var i = 0; i < req.jfum.files.length; i++) {
