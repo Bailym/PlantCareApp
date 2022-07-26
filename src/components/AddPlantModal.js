@@ -1,40 +1,27 @@
-import React from 'react';
+import { useState } from 'react';
 import 'antd/dist/antd.css';
-import { Modal, Input, message, Button, Typography, Tabs } from 'antd';
+import { Modal, Input, message, Button, Tabs } from 'antd';
 const axios = require('axios');
 const { TabPane } = Tabs;
 
-class AddPlantModal extends React.Component {
 
-  static propTypes = {
-  }
+function AddPlantModal() {
 
-  state = {
-    visible: false, //Used to Show/Hide the Modal.
-  };
-
-  childKey = 0; //Prevents duplicate keys
+  const [visible, setVisible] = useState(false);
 
   /*
   * Method to show the modal.
   * Sets visible to true.
   */
-  showModal = async () => {
-
-    this.setState({
-      visible: true,
-    });
+  function toggleShowModal() {
+    setVisible(!visible);
   };
 
   /*
   * Handles when the OK button is pressed.
   * When the OK button is pressed. Delete the selected Plant
   */
-  handleOk = async (e) => {
-    //Close the modal by setting visible to false.
-    this.setState({
-      visible: false,
-    });
+  async function handleOk(e) {
 
     //create an object containing the plants data
     var newPlantData =
@@ -72,80 +59,60 @@ class AddPlantModal extends React.Component {
       .then(response => {
         message.info("Plant Created")
       })
-      .catch(function (error) {
-        console.log(error)
-      })
+
+      toggleShowModal();
   }
 
-  /*
-  * Handles when the cancel button is pressed. Hides the modal
-  */
-  handleCancel = e => {
-    //Set visible to false to close the modal.
-    this.setState({
-      visible: false,
-    });
-  };
 
-  callback = (key) => {
-    
-  }
+  return (
+    <>
+      <Button onClick={() => toggleShowModal()}>Create Plant</Button>
+      <Modal
+        title="Create Plant"
+        visible={visible}
+        onCancel={() => toggleShowModal()}
+        onOk={() => handleOk()}
+      >
+        <Tabs defaultActiveKey="1">
+          <TabPane forceRender tab="Key Details" key="1">
+            <Input addonBefore="Common Name" id="commonname" maxLength={255} />
+            <Input addonBefore="Type" id="type" maxLength={32} />
+            <Input addonBefore="Native Country" id="nativecountry" maxLength={255} />
+            <Input addonBefore="Symbolism" id="symbolism" maxLength={255} />
+            <Input addonBefore="Endangered Status" id="endangeredstatus" maxLength={255} />
+            <Input addonBefore="Environmental Threat" id="environmentalthreat" maxLength={255} />
+          </TabPane>
+          <TabPane forceRender tab="Conditions" key="2">
+            <Input addonBefore="Difficulty" id="difficulty" maxLength={45} />
+            <Input addonBefore="Sunlight Needs" id="sunlightneeds" maxLength={255} />
+            <Input addonBefore="Hardiness" id="hardiness" maxLength={45} />
+            <Input addonBefore="Hardiness Zones" id="hardinesszones" maxLength={45} />
+            <Input addonBefore="Soil Type" id="soiltype" maxLength={255} />
+            <Input addonBefore="Water Needs" id="waterneeds" maxLength={255} />
+            <Input addonBefore="Fertilisation Needs" id="fertilisationneeds" maxLength={255} />
+            <Input addonBefore="Pruning" id="pruning" maxLength={255} />
+            <Input addonBefore="Propagation" id="propagation" maxLength={45} />
+            <Input addonBefore="Pests" id="pests" maxLength={255} />
+            <Input addonBefore="Planting Time" id="plantingtime" maxLength={45} />
+            <Input addonBefore="Harvest Time" id="harvesttime" maxLength={45} />
+            <Input addonBefore="Potting Needs" id="pottingneeds" maxLength={255} />
+          </TabPane>
+          <TabPane forceRender tab="Characteristics" key="3">
+            <Input addonBefore="Lifespan" id="lifespan" maxLength={60} />
+            <Input addonBefore="Bloom Time" id="bloomtime" maxLength={60} />
+            <Input addonBefore="Size Range" id="sizerange" maxLength={60} />
+            <Input addonBefore="Spread" id="spread" maxLength={60} />
+            <Input addonBefore="Flower Size" id="flowersize" maxLength={60} />
+          </TabPane>
+          <TabPane forceRender tab="Uses" key="4">
+            <Input addonBefore="Environmental Uses" id="environmentaluses" maxLength={255} />
+            <Input addonBefore="Economic Uses" id="economicuses" maxLength={255} />
+            <Input addonBefore="Home Uses" id="homeuses" maxLength={255} />
+          </TabPane>
+        </Tabs>
+      </Modal>
+    </>
+  )
 
-  render = () => {
-    ++this.childKey;
-    return (
-      <div style={{margin:"1% 0 0 3%"}}>
-        <Button onClick={this.showModal}>Create Plant</Button>
-        <Modal
-          title="Create Plant"
-          visible={this.state.visible}
-          onCancel={this.handleCancel}
-          key={this.childKey}
-          onOk={this.handleOk}
-        >
-          <div>
-            <Tabs defaultActiveKey="1" onChange={this.callback}>
-              <TabPane forceRender tab="Key Details" key="1">
-                <Input addonBefore="Common Name" id="commonname" maxLength={255} />
-                <Input addonBefore="Type" id="type" maxLength = {32} />
-                <Input addonBefore="Native Country" id="nativecountry" maxLength={255} />
-                <Input addonBefore="Symbolism" id="symbolism" maxLength={255} />
-                <Input addonBefore="Endangered Status" id="endangeredstatus" maxLength={255} />
-                <Input addonBefore="Environmental Threat" id="environmentalthreat" maxLength={255} />
-              </TabPane>
-              <TabPane forceRender tab="Conditions" key="2">
-                <Input addonBefore="Difficulty" id="difficulty" maxLength={45}  />
-                <Input addonBefore="Sunlight Needs" id="sunlightneeds" maxLength={255} />
-                <Input addonBefore="Hardiness" id="hardiness" maxLength={45} />
-                <Input addonBefore="Hardiness Zones" id="hardinesszones" maxLength={45} />
-                <Input addonBefore="Soil Type" id="soiltype" maxLength={255} />
-                <Input addonBefore="Water Needs" id="waterneeds" maxLength={255} />
-                <Input addonBefore="Fertilisation Needs" id="fertilisationneeds" maxLength={255} />
-                <Input addonBefore="Pruning" id="pruning" maxLength={255} />
-                <Input addonBefore="Propagation" id="propagation" maxLength={45} />
-                <Input addonBefore="Pests" id="pests" maxLength={255} />
-                <Input addonBefore="Planting Time" id="plantingtime" maxLength={45} />
-                <Input addonBefore="Harvest Time" id="harvesttime" maxLength={45} />
-                <Input addonBefore="Potting Needs" id="pottingneeds" maxLength={255} />
-              </TabPane>
-              <TabPane forceRender tab="Characteristics" key="3">
-                <Input addonBefore="Lifespan" id="lifespan" maxLength={60} />
-                <Input addonBefore="Bloom Time" id="bloomtime" maxLength={60} />
-                <Input addonBefore="Size Range" id="sizerange" maxLength={60} />
-                <Input addonBefore="Spread" id="spread" maxLength={60} />
-                <Input addonBefore="Flower Size" id="flowersize" maxLength={60} />
-              </TabPane>
-              <TabPane forceRender tab="Uses" key="4">
-                <Input addonBefore="Environmental Uses" id="environmentaluses" maxLength={255} />
-                <Input addonBefore="Economic Uses" id="economicuses" maxLength={255} />
-                <Input addonBefore="Home Uses" id="homeuses" maxLength={255} />
-              </TabPane>
-            </Tabs>
-          </div>
-        </Modal>
-      </div>
-    );
-  }
 }
-
 export default AddPlantModal
