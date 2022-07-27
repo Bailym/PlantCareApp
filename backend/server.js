@@ -6,7 +6,8 @@ const path = require('path')
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var DBPool = require('./database');
-var multer = require('multer')
+const { upload } = require ('./multerconfig');
+
 
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
@@ -18,34 +19,17 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//multer image storage setup.
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, '../uploads')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
-var upload = multer({ storage: storage })
-
 //the /uploads path will serve files in the uploads folder
-app.use('/uploads', express.static('uploads'));
-app.post('/api/upload/:id', upload.single('plant-image'), async function (req, res, next) {
-    //insert the image path into the database
-    const [results, fields] = await DBPool.query("INSERT INTO plantdb.image (ImagePath, PlantID) VALUES (?,?)",[req.file.filename, req.params.id]);
-    res.sendStatus(200)
-})
+app.use('/public/uploads', express.static('uploads'));
 
 //controllers
 var userController = require("./controllers/userController");
 var recoveryController = require("./notifications/recoveryController"); //handles password recovery
 var plantController = require("./controllers/plantController");  //handles plant table related calls
 var classifierController = require("./controllers/classifierController");  //handles classifier related calls
+var uploadsController = require("./controllers/uploadsController");  //handles upload related calls
 
-//routing
-
-//User Functions
+//User endpoints
 app.get('/api/users', userController.getUser);  //retrieves all users
 app.get('/api/users/:id', userController.getUserID);  //retrieves specific user by id
 app.get('/api/users/email/:email', userController.getUserEmail);  //retrieves specific user by email
@@ -55,11 +39,11 @@ app.post('/api/users/updateuser/:id/:firstname/:surname/:email/:password/:type',
 app.post("/api/users/archive/:id", userController.archiveUser)
 app.post("/api/users/delete/:id", userController.deleteUser)
 
-//Recovery Functions
+//Recovery endpoints
 app.post('/api/recover/check/:email', recoveryController.checkEmail);   //checks an email exists
 app.post('/api/recover/send/:id/:email', recoveryController.sendRecoveryEmail); //sends the recovery email to a specified email.
 
-//Plants Functions
+//Plants endpoints
 app.get("/api/plants/admintable", plantController.getPlantsAdminTable);
 app.get("/api/plants/:id", plantController.getPlantID);
 app.get("/api/plants/getid/:commonname", plantController.getPlantIDByName);
@@ -70,9 +54,6 @@ app.post("/api/plants/create", plantController.CreatePlant)
 app.get("/api/plants/names/:id", plantController.getPlantNames)
 app.post("/api/plants/names/deleteall/:id", plantController.deletePlantNames)
 app.post("/api/plants/names/update/:id/", plantController.updatePlantNames)
-app.get("/api/plant/images/:id", plantController.getPlantImages)
-//app.post('/api/upload', jfum.postHandler.bind(jfum), plantController.uploadImages);
-app.post("/api/plant/images/update/:id/", plantController.updatePlantImages)
 app.get("/api/plants/search/:searchtext", plantController.searchPlants)
 app.post("/api/garden/add/:plantid", userController.addToGarden)
 app.post("/api/garden/delete/:plantid", userController.removeFromGraden)
@@ -80,8 +61,13 @@ app.get("/api/garden/check/:plantid", userController.checkGarden)
 app.get("/api/garden/get/", userController.getGarden)
 
 
-//classifier related calls
+//classifier related endpoints
 app.get("/api/getmodel", classifierController.getModel)
+
+//uploads related endpoints
+app.get("/api/plant/images/:id", uploadsController.getPlantImages)
+app.post('/api/upload/:id', upload.single('plant-image'), uploadsController.UploadImageSingle);
+app.delete("/api/plant/images/delete/:id/:path", uploadsController.deletePlantImage)
 
 //Login/Session management routing 
 
@@ -171,9 +157,6 @@ app.get('/api/logout', function (req, res) {
     res.sendStatus(200);
 }
 );
-
-
-
 
 app.listen(port, () => console.log(`Listening on port: ${port}`))
 

@@ -1,0 +1,8 @@
+#upload-form img{
+    width: 20%
+}
+
+#upload-form img:hover{
+    border : 2px solid red
+    
+}
