@@ -148,16 +148,14 @@ module.exports = {
     async updatePlantNames(request, response) {
 
         try {
-            var names = request.body.names;
-
-            if (names.length >= 0) {
-                await DBPool.query(`DELETE FROM plantdb.name WHERE PlantID = ?`, request.params.id);
+            var names = request.body;
+            if (names) {
+                await DBPool.query(`DELETE FROM plantdb.name WHERE PlantID = ?`, request.params.id);    //delete all existing names
 
                 for (var i = 0; i < names.length; i++) {
-                    await DBPool.query(`INSERT INTO plantdb.name (AltName, PlantID) VALUES (?,?)`, [names[i], request.params.id]);
+                    await DBPool.query(`INSERT INTO plantdb.name (AltName, PlantID) VALUES (?,?)`, [names[i], request.params.id]);  //add in submitted names. (not the most efficient way, but it works)
                 }
             }
-
             response.sendStatus(200);
         }
         //error handling
