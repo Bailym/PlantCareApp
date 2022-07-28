@@ -1,0 +1,39 @@
+#classify-form {
+    text-align: center;
+    margin: 2vh auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: column ;
+    width:clamp(15rem, 80vw, 50rem);
+}
+
+/* <Title> */
+#classify-form h1 {
+    margin: 5% auto;
+}
+
+#selected-image {
+    border: 1px solid #614a14;
+    background-color: #fcf4e1;
+    margin: 2% auto;
+    width:clamp(15rem, 40%, 50rem)
+}
+
+#upload-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.results-carousel img {
+    width:clamp(5rem, 80%, 20rem);
+    margin-top: 2rem;
+    
+}
+
+#classify-form .ant-btn {
+    margin: 3% auto;
+    width: 100%;
+}
+

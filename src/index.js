@@ -13,7 +13,7 @@ import Register from "./pages/Register/Register";
 import RecoverPassword from "./pages/RecoverPassword/RecoverPassword";
 import UpdatePassword from './pages/UpdatePassword/UpdatePassword';
 import Plant from './pages/Plant/Plant';
-import UploadImage from './Upload';
+import Classify from './pages/Classify/Classify';
 
 const { Header, Content } = Layout;
 
@@ -34,7 +34,7 @@ class App extends Component {
             <Route path='/home' component={Home} />
             <Route path='/admin' component={Admin} />
             <Route path='/plant' component={Plant} />
-            <Route path='/upload' component={UploadImage} />
+            <Route path='/classify' component={Classify} />
           </Switch>
         </div>
         <div id="footer-container"></div>
