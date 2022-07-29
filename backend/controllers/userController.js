@@ -10,7 +10,7 @@ module.exports = {
         try {
             
             //make query and send results
-            const [results, fields] = await DBPool.query(`SELECT UserID as "key", UserID as ID, FirstName, Surname, Email, Type FROM plantdb.user`);
+            const [results, fields] = await DBPool.query(`SELECT UserID as "key", UserID as ID, FirstName, Surname, Email, Type FROM user`);
             response.send(results);
         }
         //error handling
@@ -25,7 +25,7 @@ module.exports = {
 
         try {
             //make query and send results
-            const [results, fields] = await DBPool.query(`SELECT UserID as ID, FirstName, Surname, Email, Password, Type FROM plantdb.user`);
+            const [results, fields] = await DBPool.query(`SELECT UserID as ID, FirstName, Surname, Email, Password, Type FROM user`);
             response.send(results);
         }
         //error handling
@@ -40,7 +40,7 @@ module.exports = {
 
         try {
             //make query and send results
-            const [results, fields] = await DBPool.query(`SELECT UserID as ID, FirstName, Surname, Email, Password, Type FROM plantdb.user WHERE UserID = ?`, request.params.id);
+            const [results, fields] = await DBPool.query(`SELECT UserID as ID, FirstName, Surname, Email, Password, Type FROM user WHERE UserID = ?`, request.params.id);
             response.send(results);
         }
         //error handling
@@ -55,7 +55,7 @@ module.exports = {
 
         try {
             //make query and send results
-            const [results, fields] = await DBPool.query(`SELECT UserID as ID, FirstName, Surname, Email, Password, Type FROM plantdb.user WHERE Email = ?`, request.params.email);
+            const [results, fields] = await DBPool.query(`SELECT UserID as ID, FirstName, Surname, Email, Password, Type FROM user WHERE Email = ?`, request.params.email);
             response.send(results);
         }
         //error handling
@@ -71,7 +71,7 @@ module.exports = {
 
         try {
             //delete the original
-            await DBPool.query(`DELETE FROM plantdb.user WHERE UserID = ?`, request.params.id);
+            await DBPool.query(`DELETE FROM user WHERE UserID = ?`, request.params.id);
 
             response.sendStatus(200);
         }
@@ -88,10 +88,10 @@ module.exports = {
         try {
 
             //insert the row into the archive
-            await DBPool.query(`INSERT INTO plantdb.userArchive (UserID, FirstName, Surname, Email, Password, Type) 
-                SELECT * FROM plantdb.user WHERE UserID = ?`, request.params.id);
+            await DBPool.query(`INSERT INTO userArchive (UserID, FirstName, Surname, Email, Password, Type) 
+                SELECT * FROM user WHERE UserID = ?`, request.params.id);
             //delete the original
-            await DBPool.query(`DELETE FROM plantdb.user WHERE UserID = ?`, request.params.id);
+            await DBPool.query(`DELETE FROM user WHERE UserID = ?`, request.params.id);
 
             response.sendStatus(200);
         }
@@ -106,7 +106,7 @@ module.exports = {
 
         try {
             //make query and send results
-            await DBPool.query("UPDATE plantdb.user SET FirstName = ?, Surname = ?, Email = ?, Password = ?, Type = ? WHERE (UserID = ?)",
+            await DBPool.query("UPDATE user SET FirstName = ?, Surname = ?, Email = ?, Password = ?, Type = ? WHERE (UserID = ?)",
              [request.params.firstname, request.params.surname, request.params.email,request.params.password, request.params.type, request.params.id]);
 
             response.sendStatus(200);
@@ -124,7 +124,7 @@ module.exports = {
 
         try {
             //make query and send results
-            await DBPool.query("UPDATE plantdb.user SET Password = ? WHERE (UserID = ?)", [request.params.password, request.params.id]);
+            await DBPool.query("UPDATE user SET Password = ? WHERE (UserID = ?)", [request.params.password, request.params.id]);
             response.sendStatus(200);
         }
         //error handling
@@ -139,7 +139,7 @@ module.exports = {
 
         try {
             //make query and send results
-            await DBPool.query("INSERT INTO plantdb.gardenItem (UserID, PlantID) VALUES ('?','?')", [request.session.userID, parseInt(request.params.plantid)]);
+            await DBPool.query("INSERT INTO gardenItem (UserID, PlantID) VALUES ('?','?')", [request.session.userID, parseInt(request.params.plantid)]);
             response.sendStatus(200);
         }
         //error handling
@@ -154,7 +154,7 @@ module.exports = {
 
         try {
             //make query and send results
-            await DBPool.query("DELETE FROM plantdb.gardenItem WHERE UserID = ? AND PlantID = ?", [request.session.userID, parseInt(request.params.plantid)]);
+            await DBPool.query("DELETE FROM gardenItem WHERE UserID = ? AND PlantID = ?", [request.session.userID, parseInt(request.params.plantid)]);
             response.sendStatus(200);
         }
         //error handling
@@ -169,7 +169,7 @@ module.exports = {
 
         try {
             //make query and send results
-            const [results, fields] = await DBPool.query("SELECT * FROM plantdb.gardenItem WHERE UserID = ? && PlantID = ?", [request.session.userID, parseInt(request.params.plantid)]);
+            const [results, fields] = await DBPool.query("SELECT * FROM gardenItem WHERE UserID = ? && PlantID = ?", [request.session.userID, parseInt(request.params.plantid)]);
             response.send(results);
         }
         //error handling
@@ -185,7 +185,7 @@ module.exports = {
         if(request.session.userID){
             try {
                 //make query and send results
-                const [results, fields] = await DBPool.query("SELECT * FROM plantdb.gardenItem WHERE UserID = ?", request.session.userID);
+                const [results, fields] = await DBPool.query("SELECT * FROM gardenItem WHERE UserID = ?", request.session.userID);
                 response.send(results);
             }
             //error handling

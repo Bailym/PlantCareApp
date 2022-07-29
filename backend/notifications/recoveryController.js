@@ -11,7 +11,7 @@ module.exports = {
 
         try {
             //make query and send results
-            const [results, fields] = await DBPool.query(`SELECT * FROM plantdb.user WHERE Email = ?`, request.params.email);
+            const [results, fields] = await DBPool.query(`SELECT * FROM user WHERE Email = ?`, request.params.email);
             response.send(results);
         }
         //error handling

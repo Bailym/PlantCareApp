@@ -85,7 +85,7 @@ app.post('/api/login/:email/:password', async function (request, response) {
 
     //if the email and password are not empty
     if (email && password) {
-        const [results, fields] = await DBPool.query('SELECT * FROM plantdb.user WHERE Email = ? AND Password = ?', [email, password]); //search for the user with that email and password.
+        const [results, fields] = await DBPool.query('SELECT * FROM user WHERE Email = ? AND Password = ?', [email, password]); //search for the user with that email and password.
         //if a user is found
         if (results.length > 0) {
             //update session variables
@@ -110,12 +110,13 @@ app.post('/api/register/:email/:password/:firstname/:surname', async function (r
     //if all fields have been sent.
     if (email && password && firstName && surname) {
         try {
-            const [results, fields] = await DBPool.query(`INSERT INTO plantdb.user (FirstName, Surname, Email, Password, Type) VALUES (?, ?, ?, ?, ?);`, [firstName, surname, email, password, type]);
+            const [results, fields] = await DBPool.query(`INSERT INTO user (FirstName, Surname, Email, Password, Type) VALUES (?, ?, ?, ?, ?);`, [firstName, surname, email, password, type]);
             //if the user was created successfully
             response.sendStatus(200);
         }
         catch (err) {
             response.send(err)
+            console.log(err)
         }
     }
 });
@@ -139,7 +140,7 @@ app.get('/api/checkuser', function (req, res) {
 app.get('/api/usertype', async function (req, res) {
     var email = req.session.username;
 
-    const [results, fields] = await DBPool.query('SELECT Type FROM plantdb.user WHERE Email = ?;', [email]);
+    const [results, fields] = await DBPool.query('SELECT Type FROM user WHERE Email = ?;', [email]);
     try {
         res.send(results[0].Type);
     }
