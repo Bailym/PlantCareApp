@@ -122,7 +122,7 @@ module.exports = {
             const newPlantID = await DBPool.query("SELECT LAST_INSERT_ID()")
 
             response.send({ "LastID": newPlantID[0][0][`LAST_INSERT_ID()`] })
-            response.sendStatus(200);
+            
         }
         //error handling
         catch (err) {
