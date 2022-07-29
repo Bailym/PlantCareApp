@@ -8,18 +8,19 @@ require('dotenv').config();
 
 let server = require("./backend/server");
 let app = server.app;
+let port = process.env.PORT || 3000;
 const express = require('express');
 const path = require('path');
 
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.use(proxy('/api', { target: "http://localhost:3001"}));
+app.use(createProxyMiddleware('/api', { target: "http://localhost:3001"}));
 
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(80);
+app.listen(port);
