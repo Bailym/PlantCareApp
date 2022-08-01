@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Card, Tabs, Carousel, message, Spin, Typography, Button } from 'antd';
+import { Card, Tabs, Carousel, message, Spin, Typography, Button, Image as AntDImage } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './Classify.css';
 import * as tf from '@tensorflow/tfjs'
 const axios = require('axios');
 const knnClassifier = require('@tensorflow-models/knn-classifier');
 const mobilenet = require('@tensorflow-models/mobilenet');
-const { Title, Text } = Typography;
+const { Title, Text, Paragraph } = Typography;
 const { TabPane } = Tabs;
 var classNames = require("../../classes.json")
 
@@ -149,7 +149,7 @@ function Classify() {
       results = await Promise.all(confidences.details.map(async (x) =>
         <TabPane tab={x.Name} key={x.ClassID} className="results-tab-pane">
           <Text>{"Confidence: " + x.Confidence + "%"}</Text>
-          <Button id ="result-btn" onClick={() => goToPlant(x.PlantID)}>Go to plant</Button>
+          <Button id="result-btn" onClick={() => goToPlant(x.PlantID)}>Go to plant</Button>
           <Carousel autoplay>
             {await getPlantImages(x.PlantID)}
           </Carousel>
@@ -169,9 +169,9 @@ function Classify() {
     //get the image names and map them to <img> components.
     await axios.get(`/api/plant/images/${plantID}`)
       .then(response => {
+        //create the image carousel components
         tempComponents = response.data.map((image) =>
-          <img src={process.env.PUBLIC_URL + "/uploads/" + image.ImagePath} alt={image.ImagePath}></img>
-        )
+          <AntDImage key={image.key} src={image.url} alt={image.key} />)
       })
     return tempComponents
   }
@@ -204,6 +204,10 @@ function Classify() {
   return (
     <Spin spinning={loading}>
       <form enctype="multipart/form-data" id="classify-form">
+        <Title level={3}>About</Title>
+        <Paragraph id="about-text">This tool uses transfer learning to add additional classes (plants) to an existing model (TF MobileNet). I have expanded the model and trained it to recognise specific plants.
+          I have prioritised plants which I have easy access to, since I need 100+ of images of each plant for it to work effectively.
+          For this reason this tool can reliably recognise a small range of plants and is being developed as a 'for fun' and a 'proof of concept' rather than a fully devleoped professional image classifier. </Paragraph>
         <Title level={3}>Upload Image</Title>
         <div id="upload-div">
           {selectedImage ? <img id="selected-image" src={selectedImage.src} alt={selectedImage.id} /> : null}
