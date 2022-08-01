@@ -21,7 +21,6 @@ function UploadImage(props) {
         //get the image names and map them to <img> components.
         await axios.get(`/api/plant/images/${props.PlantID}`)
             .then(response => {
-                console.log(response.data)
                 tempComponents = response.data.map((image) =>
                     <img key={image.key} src={image.url} alt={image.key} onClick={()=> deleteImage(image.key)}></img>
                 )

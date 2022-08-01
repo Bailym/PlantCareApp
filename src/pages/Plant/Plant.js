@@ -39,18 +39,19 @@ function Plant() {
       })
   }
 
-  async function checkGarden (plantID){
-    let isInGarden = false;
+  async function checkGarden(plantID) {
+    let check = false;
 
     //check to see if the plant is already in the users garden
     await axios.get(`/api/garden/check/${plantID}`)
       .then(response => {
+        console.log(response.data)
         if (response.data[0]) {
-          isInGarden = true;
+          check = true;
         }
       })
 
-    return isInGarden
+    setIsInGarden(check)
   }
 
   async function addToGarden() {
@@ -84,7 +85,7 @@ function Plant() {
     //check a user is logged in.
     checkUser();
     //check if the plant is in their garden already.
-    setIsInGarden(checkGarden(plantID))
+    checkGarden(plantID)
 
     async function getData() {
       //make requests to get all of this plants data
@@ -111,6 +112,10 @@ function Plant() {
 
     getData();  //call the function to get the data.
   }, []);
+
+  useEffect(()=>{
+    console.log("isInGarden = " + isInGarden)
+  },[isInGarden])
 
   //when the plant data has been retreieved, create the conponents to diplay.
   useEffect(() => {
@@ -161,11 +166,15 @@ function Plant() {
 
   //when the plant images have been retreieved, create the conponents to diplay.
   useEffect(() => {
+
     if (plantImages.length > 0) {
+      var tempComponents = []
       //create the image carousel components
-      setImageCarouselComponents(plantImages.map(x =>
-        <Image key={x.ImagePath} src={"/images/" + x.ImagePath} />))
+      tempComponents = plantImages.map((image) =>
+        <Image key={image.key} src={image.url} alt={image.key} />)
+      setImageCarouselComponents(tempComponents);
     }
+
   }, [plantImages]);
 
   //when the plant names have been retreieved, create the conponents to diplay.
