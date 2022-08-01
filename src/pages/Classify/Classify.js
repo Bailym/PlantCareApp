@@ -155,8 +155,6 @@ function Classify() {
         </TabPane>
       ))
 
-      console.log("classifier results" + confidences)
-
       //update the state.
       setConfidences(confidences);
       setResults(results);
@@ -196,7 +194,6 @@ function Classify() {
 
       //runs each time an image is loaded
       im.onload = async () => {
-        console.log("image loaded")
         setSelectedImage(im) //update the selected image
         await classifyImage(im)
       }
