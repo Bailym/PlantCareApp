@@ -84,7 +84,6 @@ function Classify() {
 
       // Get the most likely class and confidence from the classifier module.
       let result = await classifier.predictClass(activation);
-
       let label = ""; //the label (name) of the plant
       let confidences = [];   //a list of confidences and assosciated class ids and names
       let modelPredictions = Object.values(result.confidences)    //the raw confidences supplied by the model
@@ -156,6 +155,8 @@ function Classify() {
         </TabPane>
       ))
 
+      console.log("classifier results" + confidences)
+
       //update the state.
       setConfidences(confidences);
       setResults(results);
@@ -195,6 +196,7 @@ function Classify() {
 
       //runs each time an image is loaded
       im.onload = async () => {
+        console.log("image loaded")
         setSelectedImage(im) //update the selected image
         await classifyImage(im)
       }
