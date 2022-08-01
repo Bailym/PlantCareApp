@@ -29,7 +29,7 @@ module.exports = {
         const [results, fields] = await DBPool.query(`DELETE FROM image WHERE (PlantID = ? AND ImagePath = ?)`, [request.params.id, request.params.path]);
 
         const path = require('path')
-        const imgPath = path.join(__dirname, '../public/uploads');
+        const imgPath = path.join(__dirname, '../../public/uploads/');
 
         //delete the file from uploads (path is relative to server.js)
         var filePath = imgPath + request.params.path;
