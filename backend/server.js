@@ -7,8 +7,6 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var DBPool = require('./database');
 const { upload } = require ('./multerconfig');
-
-
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
 app.use(session({
@@ -67,7 +65,7 @@ app.get("/api/getmodel", classifierController.getModel)
 //uploads related endpoints
 app.get("/api/plant/images/:id", uploadsController.getPlantImages)
 app.post('/api/upload/:id', upload.single('plant-image'), uploadsController.UploadImageSingle);
-app.delete("/api/plant/images/delete/:id/:path", uploadsController.deletePlantImage)
+app.delete("/api/plant/images/delete/:id/:key", uploadsController.deletePlantImage)
 
 //Login/Session management routing 
 

@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.21.4",
+    "aws-sdk": "^2.1185.0",
     "axios": "^0.21.4",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",

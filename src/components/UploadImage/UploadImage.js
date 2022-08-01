@@ -21,15 +21,16 @@ function UploadImage(props) {
         //get the image names and map them to <img> components.
         await axios.get(`/api/plant/images/${props.PlantID}`)
             .then(response => {
+                console.log(response.data)
                 tempComponents = response.data.map((image) =>
-                    <img src={process.env.PUBLIC_URL + "/uploads/" + image.ImagePath} alt={image.ImagePath} onClick={()=> deleteImage(image.ImagePath)}></img>
+                    <img key={image.key} src={image.url} alt={image.key} onClick={()=> deleteImage(image.key)}></img>
                 )
             })
         setCurrentImageComponents(tempComponents)   //update the state with the components.
     }
 
-    async function deleteImage(imagePath){
-        await(axios.delete(`/api/plant/images/delete/${props.PlantID}/${imagePath}`))
+    async function deleteImage(key){
+        await(axios.delete(`/api/plant/images/delete/${props.PlantID}/${key}`))
         .then(response => {
             if (response.status===200){
                 message.success("Image Deleted")
