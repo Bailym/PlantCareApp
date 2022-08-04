@@ -2,6 +2,12 @@
   "name": "plantcareapp",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "verbose": true,
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setup.js"
+    ]
+  },
   "dependencies": {
     "@tensorflow-models/knn-classifier": "^1.2.4",
     "@tensorflow-models/mobilenet": "^2.1.0",
@@ -29,12 +35,13 @@
     "react-router-dom": "^5.3.3",
     "react-scripts": "4.0.0",
     "rss-parser": "^3.12.0",
+    "supertest": "^6.2.4",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "mocha -u tdd --exit",
+    "test": "jest --no-cache --runInBand --forceExit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -55,5 +62,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
+    "babel-jest": "^28.1.3",
+    "jest": "^28.1.3",
+    "react-test-renderer": "^18.2.0"
   }
 }
