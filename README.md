@@ -1,8 +1,6 @@
 # PlantCareApp
 **Live Here: https://bailym-plantcareapp.herokuapp.com/**
 
-Final Year Project - Baily Martin 
-
 An app to identify, collect and help you care for your plants.
 
 ![Poster](https://github.com/Bailym/PlantCareApp/blob/master/images/Poster.jpg?raw=true)
