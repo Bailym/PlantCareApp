@@ -15,6 +15,7 @@ function Account() {
   const [loggedInUserID, setLoggedInUserID] = useState(0);
   const [loggedInUserDetails, setLoggedInUserDetails] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   /* 
      * Check that a user is logged in.
@@ -29,11 +30,12 @@ function Account() {
     */
     await axios.get('/api/checkuser')  //call the server endpoint
       .then(response => {
-        if (response.data === false) {   //if false redirect to login (you are not logged in.)
-          history.push("/login");
-        }
-        else {  //else save the users id
+        setLoggedIn(response.data);
+        if (response.data) {  //else save the users id
           setLoggedInUserID(response.data.userID);
+        }
+        else {
+          history.push('/login');
         }
       })
   }
