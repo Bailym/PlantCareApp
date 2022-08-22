@@ -19,25 +19,11 @@ function Classify() {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const [selectedImage, setSelectedImage] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  /* 
-      * Check that a user is logged in.
-      * TRUE = Load the page
-      * FALSE = Return to Login Page 
-      */
-  async function checkUser() {
-    await axios.get('/api/checkuser')  //call the server endpoint
-      .then(async response => {
-        if (response.data === false) {   //if false redirect to login (you are not logged in.)
-          history.push("/login");
-        }
-      })
-  }
 
   //load the classifier on mount
   useEffect(() => {
-    checkUser();
-
     async function loadClassifier() {
       await load();
     }
@@ -202,7 +188,7 @@ function Classify() {
 
   return (
     <Spin spinning={loading}>
-      <form enctype="multipart/form-data" id="classify-form">
+      <form encType="multipart/form-data" id="classify-form">
         <Title level={3}>About</Title>
         <Paragraph id="about-text">This tool uses transfer learning to add additional classes (plants) to an existing model (TF MobileNet). I have expanded the model and trained it to recognise specific plants.
           I have prioritised plants which I have easy access to, since I need 100+ of images of each plant for it to work effectively.
