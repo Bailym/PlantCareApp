@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import "./Plant.css";
 import PlantSearch from "../../components/PlantSearch/PlantSearch";
@@ -24,6 +24,7 @@ function Plant() {
   const [nameComponents, setNameComponents] = useState([]);
   const [isInGarden, setIsInGarden] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(null);
 
   /* 
      * Check that a user is logged in.
@@ -33,9 +34,7 @@ function Plant() {
   async function checkUser() {
     await axios.get('/api/checkuser')  //call the server endpoint
       .then(async response => {
-        if (response.data === false) {   //if false redirect to login (you are not logged in.)
-          history.push("/login");
-        }
+        setLoggedIn(response.data);
       })
   }
 
@@ -45,7 +44,6 @@ function Plant() {
     //check to see if the plant is already in the users garden
     await axios.get(`/api/garden/check/${plantID}`)
       .then(response => {
-        console.log(response.data)
         if (response.data[0]) {
           check = true;
         }
@@ -81,12 +79,12 @@ function Plant() {
 
   //When component first mounts.
   useEffect(() => {
-
     //check a user is logged in.
     checkUser();
-    //check if the plant is in their garden already.
-    checkGarden(plantID)
 
+  }, []);
+
+  useEffect(() => {
     async function getData() {
       //make requests to get all of this plants data
 
@@ -109,13 +107,15 @@ function Plant() {
         })
     }
 
+    //if the user is logged in
+    if (loggedIn) {
+      //check if the plant is in their garden already.
+      checkGarden(plantID)
+    }
 
     getData();  //call the function to get the data.
-  }, []);
+  }, [loggedIn])
 
-  useEffect(()=>{
-    console.log("isInGarden = " + isInGarden)
-  },[isInGarden])
 
   //when the plant data has been retreieved, create the conponents to diplay.
   useEffect(() => {
@@ -195,9 +195,11 @@ function Plant() {
     <Spin spinning={loading} id="spin-container">
       <PlantSearch id="search" />
       <div id="button-div">
-        {!isInGarden ?
-          <Button onClick={() => addToGarden()}>Add to Garden</Button> :
-          <Button onClick={() => removeFromGarden()}>Remove From Garden</Button>}
+        {loggedIn ?
+          !isInGarden ?
+            <Button onClick={() => addToGarden()}>Add to Garden</Button> :
+            <Button onClick={() => removeFromGarden()}>Remove From Garden</Button> :
+          <div>Please <Link to="/login">log in</Link> to save plants to your garden</div>}
       </div>
 
       <div id="plant-row">

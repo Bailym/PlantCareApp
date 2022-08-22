@@ -117,7 +117,6 @@ function Home() {
     await axios.get('/api/checkuser')  //call the server endpoint
       .then(async response => {
         setLoggedIn(response.data); //set the logged in state
-
         //if the user is logged in
         if (response.data) {
           // Check the user Type (Admin/Standard) to see which home page to show
