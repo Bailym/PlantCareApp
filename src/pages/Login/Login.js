@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './Login.css';
@@ -13,6 +13,19 @@ var sha512 = require('js-sha512');
 
 
 function Login() {
+
+  useEffect(() => {
+    checkUser();
+  }, [])
+
+  function checkUser() {
+    axios.get('/api/checkuser')  //call the server endpoint
+      .then(response => {
+        if (response.data) {  //else save the users id
+          history.push('/home');
+        }
+      })
+  }
 
   const history = useHistory();
 
